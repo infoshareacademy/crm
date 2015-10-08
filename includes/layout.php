@@ -27,10 +27,15 @@
     <?php include 'menu.php'; ?>
     <!--  -->
 
+    <main id="page-content-wrapper">
+        <!-- Page Content -->
+        <?php include 'user.php'; ?>
+        <!--  -->
+        <!-- Page Content -->
+        <?php include 'content.php'; ?>
+        <!--  -->
+    </main>
 
-    <!-- Page Content -->
-    <?php include 'content.php'; ?>
-    <!--  -->
 
 </div>
 
