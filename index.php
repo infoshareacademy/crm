@@ -11,7 +11,7 @@ if ($_SESSION['user_login'] != ADMIN_LOGIN && $_SESSION['user_pass'] != ADMIN_PA
 }
 
 
-
+include_once 'dbconnect.php';
 include 'includes/layout.php';
 
 
@@ -21,4 +21,3 @@ $content = ob_get_contents();
 $length = strlen($content);
 header('Content-Length: '.$length);
 echo $content;
-?>

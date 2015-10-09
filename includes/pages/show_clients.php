@@ -6,8 +6,6 @@
  * Time: 15:25
  */
 
-include('dbconnect.php');
-
 //struktura tabeli
 // idClient   |  nameClient   |  idTax  |  addressClient  |  cityClient  |  phoneClient  |  faxClient  |  wwwClient  |  mailClient  |  noteClient  | creationDateClient
 $sql = "SELECT * FROM clients";
