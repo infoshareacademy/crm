@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+<?php
+    ob_start();
+    session_start();
+
+    define('ADMIN_LOGIN', 'admin');
+    define('ADMIN_PASS', 'admin');
+
+    if ($_SESSION['user_login'] != ADMIN_LOGIN && $_SESSION['user_pass'] != ADMIN_PASS) {
+        header("Location: login.php");
+        exit;
+    }
+
+
+    include_once 'includes/config/dbconnect.php';
+
+?><!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -28,21 +43,7 @@
     <!--  -->
 
     <main id="page-content-wrapper">
-        <!-- Page Content -->
+        <!-- User info, logout, date etc. -->
         <?php include 'user.php'; ?>
         <!--  -->
-        <!-- Page Content -->
-        <?php include 'content.php'; ?>
-        <!--  -->
-    </main>
-
-
-</div>
-
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-
-</body>
-
-</html>
+        <div class="tab-content">

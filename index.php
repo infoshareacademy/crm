@@ -1,23 +1,25 @@
-<?php
-ob_start();
-session_start();
+<?php include 'includes/header.php'; ?>
+ <div role="tabpanel" class="tab-pane fade in active" id="home">
+  <section class="container-fluid">
+   <figure class="banner">
+    <figcaption>Dashboard</figcaption>
+   </figure>
 
-define('ADMIN_LOGIN', 'admin');
-define('ADMIN_PASS', '12345');
-
-if ($_SESSION['user_login'] != ADMIN_LOGIN && $_SESSION['user_pass'] != ADMIN_PASS) {
- header("Location: login.php");
- exit;
-}
-
-
-include_once 'dbconnect.php';
-include 'includes/layout.php';
-
+   <article class="row">
+    <div class="col-lg-12">
+     <h1>Welcome</h1>
+     <p>Integer odio nulla, feugiat at diam in, sodales consequat neque. Morbi tortor felis,
+      egestas ut sodales sit amet, ultrices sit amet neque. Mauris rutrum condimentum
+      fringilla. Donec commodo, enim ac cursus mattis, lorem tortor faucibus justo,
+      feugiat placerat magna nulla ut nulla. Nam tempor ante vel mauris vestibulum
+      ullamcorper. Vivamus nec ante consectetur, ultricies neque id, cursus justo.
+      Pellentesque pharetra sollicitudin urna at tincidunt. Donec interdum magna id
+      elit sodales blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
 
 
+    </div>
+   </article>
+  </section>
 
-$content = ob_get_contents();
-$length = strlen($content);
-header('Content-Length: '.$length);
-echo $content;
+ </div>
+<?php include 'includes/footer.php'; ?>
