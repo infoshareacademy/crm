@@ -31,10 +31,17 @@ class Event {
     const STATUS_COMPLETED = 3;
     const STATUS_CANCELLED = 4;
 
-    public function __construct($idClient, $date, $time, $Contact="") {
+    const OUTCOME_SUCCESS = 1;
+    const OUTCOME_FAILURE = 2;
+    const OUTCOME_FOLLOWUP = 3;
+
+    public function __construct($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent, $idContact) {
         $this-> idClient = $idClient;
-        $this-> date = $date;
-        $this-> time = $time;
+        $this-> date = $dateEvent;
+        $this-> time = $timeEvent;
+        $this-> descriptionEvent = $descriptionEvent;
+        $this-> statusEvent = $statusEvent;
+        $this-> idContact = $idContact;
     }
 
     public function changeStatus ($new_status) {
@@ -96,3 +103,49 @@ class Email extends Event {
 class eventManager {
 //    private function
 }
+echo "<pre>";
+
+if (count($_POST)) {
+    $idClient = $_POST['idClient'];
+    $idContact = $_POST['idContact'];
+    $dateEvent = $_POST['dateEvent'];
+    $timeEvent = $_POST['timeEvent'];
+    $descriptionEvent = $_POST['descriptionEvent'];
+    $statusEvent = $_POST['statusEvent'];
+
+    $descriptionEvent = htmlspecialchars($descriptionEvent);
+    print_r( $_POST);}
+echo "</pre>";
+?>
+
+<!--generating the list of Client/Contact remember to put ID as value and NAME as label in the form-->
+
+<form action="?" method="post">
+    Client:
+    <select name="idClient">
+        <option value="01" <?php if (@$idClient=='01') echo 'selected'; ?>>label 1</option>
+        <option value="02" <?php if (@$idClient=='02') echo 'selected'; ?>>label 2</option>
+    </select><br/><br/>
+
+    *Contact:
+    <select name="idContact">
+        <option value="01" <?php if (@$idContact=='01') echo 'selected'; ?>>label 1</option>
+        <option value="02" <?php if (@$idContact=='02') echo 'selected'; ?>>label 2</option>
+    </select><br/><br/>
+
+    Date:
+    <input type="date" name="dateEvent" value="<?php echo @$dateEvent ?>" /><br/><br/>
+    Time:
+    <input type="time" name="timeEvent" value="<?php echo @$timeEvent ?>" /><br/><br/>
+    Description:
+    <textarea name="descriptionEvent"><?php echo @$descriptionEvent ?></textarea><br/><br/>
+    Status:
+    <select name="statusEvent">
+        <option value="01" <?php if (@$statusEvent=='01') echo 'selected'; ?>>arranged</option>
+        <option value="02" <?php if (@$statusEvent=='02') echo 'selected'; ?>>confirmed</option>
+        <option value="03" <?php if (@$statusEvent=='03') echo 'selected'; ?>>complited</option>
+        <option value="04" <?php if (@$statusEvent=='04') echo 'selected'; ?>>cancelled</option>
+    </select><br/><br/>
+
+    <input type="submit" name="submitNewEvent" value="Submit" />
+</form>
