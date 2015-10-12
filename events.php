@@ -26,22 +26,56 @@ class Event {
     protected $description;
     protected $status_change_comment = array();
 
-    const STATUS_ARRANGED = 1;
-    const STATUS_CONFIRMED = 2;
-    const STATUS_COMPLETED = 3;
-    const STATUS_CANCELLED = 4;
+    const STATUS_ARRANGED = 01;
+    const STATUS_CONFIRMED = 02;
+    const STATUS_COMPLETED = 03;
+    const STATUS_CANCELLED = 04;
 
-    const OUTCOME_SUCCESS = 1;
-    const OUTCOME_FAILURE = 2;
-    const OUTCOME_FOLLOWUP = 3;
+    const OUTCOME_SUCCESS = 01;
+    const OUTCOME_FAILURE = 02;
+    const OUTCOME_FOLLOWUP = 03;
 
-    public function __construct($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent, $idContact) {
+    public function __construct($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent, $idContact="") {
         $this-> idClient = $idClient;
         $this-> date = $dateEvent;
         $this-> time = $timeEvent;
         $this-> descriptionEvent = $descriptionEvent;
         $this-> statusEvent = $statusEvent;
         $this-> idContact = $idContact;
+    }
+
+    public function persist() {
+        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=test.crm.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+        $stmt = $pdo->prepare("INSERT INTO events VALUES (
+                                          NULL,
+                                          :idClient,
+                                          :idContact,
+                                          :dateEvent,
+                                          :timeEvent,
+                                          :placeEvent,
+                                          :typeEvent,
+                                          :statusEvent,
+                                          :outcomeEvent,
+                                          :descriptionEvent,
+                                          NULL
+                              )"
+        );
+        $stmt->execute(array(
+                ':idClient' => $this->idClient,
+                ':idContact' => $this->idContact,
+                ':dateEvent' => $this->date,
+                ':timeEvent' => $this->time,
+                ':placeEvent' => "null",
+                ':typeEvent' => "null",
+                ':statusEvent' => $this->status,
+                ':outcomeEvent' => "null",
+                ':descriptionEvent' => $this->descriptionEvent
+                )
+        );
+    }
+
+    private function getAttributeNames() {
+        return array('idClient', 'idContact', 'dateEvent', 'timeEvent', 'statusEvent', 'descriptionEvent');
     }
 
     public function changeStatus ($new_status) {
@@ -78,11 +112,17 @@ class Event {
 class Meeting extends Event {
     protected $place;
     protected $duration;
+    public $typeEvent = "meeting";
+
+    public function persist(){
+        parent::persist()
+    }
 }
 
 class Call extends Event {
     protected $phoneNumber;
     protected $duration;
+    public $typeEvent = "call";
 
 //    public function setPhoneNUmber ($phoneNumber = "") {
 //       In this function we need to design how to get the phone number if we have it already in the DB
@@ -93,10 +133,12 @@ class VideoConference extends Event {
     protected $number;
     protected $duration;
     protected $skypeUser;
+    public $typeEvent = "video conference";
 }
 
 class Email extends Event {
     protected $emailAddress;
+    public $typeEvent = "email";
 }
 
 
@@ -115,6 +157,32 @@ if (count($_POST)) {
 
     $descriptionEvent = htmlspecialchars($descriptionEvent);
     print_r( $_POST);}
+
+if (count($idContact && $dateEvent && $timeEvent && $descriptionEvent)) {
+    switch (typeOfEvent) {
+        case Call:
+            new Call();
+            break;
+        case Email:
+            new Email();
+            break;
+        case VideoConference:
+            new VideoConference();
+            break;
+        case Meeting:
+            new Meeting();
+            break;
+        default:
+            echo "Please select \'type of event\'";
+    }
+//    $newEvent = new Event($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent, $idContact="");
+
+} else {
+    echo "Please fill out all the required fields";
+}
+
+
+
 echo "</pre>";
 ?>
 
@@ -123,14 +191,22 @@ echo "</pre>";
 <form action="?" method="post">
     Client:
     <select name="idClient">
-        <option value="01" <?php if (@$idClient=='01') echo 'selected'; ?>>label 1</option>
-        <option value="02" <?php if (@$idClient=='02') echo 'selected'; ?>>label 2</option>
+        <option value="1" <?php if (@$idClient=='1') echo 'selected'; ?>>Coca-Cola</option>
+        <option value="2" <?php if (@$idClient=='2') echo 'selected'; ?>>Firma Bardzo Wazna i Fajna</option>
+        <option value="3" <?php if (@$idClient=='3') echo 'selected'; ?>>Spolka jakas bardzo tajna z o.o.</option>
+        <option value="4" <?php if (@$idClient=='4') echo 'selected'; ?>>Dell Inc.</option>
+        <option value="5" <?php if (@$idClient=='5') echo 'selected'; ?>>Default</option>
+        <option value="6" <?php if (@$idClient=='6') echo 'selected'; ?>>Olivia Business Center</option>
+        <option value="7" <?php if (@$idClient=='7') echo 'selected'; ?>>Szama mniam mniam</option>
+        <option value="8" <?php if (@$idClient=='8') echo 'selected'; ?>>Video Inc.</option>
     </select><br/><br/>
 
     *Contact:
     <select name="idContact">
-        <option value="01" <?php if (@$idContact=='01') echo 'selected'; ?>>label 1</option>
-        <option value="02" <?php if (@$idContact=='02') echo 'selected'; ?>>label 2</option>
+        <option value="1" <?php if (@$idContact=='1') echo 'selected'; ?>>Anna Nowak</option>
+        <option value="2" <?php if (@$idContact=='2') echo 'selected'; ?>>Bob Smith</option>
+        <option value="3" <?php if (@$idContact=='3') echo 'selected'; ?>>Adam Cnoweel</option>
+        <option value="4" <?php if (@$idContact=='4') echo 'selected'; ?>>Wojtek Kowalski</option>
     </select><br/><br/>
 
     Date:
@@ -143,7 +219,15 @@ echo "</pre>";
     <select name="statusEvent">
         <option value="01" <?php if (@$statusEvent=='01') echo 'selected'; ?>>arranged</option>
         <option value="02" <?php if (@$statusEvent=='02') echo 'selected'; ?>>confirmed</option>
-        <option value="03" <?php if (@$statusEvent=='03') echo 'selected'; ?>>complited</option>
+        <option value="03" <?php if (@$statusEvent=='03') echo 'selected'; ?>>completed</option>
+        <option value="04" <?php if (@$statusEvent=='04') echo 'selected'; ?>>cancelled</option>
+    </select><br/><br/>
+
+    Type of event:
+    <select name="statusEvent">
+        <option value="01" <?php if (@$statusEvent=='01') echo 'selected'; ?>>arranged</option>
+        <option value="02" <?php if (@$statusEvent=='02') echo 'selected'; ?>>confirmed</option>
+        <option value="03" <?php if (@$statusEvent=='03') echo 'selected'; ?>>completed</option>
         <option value="04" <?php if (@$statusEvent=='04') echo 'selected'; ?>>cancelled</option>
     </select><br/><br/>
 
