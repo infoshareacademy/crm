@@ -19,8 +19,14 @@ else
     $sql = "";
 
 // execute query
-$contacts = $dbh->query($sql);
-$clients = $contacts->fetchAll(PDO::FETCH_ASSOC);
+try {
+    $contacts = $dbh->query($sql);
+    $clients = $contacts->fetchAll(PDO::FETCH_ASSOC);
+}
+catch (Exception $e) {
+    $clients = array();
+}
+
 
 echo '<h1>Contacts from Client</h1>';
 
@@ -35,6 +41,6 @@ foreach ($clients as $clientId=>$client) {
     echo '</table>';
 }
 
-// 
+//
 if (count($clients) == 0)
     echo "That's a shame! This client hasn't contact";
