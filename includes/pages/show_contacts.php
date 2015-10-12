@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
     $sql = 'SELECT surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact, linkedinContact, noteContact FROM contacts WHERE idClient='.$getId;
 }
 else
-    $sql = "SELECT * FROM contacts";
+    $sql = "";
 
 // execute query
 $contacts = $dbh->query($sql);
@@ -34,3 +34,7 @@ foreach ($clients as $clientId=>$client) {
     }
     echo '</table>';
 }
+
+// 
+if (count($clients) == 0)
+    echo "That's a shame! This client hasn't contact";
