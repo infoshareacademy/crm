@@ -28,11 +28,11 @@ define('ADMIN_PASS', 'admin');
 include 'includes/header-simple.php';
 ?>
 <div class="login-form">
-    <h2>Login</h2>
+    <h2>Welcome</h2>
             <p class="error"><?php if ($error) { echo $error; } ?><br/>
             <form method="post" action="">
-                <label for="login">login: </label><input id="login" name="login" value="" /><br>
-                <label for="pass">password: </label><input id="pass" name="pass" type="password" value="" /><br>
+                <input id="login" name="login" value=""  placeholder="Enter your login"/><br>
+                <input id="pass" name="pass" type="password" value="" placeholder="Enter your password"/><br>
                 <input class="submit-btn" type="submit" name="send" value="ZALOGUJ" />
             </form>
 
