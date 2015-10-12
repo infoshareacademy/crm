@@ -33,7 +33,7 @@ include 'includes/header-simple.php';
             <form method="post" action="">
                 <input id="login" name="login" value=""  placeholder="Enter your login"/><br>
                 <input id="pass" name="pass" type="password" value="" placeholder="Enter your password"/><br>
-                <input class="submit-btn" type="submit" name="send" value="ZALOGUJ" />
+                <input class="submit-btn" type="submit" name="send" value="LOGIN" />
             </form>
 
 </div>
