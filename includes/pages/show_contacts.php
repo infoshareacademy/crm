@@ -9,26 +9,28 @@
 // do usuniecia przed marge'm
 include('../../dbconnect.php');
 
-
+//create query
+// surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact linkedinContact, NoteContact
 if (isset($_GET['id'])) {
     $getId = (int)$_GET['id'];
-    $sql = 'SELECT * FROM contacts WHERE idClient='.$getId;
+    $sql = 'SELECT surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact, linkedinContact, noteContact FROM contacts WHERE idClient='.$getId;
 }
 else
     $sql = "SELECT * FROM contacts";
-echo '<pre>';
-//print_r($_GET);
 
-// zapytanie do bazy
+// execute query
 $contacts = $dbh->query($sql);
+$clients = $contacts->fetchAll(PDO::FETCH_ASSOC);
 
 echo '<h1>Contacts from Client</h1>';
-echo '<table>';
 
-print_r($contacts);
 
-foreach ($contacts as $key => $value) {
-   // print_r($key);
+//each client has own table; display only cells with content
+foreach ($clients as $clientId=>$client) {
+    echo '<table>';
+    foreach ($client as $attributeValue) {
+        if ($attributeValue != '')
+            echo '<tr><td>'.$attributeValue.' </td></tr>';
+    }
+    echo '</table>';
 }
-
-echo '</table>';
