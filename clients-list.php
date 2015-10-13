@@ -24,7 +24,7 @@
     echo '<table>';
     // naglowek
     echo '<thead>
-    <tr><td>[ ID ]</td><td>[ Company ]</td><td>[ Tax ID ]</td><td>[ Adress ]</td><td>[ City ]</td><td>[ Phone ]</td><td>[ Fax ]</td><td>[ WWW ]</td><td>[ @ ]</td><td>[ Note ]</td><td>[ Date ]</td></tr>
+    <tr><td>[&nbsp;ID&nbsp;]</td><td>[ Company ]</td><td>[ Tax ID ]</td><td>[ Adress ]</td><td>[ City ]</td><td>[ Phone ]</td><td>[ Fax ]</td><td>[ WWW ]</td><td>[ @ ]</td><td>[ Note ]</td><td>[ Date ]</td></tr>
     </thead>';
 
     echo '<tbody>';
@@ -33,9 +33,15 @@
         echo '<tr>';
         $iloscElementow = count($client)/2;
         for ($i=0; $i < $iloscElementow; $i++) {
-            echo '<td>';
-            echo $client[$i];
-            echo '</td>';
+            if ($i == 0) {
+                echo '<td><a href="show_contacts.php?id='.$client[$i].'">';
+                echo $client[$i];
+                echo '</a></td>';
+            } else {
+                echo '<td>';
+                echo $client[$i];
+                echo '</td>';
+            }
         }
         echo '</tr>';
     }
