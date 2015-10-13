@@ -36,42 +36,60 @@ class Event {
     const OUTCOME_FOLLOWUP = 03;
 
     public function __construct($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent, $idContact="") {
+        $this->_getDataForNewEvent($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent, $idContact="");
+        print_r($this);
+
+        $this->persist();
+    }
+
+    protected function _getDataForNewEvent($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent, $idContact=""){
         $this-> idClient = $idClient;
         $this-> date = $dateEvent;
         $this-> time = $timeEvent;
-        $this-> descriptionEvent = $descriptionEvent;
-        $this-> statusEvent = $statusEvent;
-        $this-> idContact = $idContact;
+        $this-> description = $descriptionEvent;
+        $this-> status = $statusEvent;
     }
 
     public function persist() {
-        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=test.crm.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
-        $stmt = $pdo->prepare("INSERT INTO events VALUES (
-                                          NULL,
-                                          :idClient,
-                                          :idContact,
-                                          :dateEvent,
-                                          :timeEvent,
-                                          :placeEvent,
-                                          :typeEvent,
-                                          :statusEvent,
-                                          :outcomeEvent,
-                                          :descriptionEvent,
-                                          NULL
-                              )"
+        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+        $stmt = $pdo->prepare("INSERT INTO events (idClient,
+                                                   dateEvent,
+                                                   timeEvent,
+                                                   placeEvent,
+                                                   typeEvent,
+                                                   statusEvent,
+                                                   outcomeEvent,
+                                                   descriptionEvent) VALUES (
+                                                                      :idClient,
+                                                                      :dateEvent,
+                                                                      :timeEvent,
+                                                                      :placeEvent,
+                                                                      :typeEvent,
+                                                                      :statusEvent,
+                                                                      :outcomeEvent,
+                                                                      :descriptionEvent,
+                             )"
         );
-        $stmt->execute(array(
-                ':idClient' => $this->idClient,
-                ':idContact' => $this->idContact,
-                ':dateEvent' => $this->date,
-                ':timeEvent' => $this->time,
-                ':placeEvent' => "null",
-                ':typeEvent' => "null",
-                ':statusEvent' => $this->status,
-                ':outcomeEvent' => "null",
-                ':descriptionEvent' => $this->descriptionEvent
+        try { echo $stmt->execute(array(
+                    ':idClient' => $this->idClient,
+                    ':dateEvent' => $this->date,
+                    ':timeEvent' => $this->time,
+                    ':placeEvent' => "null",
+                    ':typeEvent' => "null",
+                    ':statusEvent' => $this->status,
+                    ':outcomeEvent' => "null",
+                    ':descriptionEvent' => $this->description
                 )
-        );
+            );
+
+            $stmt->debugDumpParams();
+
+            $stmt2 = $pdo->prepare("SELECT * FROM events");
+            $stmt2->execute();
+            echo count($stmt2->fetchAll());
+        } catch(Exception $e) {
+            print_r($e->getMessage());
+        }
     }
 
     private function getAttributeNames() {
@@ -114,6 +132,11 @@ class Meeting extends Event {
     protected $duration;
     public $typeEvent = "meeting";
 
+//    public
+//
+//    protected function _getDataForNewMeeting(){
+//
+//    }
 
 //    public function persist(){
 //        parent::persist()
