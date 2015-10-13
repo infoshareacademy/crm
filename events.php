@@ -51,7 +51,7 @@ class Event {
     }
 
     public function persist() {
-        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+        try { $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
         $stmt = $pdo->prepare("INSERT INTO events (idClient,
                                                    dateEvent,
                                                    timeEvent,
@@ -67,10 +67,23 @@ class Event {
                                                                       :typeEvent,
                                                                       :statusEvent,
                                                                       :outcomeEvent,
-                                                                      :descriptionEvent,
-                             )"
+                                                                      :descriptionEvent
+                             );"
         );
-        try { echo $stmt->execute(array(
+
+        $costam = array(
+            ':idClient' => $this->idClient,
+            ':dateEvent' => $this->date,
+            ':timeEvent' => $this->time,
+            ':placeEvent' => "null",
+            ':typeEvent' => "null",
+            ':statusEvent' => $this->status,
+            ':outcomeEvent' => "null",
+            ':descriptionEvent' => $this->description
+        );
+        var_dump($costam);
+
+         echo $stmt->execute(array(
                     ':idClient' => $this->idClient,
                     ':dateEvent' => $this->date,
                     ':timeEvent' => $this->time,
@@ -183,7 +196,12 @@ if (count($_POST)) {
     $descriptionEvent = htmlspecialchars($descriptionEvent);
     print_r( $_POST);}
 
-if (count(@$idClient && @$dateEvent && @$timeEvent && @$descriptionEvent && $statusEvent && @$typeOfEvent)) {
+if ($idClient!="" &&
+    $dateEvent!="" &&
+    $timeEvent!="" &&
+    $descriptionEvent!="" &&
+    $statusEvent!="" &&
+    $typeOfEvent!="") {
     switch ($typeOfEvent) {
         case 01:
             new Call($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent);
