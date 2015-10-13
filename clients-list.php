@@ -34,7 +34,7 @@
         $iloscElementow = count($client)/2;
         for ($i=0; $i < $iloscElementow; $i++) {
             if ($i == 0) {
-                echo '<td><a href="show_contacts.php?id='.$client[$i].'">';
+                echo '<td><a href="contacts-list.php?id='.$client[$i].'">';
                 echo $client[$i];
                 echo '</a></td>';
             } else {

@@ -1,13 +1,15 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: katban
- * Date: 09.10.15
- * Time: 16:25
- */
+<?php include 'includes/header.php'; ?>
+<div role="tabpanel" id="plan-event">
 
-// do usuniecia przed marge'm
-include('../../dbconnect.php');
+    <section class="container-fluid">
+        <figure class="banner">
+            <figcaption>Contacts from Client</figcaption>
+        </figure>
+
+        <article class="row">
+            <div class="col-lg-12">
+                <h1></h1>
+<?php
 
 //create query
 // surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact linkedinContact, NoteContact
@@ -28,8 +30,6 @@ catch (Exception $e) {
 }
 
 
-echo '<h1>Contacts from Client</h1>';
-
 
 //each client has own table; display only cells with content
 foreach ($clients as $clientId=>$client) {
@@ -38,9 +38,17 @@ foreach ($clients as $clientId=>$client) {
         if ($attributeValue != '')
             echo '<tr><td>'.$attributeValue.' </td></tr>';
     }
-    echo '</table>';
+    echo '</table><br /><br />';
 }
 
 //
 if (count($clients) == 0)
     echo "That's a shame! This client hasn't contact";
+
+?>
+            </div>
+        </article>
+    </section>
+
+</div>
+<?php include 'includes/footer.php'; ?>
