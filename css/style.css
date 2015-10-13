@@ -1,10 +1,14 @@
 html {
     background-color:#f5f5f5;
+    height: 100%;
 }
 body{
     background-color:transparent;
+    height: 100%;
 }
-
+.nav>li>a:focus, .nav>li>a:hover {
+    background-color: transparent;
+}
 #wrapper {
     padding-left: 40px;
     -webkit-transition: all 0.5s ease;
@@ -87,7 +91,7 @@ body{
 .sidebar-nav li a:focus {
     text-decoration: none;
 }
-.sidebar-nav li a.active{
+.sidebar-nav li a.active {
     color:#fff;
 }
 
@@ -139,7 +143,7 @@ body{
     line-height:45px;
     z-index:99;
 }
-#menu-toggle i{
+#menu-toggle i {
     text-indent:0;
     line-height:45px;
 }
@@ -148,11 +152,23 @@ body{
 
 .navbar-right {
     margin-right: 30px;
+    margin-top: 16px;
     float:right;
-    line-height:65px;
 }
-.navbar-right li{
+.navbar-right li {
+    padding: 5px 10px;
     color:#bbb;
+    display: inline-block;
+}
+.navbar-right li a {
+    padding: 0;
+    color:#6495ED;
+    display: inline;
+    background: transparent;
+}
+.navbar-right li a:hover {
+    background: transparent;
+    color: #3467ed;
 }
 
 
@@ -165,7 +181,7 @@ header {
 
 /* content */
 
-section.container-fluid{
+section.container-fluid {
     padding:0;
 }
 
@@ -181,7 +197,7 @@ figure.banner {
 figure.banner img {
     min-width: 100%;
 }
-figure.banner figcaption{
+figure.banner figcaption {
     position:absolute;
     bottom:20px;
     left:20px;
@@ -193,62 +209,54 @@ section article.row {
     padding:20px;
     margin:0;
 }
-section > article.row  {
+section > article.row {
     padding:20px 5px;
     margin:0;
 }
 
 
-
-
-/* moje dane */
 .form-horizontal {
     margin-top:30px;
 }
-.has-error input{
+.has-error input {
     color:#a94442;
 }
-aside #daneout{
+aside #daneout {
     margin-top:30px;
 }
 
-/* moje lokalizacje */
 
-#map-canvas {
-    margin: 20px 0 0 0;
-    padding: 0;
-    height: 320px;
+
+/*full width*/
+
+#wrapper-fullwidth {
+    background-color: #6495ED;
+    height: 100%;
+}
+
+.login-form {
+    padding: 20px 40px 30px;
+    background-color: #bedcfd;
+    color: #060c42;
+    width:400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+.login-form h2 {
+    font-size: 3em;
+    color: #6495ED;
+}
+.login-form input {
+    margin: 10px 0 10px 0;
+    padding: 10px 10px 10px 10px;
     width: 100%;
 }
-
-/* moje zdjÄ™cia */
-
-#preview-row {
-    position: relative;
-    width: auto;
-    margin-top:20px;
+.login-form .submit-btn {
+    margin: 10px 10px 0 0;
 }
-#drop-target {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 150px;
-    height: 150px;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    text-align: center;
-    padding: 60px 12px;
-}
-#preview {
-    width: auto;
-    margin-left: 180px;
-    height: 300px;
-
-    padding: 0px;
-    border: 0px solid #ccc;
-}
-
-
 
 
 

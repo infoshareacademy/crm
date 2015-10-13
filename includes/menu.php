@@ -4,37 +4,37 @@
             <a href="#menu-toggle" id="menu-toggle">
                 <i class="fa fa-bars fa-rotate-90"></i>
             </a>
-            <a href="#home" aria-controls="home" role="pill" data-toggle="pill">Panel klienta</a>
+            <a href="index.php" aria-controls="home">CRM</a>
         </li>
 
 
 
         <li class="sidebar-title">Kontrahenci</li>
         <li>
-            <a href="#lista-kontrahentow" aria-controls="lista-kontrahentow" role="pill" data-toggle="pill">
-                <i class="fa fa-list fa-fw"></i>Lista kontrahentów
+            <a href="clients-list.php" aria-controls="clients-list">
+                <i class="fa fa-list fa-fw"></i>Clients list
             </a>
         </li>
         <li>
-            <a href="#dodaj-kontrahenta" aria-controls="dodaj-kontrahenta" role="pill" data-toggle="pill">
-                <i class="fa fa-plus fa-fw"></i>Dodaj kontrahenta
+            <a href="add-client.php" aria-controls="add-client">
+                <i class="fa fa-plus fa-fw"></i>Add client
             </a>
         </li>
         <li class="sidebar-title">Spotkania</li>
         <li>
-            <a href="#lista-spotkan" aria-controls="lista-spotkan" role="pill" data-toggle="pill">
-                <i class="fa fa-calendar fa-fw"></i>Lista spotkań
+            <a href="events-list.php" aria-controls="events-list">
+                <i class="fa fa-calendar fa-fw"></i>Events list
             </a>
         </li>
         <li>
-            <a href="#zaplanuj-spotkanie" aria-controls="zaplanuj-spotkanie" role="pill" data-toggle="pill">
-                <i class="fa fa-calendar-check-o fa-fw"></i>Zaplanuj spotkanie
+            <a href="plan-event.php" aria-controls="plan-event">
+                <i class="fa fa-calendar-check-o fa-fw"></i>Plan new event
             </a>
         </li>
         <li class="sidebar-title">Raporty</li>
         <li>
-            <a href="#generuj-raport" aria-controls="generuj-raport" role="pill" data-toggle="pill">
-                <i class="fa fa-bar-chart fa-fw"></i>Generuj raport
+            <a href="generate-report.php" aria-controls="generate-report">
+                <i class="fa fa-bar-chart fa-fw"></i>Generate report
             </a>
         </li>
 
