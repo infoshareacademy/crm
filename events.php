@@ -1,39 +1,6 @@
 <?php
-//
-//$hostname = "sql.infoshareaca.nazwa.pl";
-//$db = "infoshareaca_5";
-//$username = "infoshareaca_5";
-//$pass = "F0r3v3r!";
-//
-//
-//$dbh = new PDO ("mysql:host=$hostname;port=3307;dbname=$db",$username,$pass);
-//$dbh->query("SET NAMES utf8");
-//$dbh->query("SET CHARACTER_SET utf8_polish_ci");
-//
-//$sql = "SELECT * FROM events";
-//
-//$events = $dbh->query($sql);
-
 
 class Event {
-    protected $id;
-    protected $idClient;
-    protected $idContact;
-    protected $date;
-    protected $time;
-    protected $status;
-    protected $outcome;
-    protected $description;
-    protected $status_change_comment = array();
-
-    const STATUS_ARRANGED = 01;
-    const STATUS_CONFIRMED = 02;
-    const STATUS_COMPLETED = 03;
-    const STATUS_CANCELLED = 04;
-
-    const OUTCOME_SUCCESS = 01;
-    const OUTCOME_FAILURE = 02;
-    const OUTCOME_FOLLOWUP = 03;
 
     public function __construct($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent, $idContact="") {
         $this->_getDataForNewEvent($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent, $idContact="");
