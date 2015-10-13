@@ -114,9 +114,10 @@ class Meeting extends Event {
     protected $duration;
     public $typeEvent = "meeting";
 
-    public function persist(){
-        parent::persist()
-    }
+
+//    public function persist(){
+//        parent::persist()
+//    }
 }
 
 class Call extends Event {
@@ -154,23 +155,28 @@ if (count($_POST)) {
     $timeEvent = $_POST['timeEvent'];
     $descriptionEvent = $_POST['descriptionEvent'];
     $statusEvent = $_POST['statusEvent'];
+    $typeOfEvent = $_POST['typeOfEvent'];
 
     $descriptionEvent = htmlspecialchars($descriptionEvent);
     print_r( $_POST);}
 
-if (count($idContact && $dateEvent && $timeEvent && $descriptionEvent)) {
-    switch (typeOfEvent) {
-        case Call:
-            new Call();
+if (count(@$idClient && @$dateEvent && @$timeEvent && @$descriptionEvent && $statusEvent && @$typeOfEvent)) {
+    switch ($typeOfEvent) {
+        case 01:
+            new Call($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent);
+            echo "new Call";
             break;
-        case Email:
-            new Email();
+        case 02:
+            new Email($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent);
+            echo "new Email";
             break;
-        case VideoConference:
-            new VideoConference();
+        case 03:
+            new VideoConference($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent);
+            echo "new Video conf";
             break;
-        case Meeting:
-            new Meeting();
+        case 04:
+            new Meeting($idClient, $dateEvent, $timeEvent, $descriptionEvent, $statusEvent);
+            echo "new Meeting";
             break;
         default:
             echo "Please select \'type of event\'";
@@ -224,11 +230,11 @@ echo "</pre>";
     </select><br/><br/>
 
     Type of event:
-    <select name="statusEvent">
-        <option value="01" <?php if (@$statusEvent=='01') echo 'selected'; ?>>arranged</option>
-        <option value="02" <?php if (@$statusEvent=='02') echo 'selected'; ?>>confirmed</option>
-        <option value="03" <?php if (@$statusEvent=='03') echo 'selected'; ?>>completed</option>
-        <option value="04" <?php if (@$statusEvent=='04') echo 'selected'; ?>>cancelled</option>
+    <select name="typeOfEvent">
+        <option value="01" <?php if (@$typeOfEvent=='01') echo 'selected'; ?>>Call</option>
+        <option value="02" <?php if (@$typeOfEvent=='02') echo 'selected'; ?>>Email</option>
+        <option value="03" <?php if (@$typeOfEvent=='03') echo 'selected'; ?>>Video conference</option>
+        <option value="04" <?php if (@$typeOfEvent=='04') echo 'selected'; ?>>Meeting</option>
     </select><br/><br/>
 
     <input type="submit" name="submitNewEvent" value="Submit" />
