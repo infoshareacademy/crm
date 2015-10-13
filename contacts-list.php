@@ -30,7 +30,6 @@ catch (Exception $e) {
 }
 
 
-
 //each client has own table; display only cells with content
 foreach ($clients as $clientId=>$client) {
     echo '<table>';
@@ -41,11 +40,12 @@ foreach ($clients as $clientId=>$client) {
     echo '</table><br /><br />';
 }
 
-//
+// if client without contacts
 if (count($clients) == 0)
     echo "That's a shame! This client hasn't contact";
 
 ?>
+                <div><a href="clients-list.php">Back to Clients list</a></div>
             </div>
         </article>
     </section>
