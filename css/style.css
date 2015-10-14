@@ -247,6 +247,7 @@ aside #daneout {
 }
 .login-form h2 {
     font-size: 3em;
+    line-height: 1;
     color: #6495ED;
 }
 .login-form input {
