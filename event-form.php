@@ -2,21 +2,29 @@
 require_once 'Event.class.php';
 
 
-// save input from the form in the variable if some info is missing when form is submitted
-
 $error = array();
 if (count($_POST)) {
+
+//    1. create new, empty Event
+
     $event = new Event();
 
-    $event->topicOfEvent = @$_POST['topicOfEvent']; echo 'topic of event set!';
-    if (!$event->topicOfEvent)
-        $error['topicOfEvent'] = 'Please insert the topic of this Event';
+//    2. fill it out with info from the form
 
-    $event->idClient = $_POST['idClient']; echo 'Client of event set!';
+    $event->idOfEvent = $_POST['idOfEvent'];
+
+    $event->topicOfEvent = @$_POST['topicOfEvent'];
+    if (!$event->topicOfEvent)
+        $error['topicOfEvent'] = 'Please insert the topic of this Event
+        (up to 50 characters)';
+
+    $event->idClient = $_POST['idClient'];
     if (!$event->idClient)
         $error['idClient'] = 'Please indicate the Client';
 
-    $event->dateOfEvent = $_POST['dateOfEvent']; echo 'date of event set!';
+    $event->idContact = $_POST['idContact'];
+
+    $event->dateOfEvent = $_POST['dateOfEvent'];
     if (!$event->dateOfEvent)
         $error['dateOfEvent'] = 'Please insert the date';
 
@@ -32,47 +40,20 @@ if (count($_POST)) {
     if (!$event->typeOfEvent)
         $error['typeOfEvent'] = 'Please chose the type of Event';
 
-    $event->descriptionOfEvent = $_POST['descriptionOfEvent']; echo 'description of event set!';
+    $event->descriptionOfEvent = $_POST['descriptionOfEvent'];
     if (!$event->descriptionOfEvent)
-        $error['descriptionOfEvent'] = 'Please insert the short description of this Event';
+        $error['descriptionOfEvent'] =
+            'Please insert a short description of this Event (up to 250 characters)';
 
-    echo "<pre>";
-    print_r( $_POST);
-    echo "<br/><br/><br/>";
-    print_r( $event);
-    echo "</pre>";
+    $event->outcomeOfEvent = $_POST['outcomeOfEvent'];
+
+// 3. insert the data to DB
 
     if (!count($error)){
-        $event->saveEvent();
+        $event->sendToDB();
         echo "<br/><br/><br/><br/><br/><br/>YUPI<br/><br/><br/><br/><br/>";
     }
 }
-
-// trigger for creation of new Event when all the required info in the form
-
-//if ($topicOfEvent!="" &&
-//    $idClient!="" &&
-//    $dateOfEvent!="" &&
-//    $timeOfEvent!="" &&
-//    $statusOfEvent!="" &&
-//    $typeOfEvent!="" &&
-//    $descriptionOfEvent!="") {
-//
-//    $newEvent = new Event($topicOfEvent,
-//                          $idClient,
-//                          $dateOfEvent,
-//                          $timeOfEvent,
-//                          $statusOfEvent,
-//                          $typeOfEvent,
-//                          $descriptionOfEvent);
-//    $newEvent->_sendEventDataToDB();
-//    echo "<pre>";
-//    print_r($newEvent);
-//    echo "</pre><br/><br/>";
-//
-//} else {
-//    echo 'Please insert the missing information <br/><br/>';
-//}
 
 ?>
 
@@ -93,6 +74,13 @@ ADD NEW EVENT:
     </select>
     <div style="color: #23527c"><?php echo @$error['idClient'] ?></div>
     <br/><br/>
+    *Contact:
+    <select name="idContact">
+        <option value="1" <?php if (@$event->idContact=='1') echo 'selected'; ?>>Anna Nowak</option>
+        <option value="2" <?php if (@$event->idContact=='2') echo 'selected'; ?>>Bob Smith</option>
+        <option value="3" <?php if (@$event->idContact=='3') echo 'selected'; ?>>Adam Cnoweel</option>
+        <option value="4" <?php if (@$event->idContact=='4') echo 'selected'; ?>>Wojtek Kowalski</option>
+    </select><br/><br/>
 
     Topic:
     <textarea name="topicOfEvent"><?php echo @$event->topicOfEvent ?></textarea>

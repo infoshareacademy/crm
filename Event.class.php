@@ -2,15 +2,15 @@
 
 class Event {
 
+    protected $idOfEvent;
     protected $topicOfEvent;
     protected $idClient;
+    protected $idContact;
     protected $dateOfEvent;
     protected $timeOfEvent;
     protected $statusOfEvent;
-    protected $descriptionOfEvent;
     protected $typeOfEvent;
-    protected $idContact;
-    protected $idOfEvent;
+    protected $descriptionOfEvent;
     protected $outcomeOfEvent;
 
     private $pdo;
@@ -30,13 +30,50 @@ class Event {
     const MAX_DESCRIPTION_LENGTH = 250;
     const MAX_TOPIC_LENGTH = 50;
 
-    public function __construct() {
+    public function __construct($idOfEvent=null) {
+
+//  shortcut for connection with DB necessary for every action performed on an Event
+
         $this->pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+
+//  if Event has the id - look for the record in DB
+
+        if ($idOfEvent){
+            $stmt = $this->pdo->prepare("SELECT * FROM events WHERE idEvent=".(int)$idOfEvent);
+            if ($stmt->rowCount()>0) {
+
+//  fetch the results only if query returned anything
+
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+//  constructor created an empty Event - for update purpose it must be filled out with data from DB
+
+                $this->idOfEvent = $result['idEvent'];
+                $this->topicOfEvent = $result['topicEvent'];
+                $this->idClient = $result['idClient'];
+                $this->idContact = $result['idContact'];
+                $this->dateOfEvent = $result['dateOfEvent'];
+                $this->timeOfEvent = $result['timeOfEvent'];
+                $this->statusOfEvent = $result['statusOfEvent'];
+                $this->typeOfEvent = $result['typeOfEvent'];
+                $this->descriptionOfEvent = $result['descriptionOfEvent'];
+                $this->outcomeOfEvent = $result['outcomeOfEvent'];
+            } else {
+                throw new Exception ('Oups, there is no such Event. Please verify with the Administrator.');
+            }
+        }
     }
 
     public function __set($param_name, $param_value) {
         $this->$param_name = $param_value;
         switch ($param_name) {
+            case 'idOfEvent':
+                if (!$param_value)
+                    $this->idOfEvent = null;
+                else
+                    $this->idOfEvent = $param_value;
+                break;
+
             case 'topicOfEvent':
                 if (!$param_value || strlen($param_value)>self::MAX_TOPIC_LENGTH)
                     $this->topicOfEvent = null;
@@ -49,6 +86,13 @@ class Event {
                     $this->idClient = null;
                 else
                     $this->idClient = $param_value;
+                break;
+
+            case 'idContact':
+                if (!$param_value)
+                    $this->idContact = null;
+                else
+                    $this->idContact = $param_value;
                 break;
 
             case 'dateOfEvent':
@@ -79,6 +123,13 @@ class Event {
                     $this->typeOfEvent = $param_value;
                 break;
 
+            case 'outcomeOfEvent':
+                if (!$param_value)
+                    $this->outcomeOfEvent = null;
+                else
+                    $this->outcomeOfEvent = $param_value;
+                break;
+
             case 'descriptionOfEvent':
                 if (!$param_value || strlen($param_value)>self::MAX_DESCRIPTION_LENGTH)
                     $this->descriptionOfEvent = null;
@@ -96,54 +147,80 @@ class Event {
     }
 
 
-    private function _sendToDB(){
-        try {
+//    method inserting a newly created Event to DB
+
+    private function _saveEvent(){
             $stmt = $this->pdo->prepare("INSERT INTO events (idClient,
+                                                      idContact,
                                                        dateEvent,
                                                        timeEvent,
                                                        typeEvent,
                                                        statusEvent,
                                                        descriptionEvent,
-                                                       topicEvent) VALUES (
+                                                       topicEvent,
+                                                       outcomeEvent) VALUES (
                                                                       :idClient,
+                                                                      :idContact,
                                                                       :dateOfEvent,
                                                                       :timeOfEvent,
                                                                       :typeOfEvent,
                                                                       :statusOfEvent,
                                                                       :descriptionOfEvent,
-                                                                      :topicOfEvent
+                                                                      :topicOfEvent,
+                                                                      :outcomeOfEvent
                              );"
             );
 
             $status = $stmt->execute(array(
                     ':idClient' => $this->idClient,
+                    ':idContact' => $this->idContact,
                     ':dateOfEvent' => $this->dateOfEvent,
                     ':timeOfEvent' => $this->timeOfEvent,
                     ':typeOfEvent' => $this->typeOfEvent,
                     ':statusOfEvent' => $this->statusOfEvent,
                     ':descriptionOfEvent' => $this->descriptionOfEvent,
-                    ':topicOfEvent' => $this->topicOfEvent
+                    ':topicOfEvent' => $this->topicOfEvent,
+                    ':outcomeOfEvent' => $this->outcomeOfEvent
                 )
             );
 
             $this->idOfEvent = $this->pdo->lastInsertId();
 
-            if ($status)
-                return self::SEND_TO_DB_OK;
-            else
-                return self::SEND_TO_DB_FAIL;
-
-        } catch(Exception $e) {
-            print_r($e->getMessage());
-        }
+            return ($status) ? self::SEND_TO_DB_OK : self::SEND_TO_DB_FAIL;
     }
-//
-//    private function editEvent(){
-//
-//    }
 
-    public function saveEvent(){
-        $this->_sendToDB();
+//    method sending to DB the updated Event
+
+    private function _editEvent(){
+        $stmt = $this->pdo->prepare("UPDATE events SET idClient=:idClient,
+                                                          idContact=:idContact,
+                                                          dateEvent=:dateOfEvent,
+                                                          timeEvent=:timeOfEvent,
+                                                          typeEvent=:typeOfEvent,
+                                                          statusEvent=:statusOfEvent,
+                                                          descriptionEvent=:descriptionOfEvent,
+                                                          topicEvent=:topicOfEvent,
+                                                          outcomeEvent=:outcomeOfEvent WHERE idEvent=:idOfEvent");
+
+        $status = $stmt->execute(array(
+                ':idClient' => $this->idClient,
+                ':idContact' => $this->idContact,
+                ':dateOfEvent' => $this->dateOfEvent,
+                ':timeOfEvent' => $this->timeOfEvent,
+                ':typeOfEvent' => $this->typeOfEvent,
+                ':statusOfEvent' => $this->statusOfEvent,
+                ':descriptionOfEvent' => $this->descriptionOfEvent,
+                ':topicOfEvent' => $this->topicOfEvent,
+                ':outcomeOfEvent' => $this->outcomeOfEvent,
+                ':idEvent' => $this->idOfEvent
+            )
+        );
+
+        return ($status) ? self::SEND_TO_DB_OK : self::SEND_TO_DB_FAIL;
+    }
+
+    public function sendToDB(){
+        return ($this->idOfEvent) ? $this->_editEvent() : $this->_saveEvent();
     }
 
 
