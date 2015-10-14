@@ -13,7 +13,7 @@ class Event {
     protected $descriptionOfEvent;
     protected $outcomeOfEvent;
 
-    private $pdo;
+    protected $pdo;
 
     const SEND_TO_DB_OK = 1;
     const SEND_TO_DB_FAIL = -1;
@@ -223,6 +223,33 @@ class Event {
         return ($this->idOfEvent) ? $this->_editEvent() : $this->_saveEvent();
     }
 
+    public static function displayEvents(){
+        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+        $stmt = $pdo->prepare('SELECT * FROM events');
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteEvent() {
+        $stmt = $this->pdo->prepare("DELETE FROM events WHERE idEvent=:idOfEvent");
+        $status = $stmt->execute(
+            array(
+                ':idOfEvent' => $this->idOfEvent,
+            )
+        );
+
+        $this->idOfEvent = NULL;
+        $this->topicOfEvent = NULL;
+        $this->idClient = NULL;
+        $this->idContact = NULL;
+        $this->dateOfEvent = NULL;
+        $this->timeOfEvent = NULL;
+        $this->statusOfEvent = NULL;
+        $this->typeOfEvent = NULL;
+        $this->descriptionOfEvent = NULL;
+        $this->outcomeOfEvent = NULL;
+
+        return $status;
+    }
 
 
 }

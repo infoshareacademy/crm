@@ -55,6 +55,38 @@ if (count($_POST)) {
     }
 }
 
+// Function triggered when 'Edit' button at the list of Events is clicked
+
+if (@$_GET['edit'] && (int)$_GET['edit']) {
+    $edit = (int)$_GET['edit'];
+
+    try {
+        $event = new Event($edit);
+    }
+    catch (Exception $e) {
+        die('Oups, there is no such Event ! Please verify with the Administrator.');
+    }
+}
+
+// Function triggered when 'Delete' button at the list of Events is clicked
+
+if (@$_GET['delete'] && (int)$_GET['delete']) {
+    $delete = (int)$_GET['delete'];
+
+    try {
+        $event = new Event($delete);
+        $status = $event->deleteEvent();
+        if ($status)
+            $success = 'Event deleted';
+        else
+            $error['general'] = 'An error occurred, please try again later or contact your Admin.';
+    }
+    catch (Exception $e) {
+        die('Oups, there is no such Event ! Please verify with the Administrator.');
+    }
+}
+
+
 ?>
 
 ADD NEW EVENT:
@@ -120,5 +152,41 @@ ADD NEW EVENT:
     <br/><br/>
 
     <input type="submit" name="submitNewEvent" value="Submit" />
+    <br/><br/>
+    <a type="button" href="?">Clear the form</a><br/>
+
+
+    LIST OF UPCOMING EVENTS:
+
+<table>
+    <tr>
+        <th>Client</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Type</th>
+        <th>Topic</th>
+        <th>Description</th>
+        <th>Outcome</th>
+    </tr>
+    <?php
+    $allEvents = Event::displayEvents();
+    foreach ($allEvents as $item) {
+        echo '<tr>';
+        echo '<td>'.$item['idClient'].'</td>';
+        echo '<td>'.$item['dateEvent'].'</td>';
+        echo '<td>'.$item['timeEvent'].'</td>';
+        echo '<td>'.$item['statusEvent'].'</td>';
+        echo '<td>'.$item['typeEvent'].'</td>';
+        echo '<td>'.$item['topicEvent'].'</td>';
+        echo '<td>'.$item['descriptionEvent'].'</td>';
+        echo '<td>'.$item['outcomeEvent'].'</td>';
+        echo '<td><a href="?edit='.$item['id'].'">Edit</a>
+        <a href="?delete='.$item['id'].'">Delete</a></td>';
+    echo '</tr>';
+    }
+    ?>
+</table>
+
 </form>
 
