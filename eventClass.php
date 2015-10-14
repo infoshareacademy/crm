@@ -41,6 +41,11 @@ if (count($_POST)) {
     echo "<br/><br/><br/>";
     print_r( $event);
     echo "</pre>";
+
+    if (!count($error)){
+        $event->saveEvent();
+        echo "<br/><br/><br/><br/><br/><br/>YUPI<br/><br/><br/><br/><br/>";
+    }
 }
 
 // trigger for creation of new Event when all the required info in the form
@@ -74,6 +79,7 @@ if (count($_POST)) {
 ADD NEW EVENT:
 
 <form action="?" method="post">
+    <input type="hidden" name="idOfEvent" value="<?php @$event->idOfEvent ?>"/>
     Client:
     <select name="idClient">
         <option value="1" <?php if (@$event->idClient=='1') echo 'selected'; ?>>Coca-Cola</option>
