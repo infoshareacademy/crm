@@ -4,13 +4,13 @@ class Event {
 
 // basic attributes of newly created Event:
 
-    protected $topicOfEvent;
-    protected $idClient;
-    protected $dateOfEvent;
-    protected $timeOfEvent;
-    protected $statusOfEvent;
-    protected $descriptionOfEvent;
-    protected $typeOfEvent;
+    public $topicOfEvent;
+    public $idClient;
+    public $dateOfEvent;
+    public $timeOfEvent;
+    public $statusOfEvent;
+    public $descriptionOfEvent;
+    public $typeOfEvent;
 
 // additional (not required) attributes of newly created Event:
 
@@ -60,7 +60,7 @@ class Event {
 
     // function connecting to the DB and inserting the values from Object
 
-    protected function _sendEventDataToDB(){
+    public function _sendEventDataToDB(){
         try {
             $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
             $stmt = $pdo->prepare("INSERT INTO events (idClient,
@@ -82,14 +82,15 @@ class Event {
 
             $stmt->execute(array(
                     ':idClient' => $this->idClient,
-                    ':dateEvent' => $this->dateOfEvent,
-                    ':timeEvent' => $this->timeOfEvent,
-                    ':typeEvent' => $this->typeOfEvent,
-                    ':statusEvent' => $this->statusOfEvent,
-                    ':descriptionEvent' => $this->descriptionOfEvent,
+                    ':dateOfEvent' => $this->dateOfEvent,
+                    ':timeOfEvent' => $this->timeOfEvent,
+                    ':typeOfEvent' => $this->typeOfEvent,
+                    ':statusOfEvent' => $this->statusOfEvent,
+                    ':descriptionOfEvent' => $this->descriptionOfEvent,
                     ':topicOfEvent' => $this->topicOfEvent
                 )
             );
+            print_r($stmt);
 
 //            $stmt->debugDumpParams();
 //
@@ -137,9 +138,13 @@ if ($topicOfEvent!="" &&
                           $statusOfEvent,
                           $typeOfEvent,
                           $descriptionOfEvent);
+    $newEvent->_sendEventDataToDB();
+    echo "<pre>";
+    print_r($newEvent);
+    echo "</pre><br/><br/>";
 
 } else {
-    echo 'Please insert the missing information';
+    echo 'Please insert the missing information <br/><br/>';
 }
 
 ?>
