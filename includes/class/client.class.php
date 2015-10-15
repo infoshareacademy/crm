@@ -47,6 +47,22 @@ if (count($_POST)) {
         $error = 'Nazwa firmy jest wymagana';
     else
         $client->name = @$_POST['name'];
+
+    if(!@$_POST['idTax'])
+        $client->idTax = '';
+    else
+        $client->idTax = @$_POST['idTax'];
+
+    if(!@$_POST['address'])
+        $client->address = '';
+    else
+        $client->address = @$_POST['address'];
+
+    if(!@$_POST['city'])
+        $error = 'Miejscowosc jest wymagana';
+    else
+        $client->city = @$_POST['city'];
+
     if(!@$_POST['phone'])
         $error = 'Pole telefon jest wymagane';
     else {
@@ -55,6 +71,35 @@ if (count($_POST)) {
         if (!preg_match('/[0-9]{9,11}/', $client->phone))
             $error = 'Telefon musi skladac sie z 9 do 11 cyfr';
     }
+
+    if(!@$_POST['fax'])
+        $client->fax = '';
+    else {
+        //walidacja prosta przeniesci pozniej do creatora
+        $client->fax = @$_POST['fax'];
+        if (!preg_match('/[0-9]{9,11}/', $client->phone))
+            $error = 'Numer musi skladac sie z 9 do 11 cyfr';
+    }
+
+    if(!@$_POST['www'])
+        $client->www = '';
+    else
+        $client->www = @$_POST['www'];
+
+    if(!@$_POST['mail'])
+        $error = 'Musisz podac e-mail kontaktowy';
+    else {
+        $client->mail = @$_POST['mail'];
+        if (!preg_match('/^([a-z0-9-_.]{1,})@[a-z0-9-]+(.[a-z0-9]{2,})$/i', $client->mail))
+        $error = 'Podaj prawidlowy adres email';
+    }
+
+    if(!@$_POST['note'])
+        $client->note = '';
+    else
+        $client->note = @$_POST['note'];
+
+
 }
 
 ?>
@@ -75,13 +120,13 @@ if ($error) {
 echo '<form action="?" method="post">';
 echo 'Nazwa: <input name="name" value="'.@$client->name.'"/><br/>';
 echo 'NIP: <input name="idTax" value="'.@$client->idTax.'" /><br/>';
-echo 'Adres[ulica;numer;kod]: <input name="address" value="" /><br/>';
-echo 'Miasto: <input name="city" value="" /><br/>';
+echo 'Adres[ulica;numer;kod]: <input name="address" value="'.@$client->address.'" /><br/>';
+echo 'Miasto: <input name="city" value="'.@$client->city.'" /><br/>';
 echo 'Telefon: <input name="phone" value="'.@$client->phone.'" /><br/>';
-echo 'fax: <input name="fax" value="" /><br/>';
-echo 'www: <input name="www" value="" /><br/>';
-echo 'e-mail: <input name="mail" value="" /><br/>';
-echo 'Note: <textarea name="note" value="" /></textarea>';
+echo 'fax: <input name="fax" value="'.@$client->fax.'" /><br/>';
+echo 'www: <input name="www" value="'.@$client->www.'" /><br/>';
+echo 'e-mail: <input name="mail" value="'.@$client->mail.'" /><br/>';
+echo 'Note: <textarea name="note" />'.@$client->note.'</textarea>';
 echo '<button id="btn_send">ZAPISZ</button>';
 echo '</form>';
 
