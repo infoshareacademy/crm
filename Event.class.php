@@ -39,17 +39,17 @@ class Event {
 //  if Event has the id - look for the record in DB
 
         if ($idOfEvent){
-            $stmt = $this->pdo->prepare("SELECT * FROM events WHERE idEvent=".(int)$idOfEvent);
+            $stmt = $this->pdo->query("SELECT * FROM events WHERE idOfEvent=".$idOfEvent);
             if ($stmt->rowCount()>0) {
 
 //  fetch the results only if query returned anything
 
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //  constructor created an empty Event - for update purpose it must be filled out with data from DB
 
-                $this->idOfEvent = $result['idEvent'];
-                $this->topicOfEvent = $result['topicEvent'];
+                $this->idOfEvent = $result['idofEvent'];
+                $this->topicOfEvent = $result['topicOfEvent'];
                 $this->idClient = $result['idClient'];
                 $this->idContact = $result['idContact'];
                 $this->dateOfEvent = $result['dateOfEvent'];

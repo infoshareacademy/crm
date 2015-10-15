@@ -59,7 +59,7 @@ if (count($_POST)) {
 // Function triggered when 'Edit' button at the list of Events is clicked
 
 if (@$_GET['edit'] && (int)$_GET['edit']) {
-    $edit = (int)$_GET['edit'];
+    $edit = $_GET['edit'];
 
     try {
         $event = new Event($edit);
