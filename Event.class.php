@@ -31,6 +31,7 @@ class Event {
     const MAX_TOPIC_LENGTH = 50;
 
     public function __construct($idOfEvent=null) {
+        echo $idOfEvent."!!!!!";
 
 //  shortcut for connection with DB necessary for every action performed on an Event
 
@@ -40,15 +41,18 @@ class Event {
 
         if ($idOfEvent){
             $stmt = $this->pdo->query("SELECT * FROM events WHERE idOfEvent=".$idOfEvent);
+            echo 'query done<br/><br/>';
             if ($stmt->rowCount()>0) {
 
 //  fetch the results only if query returned anything
 
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                echo 'result\'s here!<br/><br/>';
+                print_r($result);
 
 //  constructor created an empty Event - for update purpose it must be filled out with data from DB
 
-                $this->idOfEvent = $result['idofEvent'];
+                $this->idOfEvent = $result['idOfEvent'];
                 $this->topicOfEvent = $result['topicOfEvent'];
                 $this->idClient = $result['idClient'];
                 $this->idContact = $result['idContact'];
@@ -57,7 +61,8 @@ class Event {
                 $this->statusOfEvent = $result['statusOfEvent'];
                 $this->typeOfEvent = $result['typeOfEvent'];
                 $this->descriptionOfEvent = $result['descriptionOfEvent'];
-                $this->outcomeOfEvent = $result['outcomeOfEvent'];
+                $this->outcomeOfEvent = @$result['outcomeOfEvent'];
+                echo $this->idOfEvent;
             } else {
                 throw new Exception ('Oups, there is no such Event. Please verify with the Administrator.');
             }
@@ -152,13 +157,13 @@ class Event {
     private function _saveEvent(){
             $stmt = $this->pdo->prepare("INSERT INTO events (idClient,
                                                       idContact,
-                                                       dateEvent,
-                                                       timeEvent,
-                                                       typeEvent,
-                                                       statusEvent,
-                                                       descriptionEvent,
-                                                       topicEvent,
-                                                       outcomeEvent) VALUES (
+                                                       dateOfEvent,
+                                                       timeOfEvent,
+                                                       typeOfEvent,
+                                                       statusOfEvent,
+                                                       descriptionOfEvent,
+                                                       topicOfEvent,
+                                                       outcomeOfEvent) VALUES (
                                                                       :idClient,
                                                                       :idContact,
                                                                       :dateOfEvent,
@@ -183,7 +188,6 @@ class Event {
                     ':outcomeOfEvent' => $this->outcomeOfEvent
                 )
             );
-
             $this->idOfEvent = $this->pdo->lastInsertId();
 
             return ($status) ? self::SEND_TO_DB_OK : self::SEND_TO_DB_FAIL;
@@ -194,13 +198,13 @@ class Event {
     private function _editEvent(){
         $stmt = $this->pdo->prepare("UPDATE events SET idClient=:idClient,
                                                           idContact=:idContact,
-                                                          dateEvent=:dateOfEvent,
-                                                          timeEvent=:timeOfEvent,
-                                                          typeEvent=:typeOfEvent,
-                                                          statusEvent=:statusOfEvent,
-                                                          descriptionEvent=:descriptionOfEvent,
-                                                          topicEvent=:topicOfEvent,
-                                                          outcomeEvent=:outcomeOfEvent WHERE idEvent=:idOfEvent");
+                                                          dateOfEvent=:dateOfEvent,
+                                                          timeOfEvent=:timeOfEvent,
+                                                          typeOfEvent=:typeOfEvent,
+                                                          statusOfEvent=:statusOfEvent,
+                                                          descriptionOfEvent=:descriptionOfEvent,
+                                                          topicOfEvent=:topicOfEvent,
+                                                          outcomeOfEvent=:outcomeOfEvent WHERE idOfEvent=:idOfEvent");
 
         $status = $stmt->execute(array(
                 ':idClient' => $this->idClient,
@@ -212,7 +216,7 @@ class Event {
                 ':descriptionOfEvent' => $this->descriptionOfEvent,
                 ':topicOfEvent' => $this->topicOfEvent,
                 ':outcomeOfEvent' => $this->outcomeOfEvent,
-                ':idEvent' => $this->idOfEvent
+                ':idOfEvent' => $this->idOfEvent
             )
         );
 
@@ -220,7 +224,7 @@ class Event {
     }
 
     public function sendToDB(){
-        return ($this->idOfEvent) ? $this->_editEvent() : $this->_saveEvent();
+        return (!$this->idOfEvent) ? $this->_saveEvent() : $this->_editEvent();
     }
 
     public static function displayFromEvents($selection){
@@ -244,7 +248,7 @@ class Event {
     }
 
     public function deleteEvent() {
-        $stmt = $this->pdo->prepare("DELETE FROM events WHERE idEvent=:idOfEvent");
+        $stmt = $this->pdo->prepare("DELETE FROM events WHERE idOfEvent=:idOfEvent");
         $status = $stmt->execute(
             array(
                 ':idOfEvent' => $this->idOfEvent,

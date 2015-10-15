@@ -1,12 +1,45 @@
 <?php
 require_once 'Event.class.php';
 
+// Function triggered when 'Edit' button at the list of Events is clicked
+
+if (@$_GET['edit'] && (int)$_GET['edit']) {
+    $edit = $_GET['edit'];
+    print_r($_GET);
+
+    try {
+        $event = new Event($edit);
+    }
+    catch (Exception $e) {
+        echo 'Oups, there is no such Event ! Please verify with the Administrator.';
+    }
+}
+
+// Function triggered when 'Delete' button at the list of Events is clicked
+
+if (@$_GET['delete'] && (int)$_GET['delete']) {
+    $delete = (int)$_GET['delete'];
+
+    try {
+        $event = new Event($delete);
+        $status = $event->deleteEvent();
+        if ($status)
+            $success = 'Event deleted';
+        else
+            $error['general'] = 'An error occurred, please try again later or contact your Admin.';
+    }
+    catch (Exception $e) {
+        die('Oups, there is no such Event ! Please verify with the Administrator.');
+    }
+}
 
 $error = array();
 if (count($_POST)) {
 
 //    1. create new, empty Event
-
+    echo '<br><br><pre>post:';
+    print_r($_POST);
+    echo '<br><br></pre>';
     $event = new Event();
 
 //    2. fill it out with info from the form
@@ -45,7 +78,11 @@ if (count($_POST)) {
         $error['descriptionOfEvent'] =
             'Please insert a short description of this Event (up to 250 characters)';
 
-    $event->outcomeOfEvent = $_POST['outcomeOfEvent'];
+    $event->outcomeOfEvent = @$_POST['outcomeOfEvent'];
+
+    echo '<br><br><pre>Event from DB';
+    print_r($event);
+    echo '<br><br></pre>';
 
 // 3. insert the data to DB
 
@@ -53,54 +90,28 @@ if (count($_POST)) {
         $event->sendToDB();
         echo "<br/><br/><br/><br/><br/><br/>YUPI<br/><br/><br/><br/><br/>";
         echo $event->idOfEvent;
+        echo '<br><br><pre>Event from DB';
+        print_r($event);
+        echo '<br><br></pre>';
     }
 }
-
-// Function triggered when 'Edit' button at the list of Events is clicked
-
-if (@$_GET['edit'] && (int)$_GET['edit']) {
-    $edit = $_GET['edit'];
-
-    try {
-        $event = new Event($edit);
-    }
-    catch (Exception $e) {
-        echo 'Oups, there is no such Event ! Please verify with the Administrator.';
-    }
-}
-
-// Function triggered when 'Delete' button at the list of Events is clicked
-
-if (@$_GET['delete'] && (int)$_GET['delete']) {
-    $delete = (int)$_GET['delete'];
-
-    try {
-        $event = new Event($delete);
-        $status = $event->deleteEvent();
-        if ($status)
-            $success = 'Event deleted';
-        else
-            $error['general'] = 'An error occurred, please try again later or contact your Admin.';
-    }
-    catch (Exception $e) {
-        die('Oups, there is no such Event ! Please verify with the Administrator.');
-    }
-}
-
-
 ?>
 
 ADD NEW EVENT:
 
 <form action="?" method="post">
-    <input type="hidden" name="idOfEvent" value="<?php @$event->idOfEvent ?>"/>
+    <input type="hidden" name="idOfEvent" value="<?= @$event->idOfEvent ?>"/>
     Client:
     <select name="idClient">
         <?php
         $listOfClients = Event::displayFromEvents('Client');
         foreach ($listOfClients as $item) {
 
-        echo "<option value='".$item['idClient']."'>".$item['nameClient']."</option>";
+        echo "<option value='" .
+            $item['idClient'].
+            "' " . ($event->idClient == $item['idClient'] ? 'selected' : '') . ">" .
+            $item['nameClient'] .
+            "</option>";
         }
 ?>
 
@@ -177,15 +188,15 @@ ADD NEW EVENT:
     foreach ($allEvents as $item) {
         echo '<tr>';
         echo '<td>'.$item['idClient'].'</td>';
-        echo '<td>'.$item['dateEvent'].'</td>';
-        echo '<td>'.$item['timeEvent'].'</td>';
-        echo '<td>'.$item['statusEvent'].'</td>';
-        echo '<td>'.$item['typeEvent'].'</td>';
-        echo '<td>'.$item['topicEvent'].'</td>';
-        echo '<td>'.$item['descriptionEvent'].'</td>';
-        echo '<td>'.$item['outcomeEvent'].'</td>';
-        echo '<td><a href="?edit='.$item['idEvent'].'">Edit</a>
-        <a href="?delete='.$item['idEvent'].'">Delete</a></td>';
+        echo '<td>'.$item['dateOfEvent'].'</td>';
+        echo '<td>'.$item['timeOfEvent'].'</td>';
+        echo '<td>'.$item['statusOfEvent'].'</td>';
+        echo '<td>'.$item['typeOfEvent'].'</td>';
+        echo '<td>'.$item['topicOfEvent'].'</td>';
+        echo '<td>'.$item['descriptionOfEvent'].'</td>';
+        echo '<td>'.$item['outcomeOfEvent'].'</td>';
+        echo '<td><a href="?edit='.$item['idOfEvent'].'">Edit</a>
+        <a href="?delete='.$item['idOfEvent'].'">Delete</a></td>';
     echo '</tr>';
     }
     ?>
