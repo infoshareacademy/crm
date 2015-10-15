@@ -226,12 +226,24 @@ if (count($_POST)) {
     //zapis
     if(count($error) == 0) {
         //echo 'Proba zapisu<br/><br/><br/>';
-        $client->save();
+        $status = $client->save();
+        if($status == Client::SAVE_STATUS_OK) {
+            $success = "Qrde udalo sie";
+        }
+        else {
+            $error['global'] = 'Fatalnie nie da rady zapisac tego Clienta';
+        }
     }
 
 } // end of if(count($_POST))
 
-var_dump($client);
+//var_dump($client);
+
+if (@$success)
+    echo '<div style="color:#22aa22; font-weight:bold;">'.$success.'</div><br/>';
+
+if (@$error['general'])
+    echo '<div style="color:#f00; font-weight:bold;">'.$error['general'].'</div><br/>';
 
 ?>
 
