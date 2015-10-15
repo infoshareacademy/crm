@@ -223,21 +223,24 @@ class Event {
         return ($this->idOfEvent) ? $this->_editEvent() : $this->_saveEvent();
     }
 
-    public static function displayFromEvents($selection=null){
+    public static function displayFromEvents($selection){
         $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
         switch ($selection) {
             case 'Client':
-                $stmt = $pdo->prepare('SELECT * FROM clients');
+                $stmt = $pdo->query('SELECT * FROM clients');
                 break;
             case 'Contact':
-                $stmt = $pdo->prepare('SELECT * FROM contacts');
+                $stmt = $pdo->query('SELECT * FROM contacts');
+                break;
+            case 'list':
+                $stmt = $pdo->query('SELECT * FROM events');
                 break;
             default:
-                $stmt = $pdo->prepare('SELECT * FROM events');
+                echo 'Something went wrong!';
                 break;
         }
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function deleteEvent() {

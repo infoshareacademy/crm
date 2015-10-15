@@ -52,6 +52,7 @@ if (count($_POST)) {
     if (!count($error)){
         $event->sendToDB();
         echo "<br/><br/><br/><br/><br/><br/>YUPI<br/><br/><br/><br/><br/>";
+        echo $event->idOfEvent;
     }
 }
 
@@ -64,7 +65,7 @@ if (@$_GET['edit'] && (int)$_GET['edit']) {
         $event = new Event($edit);
     }
     catch (Exception $e) {
-        die('Oups, there is no such Event ! Please verify with the Administrator.');
+        echo 'Oups, there is no such Event ! Please verify with the Administrator.';
     }
 }
 
@@ -99,17 +100,11 @@ ADD NEW EVENT:
         $listOfClients = Event::displayFromEvents('Client');
         foreach ($listOfClients as $item) {
 
-        echo "<option value='".$item['idClient']."(@$event->idClient=='1') ? echo 'selected': ''; ">".$item['nameClient']"'</option>"
+        echo "<option value='".$item['idClient']."'>".$item['nameClient']."</option>";
         }
+?>
 
-<!--        <option value="2" --><?php //if (@$event->idClient=='2') echo 'selected'; ?><!-->Firma Bardzo Wazna i Fajna</option>-->
-<!--        <option value="3" --><?php //if (@$event->idClient=='3') echo 'selected'; ?><!-->Spolka jakas bardzo tajna z o.o.</option>-->
-<!--        <option value="4" --><?php //if (@$event->idClient=='4') echo 'selected'; ?><!-->Dell Inc.</option>-->
-<!--        <option value="5" --><?php //if (@$event->idClient=='5') echo 'selected'; ?><!-->Default</option>-->
-<!--        <option value="6" --><?php //if (@$event->idClient=='6') echo 'selected'; ?><!-->Olivia Business Center</option>-->
-<!--        <option value="7" --><?php //if (@$event->idClient=='7') echo 'selected'; ?><!-->Szama mniam mniam</option>-->
-<!--        <option value="8" --><?php //if (@$event->idClient=='8') echo 'selected'; ?><!-->Video Inc.</option>-->
-    </select>
+   </select>
     <div style="color: #23527c"><?php echo @$error['idClient'] ?></div>
     <br/><br/>
     *Contact:
@@ -176,7 +171,9 @@ ADD NEW EVENT:
         <th>Outcome</th>
     </tr>
     <?php
-    $allEvents = Event::displayFromEvents();
+    $list = "list";
+    $allEvents = array();
+    $allEvents = Event::displayFromEvents($list);
     foreach ($allEvents as $item) {
         echo '<tr>';
         echo '<td>'.$item['idClient'].'</td>';
@@ -187,8 +184,8 @@ ADD NEW EVENT:
         echo '<td>'.$item['topicEvent'].'</td>';
         echo '<td>'.$item['descriptionEvent'].'</td>';
         echo '<td>'.$item['outcomeEvent'].'</td>';
-        echo '<td><a href="?edit='.$item['id'].'">Edit</a>
-        <a href="?delete='.$item['id'].'">Delete</a></td>';
+        echo '<td><a href="?edit='.$item['idEvent'].'">Edit</a>
+        <a href="?delete='.$item['idEvent'].'">Delete</a></td>';
     echo '</tr>';
     }
     ?>
