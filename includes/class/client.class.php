@@ -28,8 +28,14 @@ class Client {
 //        }
 //    }
 
+    public function __construct() {
+        // tymczasowo dopisywanie aktualnego timestampa do obiektu
+        $teraz = new DateTime();
+        $this->date = $teraz->getTimestamp();
+    }
+
     public function __set($parm_name, $parm_value) {
-        return $this->$parm_name = $parm_value;
+        $this->$parm_name = $parm_value;
     }
 
     public function __get($parm_name) {
@@ -49,12 +55,12 @@ if (count($_POST)) {
         $client->name = @$_POST['name'];
 
     if(!@$_POST['idTax'])
-        $client->idTax = '';
+        $client->idTax = null;
     else
         $client->idTax = @$_POST['idTax'];
 
     if(!@$_POST['address'])
-        $client->address = '';
+        $client->address = null;
     else
         $client->address = @$_POST['address'];
 
@@ -73,7 +79,7 @@ if (count($_POST)) {
     }
 
     if(!@$_POST['fax'])
-        $client->fax = '';
+        $client->fax = null;
     else {
         //walidacja prosta przeniesci pozniej do creatora
         $client->fax = @$_POST['fax'];
@@ -82,7 +88,7 @@ if (count($_POST)) {
     }
 
     if(!@$_POST['www'])
-        $client->www = '';
+        $client->www = null;
     else
         $client->www = @$_POST['www'];
 
@@ -95,12 +101,12 @@ if (count($_POST)) {
     }
 
     if(!@$_POST['note'])
-        $client->note = '';
+        $client->note = null;
     else
         $client->note = @$_POST['note'];
+} // end of if(count($_POST))
 
-
-}
+var_dump($client);
 
 ?>
 
