@@ -95,14 +95,20 @@ ADD NEW EVENT:
     <input type="hidden" name="idOfEvent" value="<?php @$event->idOfEvent ?>"/>
     Client:
     <select name="idClient">
-        <option value="1" <?php if (@$event->idClient=='1') echo 'selected'; ?>>Coca-Cola</option>
-        <option value="2" <?php if (@$event->idClient=='2') echo 'selected'; ?>>Firma Bardzo Wazna i Fajna</option>
-        <option value="3" <?php if (@$event->idClient=='3') echo 'selected'; ?>>Spolka jakas bardzo tajna z o.o.</option>
-        <option value="4" <?php if (@$event->idClient=='4') echo 'selected'; ?>>Dell Inc.</option>
-        <option value="5" <?php if (@$event->idClient=='5') echo 'selected'; ?>>Default</option>
-        <option value="6" <?php if (@$event->idClient=='6') echo 'selected'; ?>>Olivia Business Center</option>
-        <option value="7" <?php if (@$event->idClient=='7') echo 'selected'; ?>>Szama mniam mniam</option>
-        <option value="8" <?php if (@$event->idClient=='8') echo 'selected'; ?>>Video Inc.</option>
+        <?php
+        $listOfClients = Event::displayFromEvents('Client');
+        foreach ($listOfClients as $item) {
+
+        echo "<option value='".$item['idClient']."(@$event->idClient=='1') ? echo 'selected': ''; ">".$item['nameClient']"'</option>"
+        }
+
+<!--        <option value="2" --><?php //if (@$event->idClient=='2') echo 'selected'; ?><!-->Firma Bardzo Wazna i Fajna</option>-->
+<!--        <option value="3" --><?php //if (@$event->idClient=='3') echo 'selected'; ?><!-->Spolka jakas bardzo tajna z o.o.</option>-->
+<!--        <option value="4" --><?php //if (@$event->idClient=='4') echo 'selected'; ?><!-->Dell Inc.</option>-->
+<!--        <option value="5" --><?php //if (@$event->idClient=='5') echo 'selected'; ?><!-->Default</option>-->
+<!--        <option value="6" --><?php //if (@$event->idClient=='6') echo 'selected'; ?><!-->Olivia Business Center</option>-->
+<!--        <option value="7" --><?php //if (@$event->idClient=='7') echo 'selected'; ?><!-->Szama mniam mniam</option>-->
+<!--        <option value="8" --><?php //if (@$event->idClient=='8') echo 'selected'; ?><!-->Video Inc.</option>-->
     </select>
     <div style="color: #23527c"><?php echo @$error['idClient'] ?></div>
     <br/><br/>
@@ -170,7 +176,7 @@ ADD NEW EVENT:
         <th>Outcome</th>
     </tr>
     <?php
-    $allEvents = Event::displayEvents();
+    $allEvents = Event::displayFromEvents();
     foreach ($allEvents as $item) {
         echo '<tr>';
         echo '<td>'.$item['idClient'].'</td>';
