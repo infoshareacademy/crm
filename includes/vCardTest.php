@@ -106,16 +106,16 @@ END:VCARD');
     public function testIfVCardNew() {
         $vcard = new VCard();
         $vCardData = $vcard->extract('BEGIN:VCARD
- VERSION:3.0
- N:Doe;John;Q.,Public
- FN:John Doe
- TEL;TYPE=WORK,VOICE:(111) 555-1212
- TEL;TYPE=HOME,VOICE:(404) 555-1212
- TEL;TYPE=HOME,TYPE=VOICE:(404) 555-1213
- EMAIL;TYPE=PREF,INTERNET:forrestgump@example.com
- EMAIL;TYPE=INTERNET:example@example.com
- PHOTO;VALUE=URL;TYPE=PNG:http://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Example_svg.svg/200px-Example_svg.svg.png
- END:VCARD');
+VERSION:3.0
+N:Doe;John;Q.;Public
+FN:John Doe
+TEL;TYPE=WORK,VOICE:(111) 555-1212
+TEL;TYPE=HOME,VOICE:(404) 555-1212
+TEL;TYPE=HOME,TYPE=VOICE:(404) 555-1213
+EMAIL;TYPE=PREF,INTERNET:forrestgump@example.com
+EMAIL;TYPE=INTERNET:example@example.com
+PHOTO;VALUE=URL;TYPE=PNG:http://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Example_svg.svg/200px-Example_svg.svg.png
+END:VCARD');
         $this->assertEquals('3.0', $vCardData['version'] );
         $this->assertEquals('forrestgump@example.com', $vCardData['email'] );
         $this->assertEquals('John', $vCardData['name']);

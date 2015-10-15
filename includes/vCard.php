@@ -14,17 +14,25 @@ class VCard {
     public $vCardData = [];
 
     protected $regexPatterns = array(
-            'version' => '/\bEMAIL\b.+\n/i',
-            'email' => '/\bEMAIL\b.+\n/i',
-            'name' => '/\bN\b:.+\n/i',
-            'surname' => '/\bN\b:.+\n/i',
-            'position' => '/\bTITLE\b.+\n/i',
-            'phone' => '/\bTEL\b.*work.*\d*\n/i',
+            'version' => '/^VERSION.*:(.*)\n/mi',
+            'email' => '/^EMAIL.*:(.*)$/mi',
+            'name' => array(
+                    '2.1' => '/^N.*:.*;(.*)$/mi',
+                    '3.0' => '/^N.*:.*;(.*);.*;.*$/mi',
+                    '4.0' => '/^N.*:.*;(.*);.*;.*;.*$/mi',
+                ),
+            'surname' => array(
+                    '2.1' => '/^N.*:(.*);.*$/mi',
+                    '3.0' => '/^N.*:(.*);.*;.*;.*$/mi',
+                    '4.0' => '/^N.*:(.*);.*;.*;.*;.*$/mi',
+                ),
+            'position' => '/^TITLE.*:(.*)\n/mi',
+            'phone' => '/^TEL.*work.*:(.*)\n/mi',
             'city' => array(
-                    '21' => '/^ADR.*work.*:.*;(.*);.*;.*;.*\n/mi',
-                    '30' => '/^ADR.*type=work.*:.*;(.*);.*;.*;.*\n/mi',
-                    '40' => '/^ADR.*type=work.*[\n]*.*:.*;(.*);.*;.*;.*\n/mi',
-                    ),
+                    '2.1' => '/^ADR.*work.*:.*;(.*);.*;.*;.*\n/mi',
+                    '3.0' => '/^ADR.*type=work.*:.*;(.*);.*;.*;.*\n/mi',
+                    '4.0' => '/^ADR.*type=work.*[\n]*.*:.*;(.*);.*;.*;.*\n/mi',
+                ),
             );
 
     protected $version = '';
@@ -35,56 +43,19 @@ class VCard {
     protected $emailContact = '';
     protected $cityContact = '';
 
-    public function extract($param_vcard)
-    {
+    public function extract($param_vcard){
         $this->vcarddata = $param_vcard;
+
         $this->vCardData['version'] = $this->checkIfVCard();
         if (!$this->vCardData['version'])
-            return false;
+            return 'Nieprawidlowy vCard <br>' . $param_vcard;
 
-        if (preg_match('/\bEMAIL\b.+\n/i', $this->vcarddata, $this->emailContact))
-            $this->vCardData['email'] = trim(substr($this->emailContact[0], strpos($this->emailContact[0], ':') + 1));
-        else
-            $this->vCardData['email'] = '';
-
-        if (preg_match('/\bN\b:.+\n/i', $this->vcarddata, $this->nameContact)) {
-            $this->nameContact = trim(substr($this->nameContact[0], strpos($this->nameContact[0], ':') + 1));
-            $this->nameContact = explode(';', $this->nameContact);
-            $this->vCardData['name'] = $this->nameContact[1];
-            $this->vCardData['surname'] = $this->nameContact[0];
-        } else {
-            $this->vCardData['name'] = '';
-            $this->vCardData['surname'] = '';
-        }
-
-        if (preg_match('/\bTITLE\b.+\n/i', $this->vcarddata, $this->positionContact))
-            $this->vCardData['position'] = trim(substr($this->positionContact[0], strpos($this->positionContact[0], ':') + 1));
-        else
-            $this->vCardData['position']='';
-
-
-        if (preg_match('/\bTEL\b.*work.*\d*\n/i', $this->vcarddata, $this->phoneContact))
-            $this->vCardData['phone'] = trim(substr($this->phoneContact[0], strrpos($this->phoneContact[0], ':') + 1));
-        else
-            $this->vCardData['phone'] = '';
-
-        if($this->vCardData['version'] == '2.1') {
-            if (preg_match('/^ADR.*work.*:.*;(.*);.*;.*;.*\n/mi', $this->vcarddata, $this->cityContact))
-                $this->vCardData['city'] = $this->cityContact[1];
-            else
-                $this->vCardData['city'] = '';
-        } else if($this->vCardData['version'] == '4.0') {
-            if (preg_match('/^ADR.*type=work.*[\n]*.*:.*;(.*);.*;.*;.*\n/mi', $this->vcarddata, $this->cityContact))
-                $this->vCardData['city'] = $this->cityContact[1];
-            else
-                $this->vCardData['city'] = '';
-        } else {
-            if (preg_match_all('/^ADR.*type=work.*:.*;(.*);.*;.*;.*\n/mi', $this->vcarddata, $this->cityContact))
-                $this->vCardData['city'] = $this->cityContact[1][0];
-            else
-                $this->vCardData['city'] = '';
-        }
-
+            $this->vCardData['email'] = $this->separateStringFrom('email');
+            $this->vCardData['name'] = $this->separateStringFrom('name');
+            $this->vCardData['surname'] = $this->separateStringFrom('surname');
+            $this->vCardData['position'] = $this->separateStringFrom('position');
+            $this->vCardData['phone'] = $this->separateStringFrom('phone');
+            $this->vCardData['city'] = $this->separateStringFrom('city');
         return $this->vCardData;
     }
 
@@ -93,7 +64,7 @@ class VCard {
         if ($this->beginString != substr($this->vcarddata, 0, strlen($this->beginString)))
             return false;
 
-        if ($this->endString != substr($this->vcarddata, -strlen($this->endString)))
+        if ($this->endString != substr(trim($this->vcarddata), -strlen($this->endString)))
             return false;
 
         if (preg_match('/\bVERSION:\b\d[.]\d/i', $this->vcarddata, $this->version))
@@ -102,18 +73,72 @@ class VCard {
     }
 
     public function separateStringFrom($param_name) {
+
         switch($param_name){
             case 'name':
+                if ($this->vCardData['version'] == '2.1'
+                    && preg_match_all($this->regexPatterns['name']['2.1'], $this->vcarddata, $metches)) {
+                    return $metches[1][0];
+                } else if ($this->vCardData['version'] == '3.0'
+                    && preg_match_all($this->regexPatterns['name']['3.0'], $this->vcarddata, $metches)) {
+                    return $metches[1][0];
+                } else if ($this->vCardData['version'] == '4.0'
+                    && preg_match_all($this->regexPatterns['name']['4.0'], $this->vcarddata, $metches)) {
+                    return $metches[1][0];
+                } else {
+                    return '';
+                }
                 break;
-            case 'surname:':
+            case 'surname':
+                if ($this->vCardData['version'] == '2.1'
+                    && preg_match_all($this->regexPatterns['surname']['2.1'], $this->vcarddata, $metches)) {
+                    return $metches[1][0];
+                } else if ($this->vCardData['version'] == '3.0'
+                    && preg_match_all($this->regexPatterns['surname']['3.0'], $this->vcarddata, $metches)) {
+                    return $metches[1][0];
+                } else if ($this->vCardData['version'] == '4.0'
+                    && preg_match_all($this->regexPatterns['surname']['4.0'], $this->vcarddata, $metches)) {
+                    return $metches[1][0];
+                } else {
+                    return '';
+                }
+                break;
+            case 'email':
+                    if (preg_match_all($this->regexPatterns['email'], $this->vcarddata, $metches))
+                        return $metches[1][0];
+                    else
+                        return '';
+                break;
+            case 'position':
+                    if (preg_match_all($this->regexPatterns['position'], $this->vcarddata, $metches))
+                        return $metches[1][0];
+                    else
+                        return '';
+                break;
+            case 'phone':
+                    if (preg_match_all($this->regexPatterns['phone'], $this->vcarddata, $metches))
+                        return $metches[1][0];
+                    else
+                        return '';
+                break;
+            case 'city':
+                if ($this->vCardData['version'] == '2.1'
+                    && preg_match_all($this->regexPatterns['city']['2.1'], $this->vcarddata, $metches)) {
+                    return $metches[1][0];
+                } else if ($this->vCardData['version'] == '3.0'
+                    && preg_match_all($this->regexPatterns['city']['3.0'], $this->vcarddata, $metches)) {
+                    return $metches[1][0];
+                } else if ($this->vCardData['version'] == '4.0'
+                    && preg_match_all($this->regexPatterns['city']['4.0'], $this->vcarddata, $metches)) {
+                    return $metches[1][0];
+                } else {
+                    return '';
+                }
                 break;
             default:
-
                 break;
         }
 
-
-        return $this->$param_name;
     }
 
 
