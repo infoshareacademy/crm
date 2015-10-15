@@ -13,6 +13,20 @@ class VCard {
 
     public $vCardData = [];
 
+    protected $regexPatterns = array(
+            'version' => '/\bEMAIL\b.+\n/i',
+            'email' => '/\bEMAIL\b.+\n/i',
+            'name' => '/\bN\b:.+\n/i',
+            'surname' => '/\bN\b:.+\n/i',
+            'position' => '/\bTITLE\b.+\n/i',
+            'phone' => '/\bTEL\b.*work.*\d*\n/i',
+            'city' => array(
+                    '21' => '/^ADR.*work.*:.*;(.*);.*;.*;.*\n/mi',
+                    '30' => '/^ADR.*type=work.*:.*;(.*);.*;.*;.*\n/mi',
+                    '40' => '/^ADR.*type=work.*[\n]*.*:.*;(.*);.*;.*;.*\n/mi',
+                    ),
+            );
+
     protected $version = '';
     protected $surnameContact = '';
     protected $nameContact = '';
@@ -74,6 +88,7 @@ class VCard {
         return $this->vCardData;
     }
 
+
     private function checkIfVCard(){
         if ($this->beginString != substr($this->vcarddata, 0, strlen($this->beginString)))
             return false;
@@ -84,6 +99,21 @@ class VCard {
         if (preg_match('/\bVERSION:\b\d[.]\d/i', $this->vcarddata, $this->version))
             return substr($this->version[0], -3);
         else return false;
+    }
+
+    public function separateStringFrom($param_name) {
+        switch($param_name){
+            case 'name':
+                break;
+            case 'surname:':
+                break;
+            default:
+
+                break;
+        }
+
+
+        return $this->$param_name;
     }
 
 
