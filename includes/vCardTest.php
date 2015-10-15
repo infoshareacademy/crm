@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/vCard.php';
+require_once __DIR__ . '\vCard.php';
 
 /**
  * Created by PhpStorm.
@@ -36,13 +36,13 @@ LABEL;HOME;ENCODING=QUOTED-PRINTABLE:42 Plantation St.=0D=0ABaytown, LA 30314=0D
 EMAIL;PREF;INTERNET:forrestgump@example.com
 REV:20080424T195243Z
 END:VCARD');
-        $this->assertEquals($vCardData['version'],  '2.1');
-        $this->assertEquals($vCardData['email'],    'forrestgump@example.com');
-        $this->assertEquals($vCardData['name'],     'Forrest');
-        $this->assertEquals($vCardData['surname'],  'Gump');
-        $this->assertEquals($vCardData['position'], 'Shrimp Man');
-        $this->assertEquals('(111) 555-1212',        $vCardData['phone']);
-        $this->assertEquals('Baytown',               $vCardData['city']);
+        $this->assertEquals('2.1',                      $vCardData['version']);
+        $this->assertEquals('forrestgump@example.com',  $vCardData['email']);
+        $this->assertEquals('Forrest',                  $vCardData['name']);
+        $this->assertEquals('Gump',                     $vCardData['surname']);
+        $this->assertEquals('Shrimp Man',               $vCardData['position']);
+        $this->assertEquals('(111) 555-1212',           $vCardData['phone']);
+        $this->assertEquals('Baytown',                  $vCardData['city']);
 
     }
 
@@ -101,6 +101,30 @@ END:VCARD');
         $this->assertEquals('+11115551212',        $vCardData['phone']);
         $this->assertEquals('Baytown',               $vCardData['city']);
     }
+
+
+    public function testIfVCardNew() {
+        $vcard = new VCard();
+        $vCardData = $vcard->extract('BEGIN:VCARD
+ VERSION:3.0
+ N:Doe;John;Q.,Public
+ FN:John Doe
+ TEL;TYPE=WORK,VOICE:(111) 555-1212
+ TEL;TYPE=HOME,VOICE:(404) 555-1212
+ TEL;TYPE=HOME,TYPE=VOICE:(404) 555-1213
+ EMAIL;TYPE=PREF,INTERNET:forrestgump@example.com
+ EMAIL;TYPE=INTERNET:example@example.com
+ PHOTO;VALUE=URL;TYPE=PNG:http://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Example_svg.svg/200px-Example_svg.svg.png
+ END:VCARD');
+        $this->assertEquals('3.0', $vCardData['version'] );
+        $this->assertEquals('forrestgump@example.com', $vCardData['email'] );
+        $this->assertEquals('John', $vCardData['name']);
+        $this->assertEquals('Doe', $vCardData['surname']);
+        $this->assertEquals('', $vCardData['position']);
+        $this->assertEquals('(111) 555-1212', $vCardData['phone']);
+        $this->assertEquals('', $vCardData['city']);
+    }
+
 
 
     public function testInvalidVCard() {

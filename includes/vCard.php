@@ -30,28 +30,46 @@ class VCard {
 
         if (preg_match('/\bEMAIL\b.+\n/i', $this->vcarddata, $this->emailContact))
             $this->vCardData['email'] = trim(substr($this->emailContact[0], strpos($this->emailContact[0], ':') + 1));
-        else return false;
+        else
+            $this->vCardData['email'] = '';
 
         if (preg_match('/\bN\b:.+\n/i', $this->vcarddata, $this->nameContact)) {
             $this->nameContact = trim(substr($this->nameContact[0], strpos($this->nameContact[0], ':') + 1));
             $this->nameContact = explode(';', $this->nameContact);
             $this->vCardData['name'] = $this->nameContact[1];
             $this->vCardData['surname'] = $this->nameContact[0];
-        } else return false;
+        } else {
+            $this->vCardData['name'] = '';
+            $this->vCardData['surname'] = '';
+        }
 
         if (preg_match('/\bTITLE\b.+\n/i', $this->vcarddata, $this->positionContact))
             $this->vCardData['position'] = trim(substr($this->positionContact[0], strpos($this->positionContact[0], ':') + 1));
-        else return false;
+        else
+            $this->vCardData['position']='';
 
 
         if (preg_match('/\bTEL\b.*work.*\d*\n/i', $this->vcarddata, $this->phoneContact))
             $this->vCardData['phone'] = trim(substr($this->phoneContact[0], strrpos($this->phoneContact[0], ':') + 1));
-        else return false;
+        else
+            $this->vCardData['phone'] = '';
 
-        if (preg_match('/\bADR\b.*work.*\n.*/i', $this->vcarddata, $this->cityContact)){
-                $this->cityContact = explode(';', trim(substr($this->cityContact[0], strrpos($this->cityContact[0], ':') + 1)));
-                $this->vCardData['city'] = $this->cityContact[3];
-        } else return false;
+        if($this->vCardData['version'] == '2.1') {
+            if (preg_match('/^ADR.*work.*:.*;(.*);.*;.*;.*\n/mi', $this->vcarddata, $this->cityContact))
+                $this->vCardData['city'] = $this->cityContact[1];
+            else
+                $this->vCardData['city'] = '';
+        } else if($this->vCardData['version'] == '4.0') {
+            if (preg_match('/^ADR.*type=work.*[\n]*.*:.*;(.*);.*;.*;.*\n/mi', $this->vcarddata, $this->cityContact))
+                $this->vCardData['city'] = $this->cityContact[1];
+            else
+                $this->vCardData['city'] = '';
+        } else {
+            if (preg_match_all('/^ADR.*type=work.*:.*;(.*);.*;.*;.*\n/mi', $this->vcarddata, $this->cityContact))
+                $this->vCardData['city'] = $this->cityContact[1][0];
+            else
+                $this->vCardData['city'] = '';
+        }
 
         return $this->vCardData;
     }
