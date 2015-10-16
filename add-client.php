@@ -11,6 +11,7 @@
                 <h1> </h1>
 
                 <?php
+                var_dump(@$client);
                     if (@$success)
                     echo '<div style="color:#22aa22; font-weight:bold;">'.$success.'</div><br/>';
 
@@ -19,7 +20,7 @@
                 ?>
 
                 <form action="?" method="post">
-                    Client name: <input name="name" value='<?php echo @$_POST["name"]?> '><br/><div style="color:#f00;"><?php echo @$error['name']?></div>
+                    Client name: <input name="name" value='<?php echo @$_POST["name"]?>'><br/><div style="color:#f00;"><?php echo @$error['name']?></div>
                     Tax Id: <input name="idTax" value="<?php echo @$_POST['idTax']?>" /><br/><div style="color:#f00;"><?php echo @$error['idTax']?></div>
                     Street: <input name="street" value="<?php echo @$_POST['street']?>" /> No: <input name="streetNumber" size="6" value="<?php echo @$_POST['streetNumber']?>" />Post Code: <input name="postCode" size="10" value="<?php echo @$_POST['postCode']?>" /><br/><div style="color:#f00;"><?php echo @$error['address']?></div>
                     City: <input name="city" value="<?php echo @$_POST['city']?>" /><br/><div style="color:#f00;"><?php echo @$error['city']?></div>
