@@ -21,6 +21,7 @@ class Contact
     protected $creationDateContact;
     protected $id;
 
+
     public function __construct($surnameContact, $nameContact, $positionContact, $phoneContact, $emailContact, $cityContact, $linkedinContact, $noteContact)
     {
         $this->surnameContact = $surnameContact;
