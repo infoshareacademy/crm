@@ -237,7 +237,7 @@ class Event {
                 $stmt = $pdo->query('SELECT * FROM contacts');
                 break;
             case 'list':
-                $stmt = $pdo->query('SELECT * FROM events');
+                $stmt = $pdo->query('SELECT e.*, c.nameClient FROM events e INNER JOIN clients c ON e.idClient=c.idClient ORDER BY dateOfEvent;');
                 break;
             default:
                 echo 'Something went wrong!';

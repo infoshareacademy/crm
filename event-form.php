@@ -198,7 +198,7 @@ ADD NEW EVENT:
     $allEvents = Event::displayFromEvents('list');
     foreach ($allEvents as $item) {
         echo '<tr>';
-        echo '<td>'.$item['idClient'].'</td>';
+        echo '<td>'.$item['nameClient'].'</td>';
         echo '<td>'.$item['dateOfEvent'].'</td>';
         echo '<td>'.$item['timeOfEvent'].'</td>';
         echo '<td>'.$item['statusOfEvent'].'</td>';
