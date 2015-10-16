@@ -103,6 +103,7 @@ ADD NEW EVENT:
     <input type="hidden" name="idOfEvent" value="<?= @$event->idOfEvent ?>"/>
     Client:
     <select name="idClient">
+
         <?php
         $listOfClients = Event::displayFromEvents('Client');
         foreach ($listOfClients as $item) {
@@ -113,18 +114,30 @@ ADD NEW EVENT:
             $item['nameClient'] .
             "</option>";
         }
-?>
+        ?>
 
    </select>
     <div style="color: #23527c"><?php echo @$error['idClient'] ?></div>
     <br/><br/>
+
     *Contact:
     <select name="idContact">
-        <option value="1" <?php if (@$event->idContact=='1') echo 'selected'; ?>>Anna Nowak</option>
-        <option value="2" <?php if (@$event->idContact=='2') echo 'selected'; ?>>Bob Smith</option>
-        <option value="3" <?php if (@$event->idContact=='3') echo 'selected'; ?>>Adam Cnoweel</option>
-        <option value="4" <?php if (@$event->idContact=='4') echo 'selected'; ?>>Wojtek Kowalski</option>
-    </select><br/><br/>
+
+        <?php
+        $listOfContacts = Event::displayFromEvents('Contact');
+        foreach ($listOfContacts as $item) {
+
+            echo "<option value='" .
+                $item['idContact'].
+                "' " . ($event->idContact == $item['idContact'] ? 'selected' : '') . ">" .
+                $item['nameContact'] ." " . $item['surnameContact'] .
+                "</option>";
+        }
+        ?>
+
+    </select>
+
+    <br/><br/>
 
     Topic:
     <textarea name="topicOfEvent"><?php echo @$event->topicOfEvent ?></textarea>
@@ -182,9 +195,7 @@ ADD NEW EVENT:
         <th>Outcome</th>
     </tr>
     <?php
-    $list = "list";
-    $allEvents = array();
-    $allEvents = Event::displayFromEvents($list);
+    $allEvents = Event::displayFromEvents('list');
     foreach ($allEvents as $item) {
         echo '<tr>';
         echo '<td>'.$item['idClient'].'</td>';
