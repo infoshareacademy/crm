@@ -11,4 +11,10 @@ $username = "infoshareaca_5";
 $pass = "F0r3v3r!";
 
 //nawiazanie polaczenia
-$dbh = new PDO ("mysql:host=$hostname;port=3307;dbname=$db;charset=utf8",$username,$pass);
+try {
+    $dbh = new PDO ("mysql:host=$hostname;port=3307;dbname=$db;charset=utf8",$username,$pass);
+}
+catch (Exception $e) {
+    echo 'Error database connection no. '.$e->getCode();
+}
+

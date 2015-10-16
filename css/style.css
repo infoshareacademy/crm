@@ -191,6 +191,7 @@ figure.banner {
     box-shadow: 0 0 1px #bbb;
     border-bottom: solid 2px #fff;
     background-color:#bbb;
+    background: url(../images/bann.jpg);
     height:120px;
 
 }
@@ -247,6 +248,7 @@ aside #daneout {
 }
 .login-form h2 {
     font-size: 3em;
+    line-height: 1;
     color: #6495ED;
 }
 .login-form input {
@@ -258,9 +260,14 @@ aside #daneout {
     margin: 10px 10px 0 0;
 }
 
+/* T A B L E S   S T Y L I N G */
+.table-hover>tbody>tr:hover {
+    background-color: #FFFFFF;
+}
 
 
 
+/* D E S K T O P */
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
