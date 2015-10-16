@@ -259,9 +259,14 @@ aside #daneout {
     margin: 10px 10px 0 0;
 }
 
+/* T A B L E S   S T Y L I N G */
+.table-hover>tbody>tr:hover {
+    background-color: #FFFFFF;
+}
 
 
 
+/* D E S K T O P */
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
