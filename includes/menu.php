@@ -20,6 +20,13 @@
                 <i class="fa fa-plus fa-fw"></i>Add client
             </a>
         </li>
+        <li>
+            <a href="contacts-disp.php" aria-controls="add-client">
+                <i class="fa fa-user fa-fw"></i>Contacts
+            </a>
+        </li>
+
+
         <li class="sidebar-title">Events</li>
         <li>
             <a href="events-list.php" aria-controls="events-list">
