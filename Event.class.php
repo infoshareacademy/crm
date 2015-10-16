@@ -23,6 +23,11 @@ class Event {
     const EVENT_COMPLETED = 03;
     const EVENT_CANCELLED = 04;
 
+    const EVENT_TYPE_CALL = 01;
+    const EVENT_TYPE_EMAIL = 02;
+    const EVENT_TYPE_VIDEO = 03;
+    const EVENT_TYPE_MEETING = 04;
+
     const OUTCOME_SUCCESS = 01;
     const OUTCOME_FAILURE = 02;
     const OUTCOME_FOLLOWUP = 03;

@@ -1,6 +1,36 @@
 <?php
 require_once 'Event.class.php';
 
+function displayStatusOfEvent($statusOfEvent){
+    switch ($statusOfEvent){
+        case Event::EVENT_ARRANGED:
+            return "Arranged";
+        case Event::EVENT_CONFIRMED:
+            return "Confirmed";
+        case Event::EVENT_COMPLETED:
+            return "Completed";
+        case Event::EVENT_CANCELLED:
+            return "Cancelled";
+        default:
+            return "--missing status--";
+    }
+}
+
+function displayTypeOfEvent($typeOfEvent){
+    switch ($typeOfEvent){
+        case Event::EVENT_TYPE_CALL:
+            return "Call";
+        case Event::EVENT_TYPE_EMAIL:
+            return "Email";
+        case Event::EVENT_TYPE_MEETING:
+            return "Meeting";
+        case Event::EVENT_TYPE_VIDEO:
+            return "Video conference";
+        default:
+            return "--missing type--";
+    }
+}
+
 // Function triggered when 'Edit' button at the list of Events is clicked
 
 if (@$_GET['edit'] && (int)$_GET['edit']) {
@@ -158,20 +188,20 @@ ADD NEW EVENT:
     <br/><br/>
     Status:
     <select name="statusOfEvent">
-        <option value="01" <?php if (@$event->statusOfEvent=='01') echo 'selected'; ?>>Arranged</option>
-        <option value="02" <?php if (@$event->statusOfEvent=='02') echo 'selected'; ?>>Confirmed</option>
-        <option value="03" <?php if (@$event->statusOfEvent=='03') echo 'selected'; ?>>Completed</option>
-        <option value="04" <?php if (@$event->statusOfEvent=='04') echo 'selected'; ?>>Cancelled</option>
+        <option value="01" <?php if (@$event->statusOfEvent==Event::EVENT_ARRANGED) echo 'selected'; ?>>Arranged</option>
+        <option value="02" <?php if (@$event->statusOfEvent==Event::EVENT_CONFIRMED) echo 'selected'; ?>>Confirmed</option>
+        <option value="03" <?php if (@$event->statusOfEvent==Event::EVENT_COMPLETED) echo 'selected'; ?>>Completed</option>
+        <option value="04" <?php if (@$event->statusOfEvent==Event::EVENT_CANCELLED) echo 'selected'; ?>>Cancelled</option>
     </select>
     <div style="color: #23527c"><?php echo @$error['statusOfEvent'] ?></div>
     <br/><br/>
 
     Type of event:
     <select name="typeOfEvent">
-        <option value="01" <?php if (@$event->typeOfEvent=='01') echo 'selected'; ?>>Call</option>
-        <option value="02" <?php if (@$event->typeOfEvent=='02') echo 'selected'; ?>>Email</option>
-        <option value="03" <?php if (@$event->typeOfEvent=='03') echo 'selected'; ?>>Video conference</option>
-        <option value="04" <?php if (@$event->typeOfEvent=='04') echo 'selected'; ?>>Meeting</option>
+        <option value="01" <?php if (@$event->typeOfEvent==Event::EVENT_TYPE_CALL) echo 'selected'; ?>>Call</option>
+        <option value="02" <?php if (@$event->typeOfEvent==Event::EVENT_TYPE_EMAIL) echo 'selected'; ?>>Email</option>
+        <option value="03" <?php if (@$event->typeOfEvent==Event::EVENT_TYPE_VIDEO) echo 'selected'; ?>>Video conference</option>
+        <option value="04" <?php if (@$event->typeOfEvent==Event::EVENT_TYPE_MEETING) echo 'selected'; ?>>Meeting</option>
     </select>
     <div style="color: #23527c"><?php echo @$error['typeOfEvent'] ?></div>
     <br/><br/>
@@ -201,8 +231,8 @@ ADD NEW EVENT:
         echo '<td>'.$item['nameClient'].'</td>';
         echo '<td>'.$item['dateOfEvent'].'</td>';
         echo '<td>'.$item['timeOfEvent'].'</td>';
-        echo '<td>'.$item['statusOfEvent'].'</td>';
-        echo '<td>'.$item['typeOfEvent'].'</td>';
+        echo '<td>'.displayStatusOfEvent($item['statusOfEvent']).'</td>';
+        echo '<td>'.displayTypeOfEvent($item['typeOfEvent']).'</td>';
         echo '<td>'.$item['topicOfEvent'].'</td>';
         echo '<td>'.$item['descriptionOfEvent'].'</td>';
         echo '<td>'.$item['outcomeOfEvent'].'</td>';
