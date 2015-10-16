@@ -26,7 +26,7 @@ function loadDataFromPost()
         $newContact->setId($_POST['id']);
     }
     $error = $newContact->isValid();
-    if(!count($error)) {
+    if (!count($error)) {
         $newContact->persist();
 
     }
@@ -62,25 +62,39 @@ if (isset($_GET['contactid'])) {
 <body>
 
 <?php
-if (count($_POST)){
+if (count($_POST)) {
     $error = $newContact->isValid();
-if(!count($error) && !(@$_GET['contactid'])) {
-    echo '<div style="color:#22aa22; font-weight:bold;">Success - new item in DB!</div><br/>';
+    if (!count($error) && !(@$_GET['contactid'])) {
+        echo '<div style="color:#22aa22; font-weight:bold;">Success - new item in DB!</div><br/>';
 
-    $newContact = Contact::createEmpty();
+        $newContact = Contact::createEmpty();
     }
 }
 ?>
 
 <form action="?" method="post" enctype="multipart/form-data">
 
-    Surname: <input name="surname" value="<?php echo @$newContact->surname() ?>"/><br/><div style="color:#f00;"><?php echo @$error['surname']; ?></div>
-    Name: <input name="name" value="<?php echo @$newContact->name()?>"/><br/><div style="color:#f00;"><?php echo @$error['name']; ?></div>
-    Position: <input name="position" value="<?php echo $newContact->position() ?>"/><br/><div style="color:#f00;"><?php echo @$error['position']; ?></div>
-    Phone: <input name="phone" value="<?php echo @$newContact->phone() ?>"/><br/><div style="color:#f00;"><?php echo @$error['phone']; ?></div>
-    E-mail: <input name="email" value="<?php echo @$newContact->email() ?>"/><br/><div style="color:#f00;"><?php echo @$error['email']; ?></div>
-    City: <input name="city" value="<?php echo @$newContact->city() ?>"/><br/><div style="color:#f00;"><?php echo @$error['city']; ?></div>
-    LinkedIn: <input name="linkedin" value="<?php echo @$newContact->linkedin() ?>"/><br/><div style="color:#f00;"><?php echo @$error['linkedin']; ?></div>
+    Surname: <input name="surname" value="<?php echo @$newContact->surname() ?>"/><br/>
+
+    <div style="color:#f00;"><?php echo @$error['surname']; ?></div>
+    Name: <input name="name" value="<?php echo @$newContact->name() ?>"/><br/>
+
+    <div style="color:#f00;"><?php echo @$error['name']; ?></div>
+    Position: <input name="position" value="<?php echo $newContact->position() ?>"/><br/>
+
+    <div style="color:#f00;"><?php echo @$error['position']; ?></div>
+    Phone: <input name="phone" value="<?php echo @$newContact->phone() ?>"/><br/>
+
+    <div style="color:#f00;"><?php echo @$error['phone']; ?></div>
+    E-mail: <input name="email" value="<?php echo @$newContact->email() ?>"/><br/>
+
+    <div style="color:#f00;"><?php echo @$error['email']; ?></div>
+    City: <input name="city" value="<?php echo @$newContact->city() ?>"/><br/>
+
+    <div style="color:#f00;"><?php echo @$error['city']; ?></div>
+    LinkedIn: <input name="linkedin" value="<?php echo @$newContact->linkedin() ?>"/><br/>
+
+    <div style="color:#f00;"><?php echo @$error['linkedin']; ?></div>
     Note:<textarea name="note"><?php echo @$newContact->note() ?></textarea><br/>
     <input type="hidden" name="id" value="<?php echo @$newContact->id() ?>">
 
@@ -90,7 +104,6 @@ if(!count($error) && !(@$_GET['contactid'])) {
 
 
 <br/>
-
 
 
 <a href="?">CLEAN FORM</a>
