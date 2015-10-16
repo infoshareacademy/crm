@@ -11,7 +11,6 @@
                 <h1> </h1>
 
                 <?php
-                var_dump(@$client);
                     if (@$success)
                     echo '<div style="color:#22aa22; font-weight:bold;">'.$success.'</div><br/>';
 
