@@ -1,6 +1,8 @@
 <?php
 require_once 'Event.class.php';
 
+// status is stored in the DB as a number - this function allows to display it on the list as the full name
+
 function displayStatusOfEvent($statusOfEvent){
     switch ($statusOfEvent){
         case Event::EVENT_ARRANGED:
@@ -16,6 +18,9 @@ function displayStatusOfEvent($statusOfEvent){
     }
 }
 
+// type of Event is stored in the DB as a number - this function allows to display it on the list as the full name
+
+
 function displayTypeOfEvent($typeOfEvent){
     switch ($typeOfEvent){
         case Event::EVENT_TYPE_CALL:
@@ -27,9 +32,11 @@ function displayTypeOfEvent($typeOfEvent){
         case Event::EVENT_TYPE_VIDEO:
             return "Video conference";
         default:
-            return "--missing type--";
+            return "missing type";
     }
 }
+
+// outcome of Event is stored in the DB as a number - this function allows to display it on the list as the full name
 
 function displayOutcomeOfEvent($outcomeOfEvent){
     switch ($outcomeOfEvent){
@@ -40,15 +47,15 @@ function displayOutcomeOfEvent($outcomeOfEvent){
         case Event::OUTCOME_FAILURE:
             return "failure";
         default:
-            return "--missing outcome--";
+            return "missing outcome";
     }
 }
 
-// Function triggered when 'Edit' button at the list of Events is clicked
+// Function triggered when: 1.'Edit' button at the list of Events is clicked 2. ID of Event is sent to $_GET['edit']
+// ID of Event goes to the Creator so it fills the new Object with the info from DB
 
 if (@$_GET['edit'] && (int)$_GET['edit']) {
     $edit = $_GET['edit'];
-    print_r($_GET);
 
     try {
         $event = new Event($edit);
@@ -58,7 +65,8 @@ if (@$_GET['edit'] && (int)$_GET['edit']) {
     }
 }
 
-// Function triggered when 'Delete' button at the list of Events is clicked
+// Function triggered when 1.'Delete' button at the list of Events is clicked 2. ID of Event is sent to $_GET['delete']
+// ID of Event goes to the Creator so it fills the new Object with the info from DB and delete it
 
 if (@$_GET['delete'] && (int)$_GET['delete']) {
     $delete = (int)$_GET['delete'];
@@ -66,16 +74,19 @@ if (@$_GET['delete'] && (int)$_GET['delete']) {
     try {
         $event = new Event($delete);
         $status = $event->deleteEvent();
-        if ($status)
+        if ($status) {
             $success = 'Event deleted';
-        else
+        } else {
             $error['general'] = 'An error occurred, please try again later or contact your Admin.';
+        }
     }
     catch (Exception $e) {
         die('Oups, there is no such Event ! Please verify with the Administrator.');
     }
 }
 
+
+//function triggered by 'Submit' button checks whether there is anything in the $_POST array
 $error = array();
 if (count($_POST)) {
 
@@ -85,7 +96,8 @@ if (count($_POST)) {
     echo '<br><br></pre>';
     $event = new Event();
 
-//    2. fill it out with info from the form
+//    2. fill it out with info from the form (not from DB!)
+//    if any required field is empty error message will be displayed next to it
 
     $event->idOfEvent = $_POST['idOfEvent'];
 
@@ -123,27 +135,25 @@ if (count($_POST)) {
 
     $event->outcomeOfEvent = @$_POST['outcomeOfEvent'];
 
-    echo '<br><br><pre>Event from DB';
-    print_r($event);
-    echo '<br><br></pre>';
-
-// 3. insert the data to DB
+// 3. if all the required info is there, insert the data to DB
 
     if (!count($error)){
         $event->sendToDB();
-        echo "<br/><br/><br/><br/><br/><br/>YUPI<br/><br/><br/><br/><br/>";
-        echo $event->idOfEvent;
-        echo '<br><br><pre>Event from DB';
-        print_r($event);
-        echo '<br><br></pre>';
     }
 }
 ?>
+<br/>
+<div style="color: #23527c"><?php echo @$success ?></div>
 
 ADD NEW EVENT:
+<br/><br/>
 
 <form action="?" method="post">
-    <input type="hidden" name="idOfEvent" value="<?= @$event->idOfEvent ?>"/>
+<!--    hidden field where ID of Event - if any- is stored  -->
+    <input type="hidden" name="idOfEvent" value="<?php echo @$event->idOfEvent ?>"/>
+
+<!--    drop-down with list of Clients is generated on the fly from data in clients table from DB   -->
+<!--    if position from the menu is clicked the form will keep it selected-->
     Client:
     <select name="idClient">
 
@@ -163,6 +173,8 @@ ADD NEW EVENT:
     <div style="color: #23527c"><?php echo @$error['idClient'] ?></div>
     <br/><br/>
 
+<!--    drop-down with list of Contacts is generated on the fly from data in clients table from DB   -->
+<!--    if position from the menu is clicked the form will keep it selected-->
     *Contact:
     <select name="idContact">
 
@@ -223,7 +235,6 @@ ADD NEW EVENT:
     <br/><br/>
     <a type="button" href="?">Clear the form</a><br/>
 
-
     LIST OF UPCOMING EVENTS:
 
 <table>
@@ -238,7 +249,13 @@ ADD NEW EVENT:
         <th>Outcome</th>
     </tr>
     <?php
+
+//    variable gets the return from the query
+
     $allEvents = Event::displayFromEvents('list');
+
+//    foreach feeds the list with a part of information from events table adding links to 'edit' and 'delete' options
+
     foreach ($allEvents as $item) {
         echo '<tr>';
         echo '<td>'.$item['nameClient'].'</td>';

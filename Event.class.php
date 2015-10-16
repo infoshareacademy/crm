@@ -15,9 +15,6 @@ class Event {
 
     protected $pdo;
 
-    const SEND_TO_DB_OK = 1;
-    const SEND_TO_DB_FAIL = -1;
-
     const EVENT_ARRANGED = 01;
     const EVENT_CONFIRMED = 02;
     const EVENT_COMPLETED = 03;
@@ -35,27 +32,26 @@ class Event {
     const MAX_DESCRIPTION_LENGTH = 250;
     const MAX_TOPIC_LENGTH = 50;
 
-    public function __construct($idOfEvent=null) {
-        echo $idOfEvent."!!!!!";
+//    CONSTRUCTOR is used for creation of a new Event and for updating the existing ones
 
-//  shortcut for connection with DB necessary for every action performed on an Event
+    public function __construct($idOfEvent=null) {
+
+//  shortcut for connection with DB - necessary for every action performed on an Event
 
         $this->pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
 
-//  if Event has the id - look for the record in DB
+//  if Event has the id: 1. look for the record in DB
 
         if ($idOfEvent){
             $stmt = $this->pdo->query("SELECT * FROM events WHERE idOfEvent=".$idOfEvent);
-            echo 'query done<br/><br/>';
+
             if ($stmt->rowCount()>0) {
 
-//  fetch the results only if query returned anything
+//                       2. fetch the results only if query returned anything
 
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo 'result\'s here!<br/><br/>';
-                print_r($result);
 
-//  constructor created an empty Event - for update purpose it must be filled out with data from DB
+//                       3. constructor created an empty Event - now it must be filled out with data from DB
 
                 $this->idOfEvent = $result['idOfEvent'];
                 $this->topicOfEvent = $result['topicOfEvent'];
@@ -67,12 +63,13 @@ class Event {
                 $this->typeOfEvent = $result['typeOfEvent'];
                 $this->descriptionOfEvent = $result['descriptionOfEvent'];
                 $this->outcomeOfEvent = @$result['outcomeOfEvent'];
-                echo $this->idOfEvent;
             } else {
                 throw new Exception ('Oups, there is no such Event. Please verify with the Administrator.');
             }
         }
     }
+
+//    magical function used to set (and validate!) the value of all the protected params in the Event class
 
     public function __set($param_name, $param_value) {
         $this->$param_name = $param_value;
@@ -146,11 +143,14 @@ class Event {
                 else
                     $this->descriptionOfEvent = htmlspecialchars($param_value);
                 break;
+
             default:
                 throw new Exception ('There is no such field!');
                 break;
         }
     }
+
+//    magical function allowing to get the value of all the protected params of the Event class
 
     public function __get($param_name) {
         return $this->$param_name;
@@ -160,6 +160,8 @@ class Event {
 //    method inserting a newly created Event to DB
 
     private function _saveEvent(){
+
+//        1. prepare the INSERT statement (stick to the naming convention - the same name of param in the Class and in the DB)
             $stmt = $this->pdo->prepare("INSERT INTO events (idClient,
                                                       idContact,
                                                        dateOfEvent,
@@ -181,26 +183,33 @@ class Event {
                              );"
             );
 
-            $status = $stmt->execute(array(
-                    ':idClient' => $this->idClient,
-                    ':idContact' => $this->idContact,
-                    ':dateOfEvent' => $this->dateOfEvent,
-                    ':timeOfEvent' => $this->timeOfEvent,
-                    ':typeOfEvent' => $this->typeOfEvent,
-                    ':statusOfEvent' => $this->statusOfEvent,
-                    ':descriptionOfEvent' => $this->descriptionOfEvent,
-                    ':topicOfEvent' => $this->topicOfEvent,
-                    ':outcomeOfEvent' => $this->outcomeOfEvent
-                )
-            );
+//        2. bind the params
+
+        $input_parameters = array(
+            ':idClient' => $this->idClient,
+            ':idContact' => $this->idContact,
+            ':dateOfEvent' => $this->dateOfEvent,
+            ':timeOfEvent' => $this->timeOfEvent,
+            ':typeOfEvent' => $this->typeOfEvent,
+            ':statusOfEvent' => $this->statusOfEvent,
+            ':descriptionOfEvent' => $this->descriptionOfEvent,
+            ':topicOfEvent' => $this->topicOfEvent,
+            ':outcomeOfEvent' => $this->outcomeOfEvent
+        );
+
+        $status = $stmt->execute($input_parameters);
+
+//        3. callback assigning the ID from DB to the existing Object
+//        (without this line every click on 'submit' will trigger saveEvent() and create a new row in DB!)
             $this->idOfEvent = $this->pdo->lastInsertId();
 
-            return ($status) ? self::SEND_TO_DB_OK : self::SEND_TO_DB_FAIL;
     }
 
-//    method sending to DB the updated Event
+//    method sending the updated Event to DB
 
     private function _editEvent(){
+//      1. prepare the UPDATE statement (stick to the naming convention - the same name of param in the Class and in the DB)
+
         $stmt = $this->pdo->prepare("UPDATE events SET idClient=:idClient,
                                                           idContact=:idContact,
                                                           dateOfEvent=:dateOfEvent,
@@ -210,39 +219,62 @@ class Event {
                                                           descriptionOfEvent=:descriptionOfEvent,
                                                           topicOfEvent=:topicOfEvent,
                                                           outcomeOfEvent=:outcomeOfEvent WHERE idOfEvent=:idOfEvent");
+//      2. bind the params
 
-        $status = $stmt->execute(array(
-                ':idClient' => $this->idClient,
-                ':idContact' => $this->idContact,
-                ':dateOfEvent' => $this->dateOfEvent,
-                ':timeOfEvent' => $this->timeOfEvent,
-                ':typeOfEvent' => $this->typeOfEvent,
-                ':statusOfEvent' => $this->statusOfEvent,
-                ':descriptionOfEvent' => $this->descriptionOfEvent,
-                ':topicOfEvent' => $this->topicOfEvent,
-                ':outcomeOfEvent' => $this->outcomeOfEvent,
-                ':idOfEvent' => $this->idOfEvent
-            )
+        $input_parameters = array(
+            ':idClient' => $this->idClient,
+            ':idContact' => $this->idContact,
+            ':dateOfEvent' => $this->dateOfEvent,
+            ':timeOfEvent' => $this->timeOfEvent,
+            ':typeOfEvent' => $this->typeOfEvent,
+            ':statusOfEvent' => $this->statusOfEvent,
+            ':descriptionOfEvent' => $this->descriptionOfEvent,
+            ':topicOfEvent' => $this->topicOfEvent,
+            ':outcomeOfEvent' => $this->outcomeOfEvent,
+            ':idOfEvent' => $this->idOfEvent
         );
-
-        return ($status) ? self::SEND_TO_DB_OK : self::SEND_TO_DB_FAIL;
+        $status = $stmt->execute($input_parameters);
     }
+
+//    fork sending the info from the form to DB
+// (if finds any ID in the hidden field in the form it will update the respective row instead of creating a new Insert)
 
     public function sendToDB(){
-        return (!$this->idOfEvent) ? $this->_saveEvent() : $this->_editEvent();
+        try {
+            (!$this->idOfEvent) ? $this->_saveEvent() : $this->_editEvent();
+
+        } catch (Exception $e) {
+            echo "________________________wm<br>$e->errorInfo";
+        }
     }
 
+//    function querying the DB, output is sent to the form page
+
     public static function displayFromEvents($selection){
+
+ //  connection with DB
+
         $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+
+//   function in used in a couple of places, query varies depending on the place where function is called
         switch ($selection) {
+
+//   this switch prepares the query for drop-down 'Clients' in the form
+
             case 'Client':
                 $stmt = $pdo->query('SELECT * FROM clients');
                 break;
+
+ //   this switch prepares the query for drop-down 'Contacts' in the form
+
             case 'Contact':
                 $stmt = $pdo->query('SELECT * FROM contacts');
                 break;
+
+//   this switch prepares the query for the list of all Events
+
             case 'list':
-                $stmt = $pdo->query('SELECT e.*, c.nameClient FROM events e INNER JOIN clients c ON e.idClient=c.idClient ORDER BY dateOfEvent;');
+                $stmt = $pdo->query('SELECT e.*, c.nameClient FROM events e INNER JOIN clients c ON e.idClient=c.idClient WHERE dateOfEvent >= CURDATE() - INTERVAL 3 DAY ORDER BY dateOfEvent;');
                 break;
             default:
                 echo 'Something went wrong!';
@@ -252,13 +284,19 @@ class Event {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+//    method deleting the chosen Event from DB
+
     public function deleteEvent() {
+
+//      connection with DB and deleting the row based on the ID of Event from $_GET['delete']
+
         $stmt = $this->pdo->prepare("DELETE FROM events WHERE idOfEvent=:idOfEvent");
         $status = $stmt->execute(
             array(
                 ':idOfEvent' => $this->idOfEvent,
             )
         );
+// once the DB is updated the data from the Object is unset as well
 
         $this->idOfEvent = NULL;
         $this->topicOfEvent = NULL;
