@@ -22,7 +22,7 @@ else
 
 // execute query
 try {
-    $contacts = $dbh->query($sql);
+    $contacts = DBConnection::getConnection()->query($sql);
     $clients = $contacts->fetchAll(PDO::FETCH_ASSOC);
 }
 catch (Exception $e) {
