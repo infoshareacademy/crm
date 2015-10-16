@@ -1,6 +1,6 @@
 <?php
 
-include "vCard.php";
+include "class/vCard.php";
 
 $contact = [];
 
