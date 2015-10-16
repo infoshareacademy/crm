@@ -21,7 +21,7 @@
                 <form action="?" method="post">
                     Client name: <input name="name" value='<?php echo @$_POST["name"]?> '><br/><div style="color:#f00;"><?php echo @$error['name']?></div>
                     Tax Id: <input name="idTax" value="<?php echo @$_POST['idTax']?>" /><br/><div style="color:#f00;"><?php echo @$error['idTax']?></div>
-                    Adres: <input name="address" value="<?php echo @$_POST['address']?>" /><br/>[street;number;post code]<div style="color:#f00;"><?php echo @$error['address']?></div>
+                    Street: <input name="street" value="<?php echo @$_POST['street']?>" /> No: <input name="streetNumber" size="6" value="<?php echo @$_POST['streetNumber']?>" />Post Code: <input name="postCode" size="10" value="<?php echo @$_POST['postCode']?>" /><br/><div style="color:#f00;"><?php echo @$error['address']?></div>
                     City: <input name="city" value="<?php echo @$_POST['city']?>" /><br/><div style="color:#f00;"><?php echo @$error['city']?></div>
                     Phone: <input name="phone" value="<?php echo @$_POST['phone']?>" /><br/><div style="color:#f00;"><?php echo @$error['phone']?></div>
                     fax: <input name="fax" value="<?php echo @$_POST['fax']?>" /><br/><div style="color:#f00;"><?php echo @$error['fax']?></div>
@@ -29,7 +29,7 @@
                     e-mail: <input name="mail" value="<?php echo @$_POST['mail']?>" /><br/><div style="color:#f00;"><?php echo @$error['mail']?></div>
                     Note: <textarea name="note" /><?php echo @$_POST['note']?></textarea><div style="color:#f00;"><?php echo @$error['note']?></div>
                     <button id="btn_send">ADD THIS</button>
-                    </form>
+                </form>
 
             </div>
         </article>

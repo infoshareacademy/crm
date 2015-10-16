@@ -31,7 +31,7 @@ class Client {
     // ograniczenia wynikajace z ustawien bazy danych; poza ograniczeniem pola note
     const NAME_MAX_LENGHT = 80;
     const IDTAX_LENGHT = 10;
-    const ADDRESS_MAX_LENGHT = 80;
+    const ADDRESS_MAX_LENGHT = 255;
     const CITY_MAX_LENGHT = 25;
     const PHONE_MAX_LENGHT = 11;
     const PHONE_MIN_LENGHT = 9;
@@ -207,9 +207,15 @@ if (count($_POST)) {
     if($client->idTax === $blad)
         $error['idTax'] = 'Tax ID moze miec max 11 cyfr';
 
-    $client->address = @$_POST['address'];
+    // zebranie danych z trzech pol formularza i pspreparowanie ich tak jak sa przechowywane w db
+    // street ; streetNumber ; postcode
+    $tableAddress = array (htmlspecialchars(@$_POST['street']),htmlspecialchars(@$_POST['streetNumber']),htmlspecialchars(@$_POST['postCode']));
+//    var_dump($tableAddress);
+    $address = implode(";", $tableAddress);
+//    var_dump(($address));
+    $client->address = $address;
     if($client->address === $blad)
-        $error['address'] = 'Max 80 znakow';
+        $error['address'] = 'Max 255 znakow';
 
     $client->fax = @$_POST['fax'];
     if($client->fax === $blad)
