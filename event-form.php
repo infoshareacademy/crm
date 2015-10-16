@@ -31,6 +31,19 @@ function displayTypeOfEvent($typeOfEvent){
     }
 }
 
+function displayOutcomeOfEvent($outcomeOfEvent){
+    switch ($outcomeOfEvent){
+        case Event::OUTCOME_SUCCESS:
+            return "success";
+        case Event::OUTCOME_FOLLOWUP:
+            return "follow up";
+        case Event::OUTCOME_FAILURE:
+            return "failure";
+        default:
+            return "--missing outcome--";
+    }
+}
+
 // Function triggered when 'Edit' button at the list of Events is clicked
 
 if (@$_GET['edit'] && (int)$_GET['edit']) {
@@ -235,7 +248,7 @@ ADD NEW EVENT:
         echo '<td>'.displayTypeOfEvent($item['typeOfEvent']).'</td>';
         echo '<td>'.$item['topicOfEvent'].'</td>';
         echo '<td>'.$item['descriptionOfEvent'].'</td>';
-        echo '<td>'.$item['outcomeOfEvent'].'</td>';
+        echo '<td>'.displayOutcomeOfEvent($item['outcomeOfEvent']).'</td>';
         echo '<td><a href="?edit='.$item['idOfEvent'].'">Edit</a>
         <a href="?delete='.$item['idOfEvent'].'">Delete</a></td>';
     echo '</tr>';
