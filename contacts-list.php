@@ -12,7 +12,7 @@
 <?php
 
 //create query
-// surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact linkedinContact, NoteContact
+// surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact linkedinContact, noteContact
 if (isset($_GET['id'])) {
     $getId = (int)$_GET['id'];
     $sql = 'SELECT surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact, linkedinContact, noteContact FROM contacts WHERE idClient='.$getId;
