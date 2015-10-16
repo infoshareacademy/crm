@@ -9,7 +9,7 @@
 
 
 
-        <li class="sidebar-title">Kontrahenci</li>
+        <li class="sidebar-title">Clients</li>
         <li>
             <a href="clients-list.php" aria-controls="clients-list">
                 <i class="fa fa-list fa-fw"></i>Clients list
@@ -20,7 +20,7 @@
                 <i class="fa fa-plus fa-fw"></i>Add client
             </a>
         </li>
-        <li class="sidebar-title">Spotkania</li>
+        <li class="sidebar-title">Events</li>
         <li>
             <a href="events-list.php" aria-controls="events-list">
                 <i class="fa fa-calendar fa-fw"></i>Events list
@@ -31,7 +31,7 @@
                 <i class="fa fa-calendar-check-o fa-fw"></i>Plan new event
             </a>
         </li>
-        <li class="sidebar-title">Raporty</li>
+        <li class="sidebar-title">Reports</li>
         <li>
             <a href="generate-report.php" aria-controls="generate-report">
                 <i class="fa fa-bar-chart fa-fw"></i>Generate report
