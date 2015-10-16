@@ -45,8 +45,9 @@ class Client {
 
     public function __construct() {
         // tymczasowo dopisywanie aktualnego timestampa do obiektu
-        $teraz = new DateTime();
-        $this->date = $teraz->getTimestamp();
+//        $teraz = new DateTime();
+        $this->date =  new DateTime();
+        $this->date = $this->date->format(DATE_ATOM);
     }
 
     public function __set($parm_name, $parm_value) {
@@ -207,13 +208,17 @@ if (count($_POST)) {
     if($client->idTax === $blad)
         $error['idTax'] = 'Tax ID moze miec max 11 cyfr';
 
-    // zebranie danych z trzech pol formularza i pspreparowanie ich tak jak sa przechowywane w db
+    // zebranie danych z trzech pol formularza i spreparowanie ich tak jak sa przechowywane w db
     // street ; streetNumber ; postcode
-    $tableAddress = array (htmlspecialchars(@$_POST['street']),htmlspecialchars(@$_POST['streetNumber']),htmlspecialchars(@$_POST['postCode']));
-//    var_dump($tableAddress);
-    $address = implode(";", $tableAddress);
-//    var_dump(($address));
-    $client->address = $address;
+    if(@$_POST['street'] || @$_POST['streetNumber'] || @$_POST['postCode']) {
+        $tableAddress = array (htmlspecialchars(@$_POST['street']),htmlspecialchars(@$_POST['streetNumber']),htmlspecialchars(@$_POST['postCode']));
+        $address = implode(";", $tableAddress);
+        $client->address = $address;
+    }
+    else {
+        $client->address = null;
+    }
+
     if($client->address === $blad)
         $error['address'] = 'Max 255 znakow';
 
