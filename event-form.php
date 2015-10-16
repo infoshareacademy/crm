@@ -221,7 +221,7 @@ ADD NEW EVENT:
     <?php
 
     $allEvents = Event::displayFromEvents('list');
-    
+
     foreach ($allEvents as $item) {
         echo '<tr>';
         echo '<td>'.$item['nameClient'].'</td>';
