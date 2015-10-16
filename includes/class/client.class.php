@@ -260,18 +260,18 @@ if ($error) {
     echo '<div style="color:#f00;">'.''.'</div><br/>';
 }
 
-echo '<form action="?" method="post">';
-echo 'Nazwa: <input name="name" value="'.@$_POST["name"].'"/><br/><div style="color:#f00;">'.@$error['name'].'</div>';
-echo 'NIP: <input name="idTax" value="'.@$_POST["idTax"].'" /><br/><div style="color:#f00;">'.@$error['idTax'].'</div>';
-echo 'Adres[ulica;numer;kod]: <input name="address" value="'.@$_POST["address"].'" /><br/><div style="color:#f00;">'.@$error['address'].'</div>';
-echo 'Miasto: <input name="city" value="'.@$_POST["city"].'" /><br/><div style="color:#f00;">'.@$error['city'].'</div>';
-echo 'Telefon: <input name="phone" value="'.@$_POST["phone"].'" /><br/><div style="color:#f00;">'.@$error['phone'].'</div>';
-echo 'fax: <input name="fax" value="'.@@$_POST["fax"].'" /><br/><div style="color:#f00;">'.@$error['fax'].'</div>';
-echo 'www: <input name="www" value="'.@$_POST["www"].'" /><br/><div style="color:#f00;">'.@$error['www'].'</div>';
-echo 'e-mail: <input name="mail" value="'.@$_POST["mail"].'" /><br/><div style="color:#f00;">'.@$error['mail'].'</div>';
-echo 'Note: <textarea name="note" />'.@$_POST["note"].'</textarea><div style="color:#f00;">'.@$error['note'].'</div>';
-echo '<button id="btn_send">ZAPISZ</button>';
-echo '</form>';
+//echo '<form action="?" method="post">';
+//echo 'Nazwa: <input name="name" value="'.@$_POST["name"].'"/><br/><div style="color:#f00;">'.@$error['name'].'</div>';
+//echo 'NIP: <input name="idTax" value="'.@$_POST["idTax"].'" /><br/><div style="color:#f00;">'.@$error['idTax'].'</div>';
+//echo 'Adres[ulica;numer;kod]: <input name="address" value="'.@$_POST["address"].'" /><br/><div style="color:#f00;">'.@$error['address'].'</div>';
+//echo 'Miasto: <input name="city" value="'.@$_POST["city"].'" /><br/><div style="color:#f00;">'.@$error['city'].'</div>';
+//echo 'Telefon: <input name="phone" value="'.@$_POST["phone"].'" /><br/><div style="color:#f00;">'.@$error['phone'].'</div>';
+//echo 'fax: <input name="fax" value="'.@@$_POST["fax"].'" /><br/><div style="color:#f00;">'.@$error['fax'].'</div>';
+//echo 'www: <input name="www" value="'.@$_POST["www"].'" /><br/><div style="color:#f00;">'.@$error['www'].'</div>';
+//echo 'e-mail: <input name="mail" value="'.@$_POST["mail"].'" /><br/><div style="color:#f00;">'.@$error['mail'].'</div>';
+//echo 'Note: <textarea name="note" />'.@$_POST["note"].'</textarea><div style="color:#f00;">'.@$error['note'].'</div>';
+//echo '<button id="btn_send">ZAPISZ</button>';
+//echo '</form>';
 
 ?>
 
