@@ -191,6 +191,7 @@ figure.banner {
     box-shadow: 0 0 1px #bbb;
     border-bottom: solid 2px #fff;
     background-color:#bbb;
+    background: url(../images/bann.jpg);
     height:120px;
 
 }
