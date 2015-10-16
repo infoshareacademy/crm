@@ -1,12 +1,10 @@
 <?php
 
-require_once('ContactDAO.php');
-
 /**
  * Created by PhpStorm.
  * User: paoolskoolsky
- * Date: 09.10.15
- * Time: 16:27
+ * Date: 15.10.15
+ * Time: 16:38
  */
 class Contact
 {
@@ -54,7 +52,7 @@ class Contact
             ':linkedinContact' => $this->linkedin(),
             ':noteContact' => $this->note()
         );
-        if ($this->id !='') {
+        if ($this->id != '') {
             $dbQuery = "UPDATE contacts SET
             surnameContact = :surnameContact,
             nameContact = :nameContact,
@@ -97,6 +95,7 @@ class Contact
 
     public function surname()
     {
+
         return $this->surnameContact;
     }
 
@@ -169,104 +168,37 @@ class Contact
 
         return $status;
     }
-}
 
-if (isset($_GET['contactid'])) {
-    $contactDao = new ContactDAO();
-    $newContact = $contactDao->loadContact($_GET['contactid']);
-} else if (count($_POST)) {
-    $newContact = new Contact(
-        $_POST['surname'],
-        $_POST['name'],
-        $_POST['position'],
-        $_POST['phone'],
-        $_POST['email'],
-        $_POST['city'],
-        $_POST['linkedin'],
-        $_POST['note']
-    );
-    if (isset($_POST['id'])) {
-        $newContact->setId($_POST['id']);
+    public function isValid()
+    {
+        $error = array();
+        if (!$this->surnameContact || !preg_match('/^[a-zA-Z]+$/', $this->surnameContact)) {
+            $error['surname'] = 'Surname must contain letters only';
+        };
+        if (!$this->nameContact || !preg_match('/^[a-zA-Z]+$/', $this->nameContact)) {
+            $error['name'] = 'Name must contain letters only';
+
+        };
+        if (!$this->positionContact || !preg_match('/^[a-zA-Z]+$/', $this->positionContact)) {
+            $error['position'] = 'Position must contain letters only';
+
+        };
+        if (!$this->phoneContact || !preg_match('/^[0-9]{9,13}$/', $this->phoneContact)) {
+            $error['phone'] = 'Phone must contain numbers (min->9 max->13) only';
+
+        };
+        if (!$this->emailContact || !preg_match('/^([a-z0-9-_.]{1,})@[a-z0-9-]+(.[a-z0-9]{2,})$/i', $this->emailContact)) {
+            $error['email'] = 'Please keep real email format...';
+
+        };
+        if (!$this->cityContact || !preg_match('/^[a-zA-Z]+$/', $this->cityContact)) {
+            $error['city'] = 'City must contain letters only';
+
+        };
+        if (!$this->linkedinContact || !preg_match('/^(ftp|http|https):\/\/?((www|\w\w)\.)?linkedin.com(\w+:{0,1}\w*@)?(\S+)(:([0-9])+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/', $this->linkedinContact)) {
+            $error['linkedin'] = 'Please keep real LinkedIn URL format...';
+
+        };
+        return $error;
     }
-    $newContact->persist();
-} else if (isset($_GET['delete'])) {
-    $contactDao = Contact::createEmpty();
-    $contactDao->setId($_GET['delete']);
-    $contactDao->delete();
-    $newContact = Contact::createEmpty();
-} else {
-    $newContact = Contact::createEmpty();
 }
-?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Formularz</title>
-
-</head>
-<body>
-
-
-<form action="?" method="post">
-
-    Surname: <input name="surname" value="<?php echo @$newContact->surname() ?>"/><br/>
-    Name: <input name="name" value="<?php echo @$newContact->name() ?>"/><br/>
-    Position: <input name="position" value="<?php echo $newContact->position() ?>"/><br/>
-    Phone: <input name="phone" value="<?php echo @$newContact->phone() ?>"/><br/>
-    E-mail: <input name="email" value="<?php echo @$newContact->email() ?>"/><br/>
-    City: <input name="city" value="<?php echo @$newContact->city() ?>"/><br/>
-    LinkedIn: <input name="linkedin" value="<?php echo @$newContact->linkedin() ?>"/><br/>
-    Note:<textarea name="note"><?php echo @$newContact->note() ?></textarea><br/>
-    <input type="text" name="id" value="<?php echo @$newContact->id() ?>">
-
-
-    <input type="submit" name="send" value="SEND"/>
-</form>
-
-<br/>
-<br/>
-
-<a href="?">CLEAN FORM</a><br/>
-
-<?php
-echo '<table>';
-echo '<tr>';
-echo '<th>ID</th>';
-echo '<th>Surname</th>';
-echo '<th>Name</th>';
-echo '<th>Position</th>';
-echo '<th>Phone</th>';
-echo '<th>Mail</th>';
-echo '<th>City</th>';
-echo '<th>LinkedIn</th>';
-echo '<th>Note</th>';
-echo '<th>OPTIONS</th>';
-echo '</tr>';
-
-
-$list = Contact::getList();
-foreach ($list as $item) {
-    echo '<tr>';
-    echo '<td>' . $item['idContact'] . '</td>';
-    echo '<td>' . $item['surnameContact'] . '</td>';
-    echo '<td>' . $item['nameContact'] . '</td>';
-    echo '<td>' . $item['positionContact'] . '</td>';
-    echo '<td>' . $item['phoneContact'] . '</td>';
-    echo '<td>' . $item['emailContact'] . '</td>';
-    echo '<td>' . $item['cityContact'] . '</td>';
-    echo '<td>' . $item['linkedinContact'] . '</td>';
-    echo '<td>' . $item['noteContact'] . '</td>';
-    echo '<td><a href="?contactid=' . $item['idContact'] . '">EDIT</a> <a href="?delete=' . $item['idContact'] . '">DELETE</a></td>';
-    echo '</tr>';
-
-
-}
-echo '</table>';
-echo '<br/><br/>';
-?>
-</body>
-</html>
-
