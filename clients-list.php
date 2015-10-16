@@ -6,48 +6,49 @@
         </figure>
         <article class="row">
             <div class="col-lg-12">
-    <?php
-    /**
-     * Created by PhpStorm.
-     * User: katban
-     * Date: 08.10.15
-     * Time: 15:25
-     */
 
-    //struktura tabeli
-    // idClient   |  nameClient   |  idTax  |  addressClient  |  cityClient  |  phoneClient  |  faxClient  |  wwwClient  |  mailClient  |  noteClient  | creationDateClient
+                <table  class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Company</th>
+                        <th>Tax ID</th>
+                        <th>Adress</th>
+                        <th>City</th>
+                        <th>Phone</th>
+                        <th>Fax</th>
+                        <th>WWW</th>
+                        <th>E-mail</th>
+                        <th>Note</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+<?php
+
+//    struktura tabeli
+//    idClient   |  nameClient   |  idTax  |  addressClient
+//  |  cityClient  |  phoneClient  |  faxClient  |  wwwClient
+//  |  mailClient  |  noteClient  | creationDateClient
+
     $sql = "SELECT * FROM clients";
     $clients = DBConnection::getConnection()->query($sql);
+    $clients = $clients->fetchAll(PDO::FETCH_ASSOC);
 
-
-    echo '<table>';
-    // naglowek
-    echo '<thead>
-    <tr><td>[&nbsp;ID&nbsp;]</td><td>[ Company ]</td><td>[ Tax ID ]</td><td>[ Adress ]</td><td>[ City ]</td><td>[ Phone ]</td><td>[ Fax ]</td><td>[ WWW ]</td><td>[ @ ]</td><td>[ Note ]</td><td>[ Date ]</td></tr>
-    </thead>';
-
-    echo '<tbody>';
     // wyswietlanie wynikow
     foreach ($clients as $client) {
         echo '<tr>';
-        $iloscElementow = count($client)/2;
-        for ($i=0; $i < $iloscElementow; $i++) {
-            if ($i == 0) {
-                echo '<td><a href="contacts-list.php?id='.$client[$i].'">';
-                echo $client[$i];
-                echo '</a></td>';
-            } else {
-                echo '<td>';
-                echo $client[$i];
-                echo '</td>';
-            }
+        foreach ($client as $columnName => $columnValue) {
+            if ($columnName == 'nameClient')
+            echo '<td><a href="contacts-list.php?id=' . $client['idClient'] . '">' . $columnValue . '</a></td>';
+            else echo '<td>' . $columnValue . '</td>';
         }
         echo '</tr>';
     }
-    echo '</tbody></table>';
-
-    ?>
-
+?>
+                    </tbody>
+                </table>
             </div>
         </article>
     </section>
