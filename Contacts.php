@@ -62,12 +62,14 @@ if (isset($_GET['contactid'])) {
 <body>
 
 <?php
-$error = $newContact->isValid();
+if (count($_POST)){
+    $error = $newContact->isValid();
 if(!count($error) && !(@$_GET['contactid'])) {
     echo '<div style="color:#22aa22; font-weight:bold;">Success - new item in DB!</div><br/>';
 
     $newContact = Contact::createEmpty();
     }
+}
 ?>
 
 <form action="?" method="post" enctype="multipart/form-data">
@@ -80,7 +82,7 @@ if(!count($error) && !(@$_GET['contactid'])) {
     City: <input name="city" value="<?php echo @$newContact->city() ?>"/><br/><div style="color:#f00;"><?php echo @$error['city']; ?></div>
     LinkedIn: <input name="linkedin" value="<?php echo @$newContact->linkedin() ?>"/><br/><div style="color:#f00;"><?php echo @$error['linkedin']; ?></div>
     Note:<textarea name="note"><?php echo @$newContact->note() ?></textarea><br/>
-    <input type="text" name="id" value="<?php echo @$newContact->id() ?>">
+    <input type="hidden" name="id" value="<?php echo @$newContact->id() ?>">
 
 
     <input type="submit" name="send" value="SEND"/>
