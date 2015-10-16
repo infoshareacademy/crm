@@ -1,4 +1,4 @@
-<?php include 'includes/header.php';  include_once "includes/class/client.class.php"?>
+<?php include 'includes/header.php';  include "includes/class/client.class.php"?>
 <div role="tabpanel" id="add-client">
 
     <section class="container-fluid">

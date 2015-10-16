@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: katban
@@ -152,9 +151,9 @@ class Client {
     }
 
     public function save() {
-        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=test.crm.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+//        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=test.crm.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
         //idClient   |  nameClient   |  idTax  |  addressClient  |  cityClient  |  phoneClient  |  faxClient  |  wwwClient  |  mailClient  |  noteClient  | creationDateClient
-        $stmt = $pdo->prepare("INSERT INTO clients (nameClient, idTax, addressClient, cityClient, phoneClient, faxClient, wwwClient, mailClient, noteClient, creationDateClient)
+        $stmt = DBConnection::getConnection()->prepare("INSERT INTO clients (nameClient, idTax, addressClient, cityClient, phoneClient, faxClient, wwwClient, mailClient, noteClient, creationDateClient)
                                VALUES (:nameClient, :tax, :adres, :city, :tel, :fax, :www, :mail, :note, :dateAdd ) ");
         $status = $stmt->execute(
             array(  ':nameClient' => $this->name,
@@ -175,7 +174,12 @@ class Client {
         else {
             return self::SAVE_STATUS_ERROR_DB;
         }
-    }
+    } // function save()
+
+    protected function checkClient($nameClient) {
+
+
+    } // function checkClient()
 }
 
 

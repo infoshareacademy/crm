@@ -17,9 +17,8 @@
     //struktura tabeli
     // idClient   |  nameClient   |  idTax  |  addressClient  |  cityClient  |  phoneClient  |  faxClient  |  wwwClient  |  mailClient  |  noteClient  | creationDateClient
     $sql = "SELECT * FROM clients";
-    $clients = $dbh->query($sql);
+    $clients = DBConnection::getConnection()->query($sql);
 
-    echo '<meta charset="utf8">';
 
     echo '<table>';
     // naglowek

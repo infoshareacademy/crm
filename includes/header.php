@@ -11,7 +11,7 @@
     }
 
 
-    include_once 'includes/config/dbconnect.php';
+    include 'config/dbconnect.php';
 
 ?><!DOCTYPE html>
 <html lang="pl">
