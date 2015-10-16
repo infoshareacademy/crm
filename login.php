@@ -29,7 +29,7 @@ include 'includes/header-simple.php';
 ?>
 <div class="login-form">
     <h2>Welcome</h2>
-            <p class="error"><?php if ($error) { echo $error; } ?><br/>
+            <p class="has-warning"><?php if ($error) { echo $error; } ?><br/>
             <form method="post" action="">
                 <input id="login" name="login" value=""  placeholder="Enter your login"/><br>
                 <input id="pass" name="pass" type="password" value="" placeholder="Enter your password"/><br>
