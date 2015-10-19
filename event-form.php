@@ -1,4 +1,7 @@
 <?php
+
+include 'includes/header.php';
+
 require_once 'Event.class.php';
 
 function displayStatusOfEvent($statusOfEvent){
@@ -205,39 +208,6 @@ ADD NEW EVENT:
     <br/><br/>
     <a type="button" href="?">Clear the form</a><br/>
 
-    LIST OF UPCOMING EVENTS:
-
-<table>
-    <tr>
-        <th>Client</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Status</th>
-        <th>Type</th>
-        <th>Topic</th>
-        <th>Description</th>
-        <th>Outcome</th>
-    </tr>
-    <?php
-
-    $allEvents = Event::displayFromEvents('list');
-
-    foreach ($allEvents as $item) {
-        echo '<tr>';
-        echo '<td>'.$item['nameClient'].'</td>';
-        echo '<td>'.$item['dateOfEvent'].'</td>';
-        echo '<td>'.$item['timeOfEvent'].'</td>';
-        echo '<td>'.displayStatusOfEvent($item['statusOfEvent']).'</td>';
-        echo '<td>'.displayTypeOfEvent($item['typeOfEvent']).'</td>';
-        echo '<td>'.$item['topicOfEvent'].'</td>';
-        echo '<td>'.$item['descriptionOfEvent'].'</td>';
-        echo '<td>'.displayOutcomeOfEvent($item['outcomeOfEvent']).'</td>';
-        echo '<td><a href="?edit='.$item['idOfEvent'].'">Edit</a>
-        <a href="?delete='.$item['idOfEvent'].'">Delete</a></td>';
-    echo '</tr>';
-    }
-    ?>
-</table>
-
 </form>
 
+<?php include 'includes/footer.php'; ?>
