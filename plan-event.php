@@ -28,7 +28,7 @@ require_once 'Event.class.php';
             case Event::EVENT_CANCELLED:
                 return "Cancelled";
             default:
-                return "--missing status--";
+                return "missing status";
         }
     }
 
@@ -143,17 +143,17 @@ require_once 'Event.class.php';
         Client:
         <select name="idClient">
 
-            <?php
-            $listOfClients = Event::displayFromEvents('Client');
-            foreach ($listOfClients as $item) {
-
-                echo "<option value='" .
-                    $item['idClient'].
-                    "' " . ($event->idClient == $item['idClient'] ? 'selected' : '') . ">" .
-                    $item['nameClient'] .
-                    "</option>";
-            }
-            ?>
+<!--            --><?php
+//            $listOfClients = Event::displayFromEvents('Client');
+//            foreach ($listOfClients as $item) {
+//
+//                echo "<option value='" .
+//                    $item['idClient'].
+//                    "' " . ($event->idClient == $item['idClient'] ? 'selected' : '') . ">" .
+//                    $item['nameClient'] .
+//                    "</option>";
+//            }
+//            ?>
 
         </select>
         <div style="color: #23527c"><?php echo @$error['idClient'] ?></div>
@@ -162,17 +162,17 @@ require_once 'Event.class.php';
         *Contact:
         <select name="idContact">
 
-            <?php
-            $listOfContacts = Event::displayFromEvents('Contact');
-            foreach ($listOfContacts as $item) {
-
-                echo "<option value='" .
-                    $item['idContact'].
-                    "' " . ($event->idContact == $item['idContact'] ? 'selected' : '') . ">" .
-                    $item['nameContact'] ." " . $item['surnameContact'] .
-                    "</option>";
-            }
-            ?>
+<!--            --><?php
+//            $listOfContacts = Event::displayFromEvents('Contact');
+//            foreach ($listOfContacts as $item) {
+//
+//                echo "<option value='" .
+//                    $item['idContact'].
+//                    "' " . ($event->idContact == $item['idContact'] ? 'selected' : '') . ">" .
+//                    $item['nameContact'] ." " . $item['surnameContact'] .
+//                    "</option>";
+//            }
+//            ?>
 
         </select>
 
@@ -187,38 +187,38 @@ require_once 'Event.class.php';
         <div style="color: #23527c"><?php echo @$error['descriptionOfEvent'] ?></div>
         <br/><br/>
 
-        Date:
-        <input type="date" name="dateOfEvent" value="<?php echo @$event->dateOfEvent ?>" />
-        <div style="color: #23527c"><?php echo @$error['dateOfEvent'] ?></div>
-        <br/><br/>
-        Time:
-        <input type="time" name="timeOfEvent" value="<?php echo @$event->timeOfEvent ?>" />
-        <div style="color: #23527c"><?php echo @$error['timeOfEvent'] ?></div>
-        <br/><br/>
-        Status:
-        <select name="statusOfEvent">
-            <option value="01" <?php if (@$event->statusOfEvent==Event::EVENT_ARRANGED) echo 'selected'; ?>>Arranged</option>
-            <option value="02" <?php if (@$event->statusOfEvent==Event::EVENT_CONFIRMED) echo 'selected'; ?>>Confirmed</option>
-            <option value="03" <?php if (@$event->statusOfEvent==Event::EVENT_COMPLETED) echo 'selected'; ?>>Completed</option>
-            <option value="04" <?php if (@$event->statusOfEvent==Event::EVENT_CANCELLED) echo 'selected'; ?>>Cancelled</option>
-        </select>
-        <div style="color: #23527c"><?php echo @$error['statusOfEvent'] ?></div>
-        <br/><br/>
-
-        Type of event:
-        <select name="typeOfEvent">
-            <option value="01" <?php if (@$event->typeOfEvent==Event::EVENT_TYPE_CALL) echo 'selected'; ?>>Call</option>
-            <option value="02" <?php if (@$event->typeOfEvent==Event::EVENT_TYPE_EMAIL) echo 'selected'; ?>>Email</option>
-            <option value="03" <?php if (@$event->typeOfEvent==Event::EVENT_TYPE_VIDEO) echo 'selected'; ?>>Video conference</option>
-            <option value="04" <?php if (@$event->typeOfEvent==Event::EVENT_TYPE_MEETING) echo 'selected'; ?>>Meeting</option>
-        </select>
-        <div style="color: #23527c"><?php echo @$error['typeOfEvent'] ?></div>
-        <br/><br/>
-
-        <input type="submit" name="submitNewEvent" value="Submit" />
-        <br/><br/>
-        <a type="button" href="?">Clear the form</a><br/>
-
+<!--        Date:-->
+<!--        <input type="date" name="dateOfEvent" value="--><?php //echo @$event->dateOfEvent ?><!--" />-->
+<!--        <div style="color: #23527c">--><?php //echo @$error['dateOfEvent'] ?><!--</div>-->
+<!--        <br/><br/>-->
+<!--        Time:-->
+<!--        <input type="time" name="timeOfEvent" value="--><?php //echo @$event->timeOfEvent ?><!--" />-->
+<!--        <div style="color: #23527c">--><?php //echo @$error['timeOfEvent'] ?><!--</div>-->
+<!--        <br/><br/>-->
+<!--        Status:-->
+<!--        <select name="statusOfEvent">-->
+<!--            <option value="01" --><?php ////if (@$event->statusOfEvent==Event::EVENT_ARRANGED) echo 'selected'; ?><!-->Arranged</option>-->
+<!--            <option value="02" --><?php ////if (@$event->statusOfEvent==Event::EVENT_CONFIRMED) echo 'selected'; ?><!-->Confirmed</option>-->
+<!--            <option value="03" --><?php ////if (@$event->statusOfEvent==Event::EVENT_COMPLETED) echo 'selected'; ?><!-->Completed</option>-->
+<!--            <option value="04" --><?php ////if (@$event->statusOfEvent==Event::EVENT_CANCELLED) echo 'selected'; ?><!-->Cancelled</option>-->
+<!--        </select>-->
+<!--        <div style="color: #23527c">--><?php //echo @$error['statusOfEvent'] ?><!--</div>-->
+<!--        <br/><br/>-->
+<!---->
+<!--        Type of event:-->
+<!--        <select name="typeOfEvent">-->
+<!--            <option value="01" --><?php ////if (@$event->typeOfEvent==Event::EVENT_TYPE_CALL) echo 'selected'; ?><!-->Call</option>-->
+<!--            <option value="02" --><?php ////if (@$event->typeOfEvent==Event::EVENT_TYPE_EMAIL) echo 'selected'; ?><!-->Email</option>-->
+<!--            <option value="03" --><?php ////if (@$event->typeOfEvent==Event::EVENT_TYPE_VIDEO) echo 'selected'; ?><!-->Video conference</option>-->
+<!--            <option value="04" --><?php ////if (@$event->typeOfEvent==Event::EVENT_TYPE_MEETING) echo 'selected'; ?><!-->Meeting</option>-->
+<!--        </select>-->
+<!--        <div style="color: #23527c">--><?php //echo @$error['typeOfEvent'] ?><!--</div>-->
+<!--        <br/><br/>-->
+<!---->
+<!--        <input type="submit" name="submitNewEvent" value="Submit" />-->
+<!--        <br/><br/>-->
+<!--        <a type="button" href="?">Clear the form</a><br/>-->
+<!---->
     </form>
 
 </div>
