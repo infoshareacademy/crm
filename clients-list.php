@@ -34,7 +34,7 @@ include 'includes/header.php'; ?>
 //  |  mailClient  |  noteClient  | creationDateClient
 
     $sql = "SELECT * FROM clients";
-    $clients = $dbh->query($sql);
+    $clients = DBConnection::getConnection()->query($sql);
     $clients = $clients->fetchAll(PDO::FETCH_ASSOC);
 
     // wyswietlanie wynikow
