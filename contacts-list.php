@@ -17,15 +17,20 @@ if (isset($_GET['id'])) {
     $getId = (int)$_GET['id'];
     $sql = 'SELECT surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact, linkedinContact, noteContact FROM contacts WHERE idClient='.$getId;
 }
-else
+else {
     $sql = "";
+}
 
+if ($sql) {
 // execute query
 try {
     $contacts = $dbh->query($sql);
     $clients = $contacts->fetchAll(PDO::FETCH_ASSOC);
 }
 catch (Exception $e) {
+    $clients = array();
+}
+} else {
     $clients = array();
 }
 

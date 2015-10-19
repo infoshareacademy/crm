@@ -1,5 +1,6 @@
-<?php
-require_once 'Event.class.php';
+<?php ob_start();
+include_once 'includes/header.php';
+include_once 'includes/class/Event.class.php';
 
 function displayStatusOfEvent($statusOfEvent){
     switch ($statusOfEvent){
@@ -118,7 +119,15 @@ if (count($_POST)) {
     }
 }
 ?>
-<br/>
+<div role="tabpanel" id="clients-list">
+    <section class="container-fluid">
+        <figure class="banner">
+            <figcaption>Clients list</figcaption>
+        </figure>
+        <article class="row">
+            <div class="col-lg-12">
+
+
 <div style="color: #23527c"><?php echo @$success ?></div>
 
 ADD NEW EVENT:
@@ -204,40 +213,22 @@ ADD NEW EVENT:
     <input type="submit" name="submitNewEvent" value="Submit" />
     <br/><br/>
     <a type="button" href="?">Clear the form</a><br/>
-
-    LIST OF UPCOMING EVENTS:
-
-<table>
-    <tr>
-        <th>Client</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Status</th>
-        <th>Type</th>
-        <th>Topic</th>
-        <th>Description</th>
-        <th>Outcome</th>
-    </tr>
-    <?php
-
-    $allEvents = Event::displayFromEvents('list');
-
-    foreach ($allEvents as $item) {
-        echo '<tr>';
-        echo '<td>'.$item['nameClient'].'</td>';
-        echo '<td>'.$item['dateOfEvent'].'</td>';
-        echo '<td>'.$item['timeOfEvent'].'</td>';
-        echo '<td>'.displayStatusOfEvent($item['statusOfEvent']).'</td>';
-        echo '<td>'.displayTypeOfEvent($item['typeOfEvent']).'</td>';
-        echo '<td>'.$item['topicOfEvent'].'</td>';
-        echo '<td>'.$item['descriptionOfEvent'].'</td>';
-        echo '<td>'.displayOutcomeOfEvent($item['outcomeOfEvent']).'</td>';
-        echo '<td><a href="?edit='.$item['idOfEvent'].'">Edit</a>
-        <a href="?delete='.$item['idOfEvent'].'">Delete</a></td>';
-    echo '</tr>';
-    }
-    ?>
-</table>
-
 </form>
 
+
+
+
+
+
+            </div>
+        </article>
+    </section>
+
+</div>
+<?php
+include 'includes/footer.php';
+$content = ob_get_contents();
+$length = strlen($content);
+header('Content-Length: '.$length);
+echo $content;
+?>

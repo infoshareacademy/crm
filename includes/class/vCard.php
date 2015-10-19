@@ -76,15 +76,17 @@ class VCard {
             return false;
 
         if (preg_match('/\bVERSION:\b\d[.]\d/i', $this->vcfContent, $metches)){
-            $this->vCardData['version'] = substr($metches[0], -3);
+            $this->vCardData['version'] = trim(substr($metches[0], -3));
             return $this->vCardData['version'];
         } else return false;
     }
 
     private function separateStrings() {
         foreach($this->vCardData as $k => $v){
-            if(preg_match_all($this->regexPatterns[$k][$this->vCardData['version']], $this->vcfContent, $metches))
-                $this->vCardData[$k] = $metches[1][0];
+            if(preg_match_all($this->regexPatterns[$k][trim($this->vCardData['version'])], $this->vcfContent, $metches))
+                if(count($metches[1][0]))
+                    $this->vCardData[$k] = $metches[1][0];
+                else $this->vCardData[$k] = '';
         }
     }
 

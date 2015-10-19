@@ -210,7 +210,7 @@ if (count($_POST)) {
 
                     <input type="submit" name="submitNewEvent" value="Submit" />
                     <br/>
-                    <a type="button" href="?">Clear the form</a><br/>
+                    <a type="button" href="plan-event.php?">Clear the form</a><br/>
                 </form>
 
 
@@ -225,5 +225,5 @@ include 'includes/footer.php';
 $content = ob_get_contents();
 $length = strlen($content);
 header('Content-Length: '.$length);
-echo $content;
+//echo $content;
 ?>

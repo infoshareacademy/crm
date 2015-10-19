@@ -237,7 +237,7 @@ class Event {
 
             case 'list':
                 $stmt = $pdo->query('SELECT e.*, c.nameClient FROM events e INNER JOIN clients c ON e.idClient=c.idClient
-                                    WHERE dateOfEvent >= CURDATE() - INTERVAL 3 DAY ORDER BY dateOfEvent;');
+                                    WHERE dateOfEvent >= (CURDATE() - INTERVAL 3 DAY) ORDER BY dateOfEvent LIMIT 10;');
                 break;
 
             default:

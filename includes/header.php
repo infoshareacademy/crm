@@ -1,5 +1,4 @@
 <?php
-    ob_start();
     session_start();
 
     define('ADMIN_LOGIN', 'admin');
