@@ -77,14 +77,17 @@ if (@$_GET['delete'] && (int)$_GET['delete']) {
 <div role="tabpanel" id="clients-list">
     <section class="container-fluid">
         <figure class="banner">
-            <figcaption>Clients list</figcaption>
+            <figcaption>Events list</figcaption>
         </figure>
         <article class="row">
             <div class="col-lg-12">
 
                 <div style="color: #23527c"><?php echo @$success ?></div>
 
-                <h1>LIST OF UPCOMING EVENTS:</h1>
+                <p>Please see below the list of upcoming
+                    events along with the Events from last 3 days.</p>
+                <br>
+                <br>
                 <table  class="table table-hover table-condensed">
                     <thead>
                     <tr>

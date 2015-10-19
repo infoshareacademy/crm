@@ -122,15 +122,17 @@ if (count($_POST)) {
 <div role="tabpanel" id="clients-list">
     <section class="container-fluid">
         <figure class="banner">
-            <figcaption>Clients list</figcaption>
+            <figcaption>Plan new event</figcaption>
         </figure>
         <article class="row">
             <div class="col-lg-12">
 
                 <div style="color: #23527c"><?php echo @$success ?></div>
 
-                <h1>ADD NEW EVENT:</h1>
-
+                <p>Please remember to indicate the major Client for the Event, this field is required. <br/>
+                    If you don't know who's the Contact for this particular Event, that's fine - you can come back later with more details. </p>
+                <br>
+                <br>
                 <form action="?" method="post">
                     <input type="hidden" name="idOfEvent" value="<?php echo @$event->idOfEvent ?>"/>
                     Client:
