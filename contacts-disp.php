@@ -1,4 +1,5 @@
-<?php include 'includes/header.php';
+<?php ob_start();
+include 'includes/header.php';
 require_once('includes/class/ContactDAO.php');
 require_once('includes/class/ContactClass.php');
 include "includes/class/vCard.php";
@@ -167,4 +168,10 @@ if (count($_POST)) {
         </section>
 
     </div>
-<?php include 'includes/footer.php'; ?>
+<?php  include 'includes/footer.php';
+$content = ob_get_contents();
+//ob_get_flush();
+$length = strlen($content);
+header('Content-Length: '.$length);
+echo $content;
+    ?>
