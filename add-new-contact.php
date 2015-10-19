@@ -109,44 +109,7 @@ if (count($_FILES)) {
 
 
 
-                    <table  class="table table-hover table-condensed">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Surname</th>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Phone</th>
-                            <th>Mail</th>
-                            <th>City</th>
-                            <th>LinkedIn</th>
-                            <th>Note</th>
-                            <th>OPTIONS</th>
-                        </tr>
-                        </thead>
 
-
-
-                        <?php
-
-                        $list = Contact::getList();
-                        foreach ($list as $item) {
-                            echo '<tr>';
-                            echo '<td>' . $item['idContact'] . '</td>';
-                            echo '<td>' . $item['surnameContact'] . '</td>';
-                            echo '<td>' . $item['nameContact'] . '</td>';
-                            echo '<td>' . $item['positionContact'] . '</td>';
-                            echo '<td>' . $item['phoneContact'] . '</td>';
-                            echo '<td>' . $item['emailContact'] . '</td>';
-                            echo '<td>' . $item['cityContact'] . '</td>';
-                            echo '<td>' . $item['linkedinContact'] . '</td>';
-                            echo '<td>' . $item['noteContact'] . '</td>';
-                            echo '<td><a href="contacts-disp.php?contactid=' . $item['idContact'] . '">EDIT</a> <a href="contacts-disp.php?delete=' . $item['idContact'] . '">DELETE</a></td>';
-                            echo '</tr>';
-                        }
-                        echo '</table>';
-                        echo '<br/><br/>';
-                        ?>
 
                 </div>
             </article>
