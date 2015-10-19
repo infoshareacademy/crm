@@ -83,8 +83,8 @@ function displayOutcomeOfEvent($outcomeOfEvent){
                 echo '<td>'.$item['topicOfEvent'].'</td>';
                 echo '<td>'.$item['descriptionOfEvent'].'</td>';
                 echo '<td>'.displayOutcomeOfEvent($item['outcomeOfEvent']).'</td>';
-                echo '<td><a href="event-form.php?edit='.$item['idOfEvent'].'">Edit</a>
-        <a href="?delete='.$item['idOfEvent'].'">Delete</a></td>';
+                echo '<td><a href="plan-event.php?edit='.$item['idOfEvent'].'">Edit</a>
+        <a href="plan-event.php?delete='.$item['idOfEvent'].'">Delete</a></td>';
                 echo '</tr>';
             }
             ?>
