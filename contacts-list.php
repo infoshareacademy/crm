@@ -12,7 +12,7 @@
 <?php
 
 //create query
-// surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact linkedinContact, NoteContact
+// surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact linkedinContact, noteContact
 if (isset($_GET['id'])) {
     $getId = (int)$_GET['id'];
     $sql = 'SELECT surnameContact, nameContact, positionContact, phoneContact, emailContact, cityContact, linkedinContact, noteContact FROM contacts WHERE idClient='.$getId;
@@ -22,7 +22,7 @@ else
 
 // execute query
 try {
-    $contacts = $dbh->query($sql);
+    $contacts = DBConnection::getConnection()->query($sql);
     $clients = $contacts->fetchAll(PDO::FETCH_ASSOC);
 }
 catch (Exception $e) {
