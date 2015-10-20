@@ -1,4 +1,6 @@
-<?php include 'includes/header.php';  include "includes/class/client.class.php"?>
+<?php  ob_start();
+include 'includes/header.php';
+include "includes/class/client.class.php"?>
 <div role="tabpanel" id="add-client">
 
     <section class="container-fluid">
@@ -36,4 +38,13 @@
     </section>
 
 </div>
-<?php include 'includes/footer.php'; ?>
+<?php include 'includes/footer.php';
+
+
+$content = ob_get_contents();
+//ob_get_flush();
+$length = strlen($content);
+header('Content-Length: '.$length);
+//echo $content;
+
+?>

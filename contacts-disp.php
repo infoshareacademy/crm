@@ -169,9 +169,9 @@ if (count($_POST)) {
 
     </div>
 <?php  include 'includes/footer.php';
-//$content = ob_get_contents();
-////ob_get_flush();
-//$length = strlen($content);
-//header('Content-Length: '.$length);
-//echo $content;
+$content = ob_get_contents();
+//ob_get_flush();
+$length = strlen($content);
+header('Content-Length: '.$length);
+echo $content;
     ?>
