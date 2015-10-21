@@ -8,5 +8,7 @@
  */
 class ClientEventsReportDAO
 {
+    public function loadData() {
 
+    }
 }
