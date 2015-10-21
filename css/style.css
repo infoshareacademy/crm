@@ -307,3 +307,44 @@ aside #daneout {
         position: relative;
     }
 }
+
+
+
+
+/*   E R R O R   4 0 4   */
+
+body.err404 {
+    /* Margin bottom by footer height */
+    margin-bottom: 70px;
+}
+
+.err404 h1{
+    font-size: 24em;
+    font-weight: 600;
+    text-align: center;
+}
+.err404 p{
+    margin: 0 0 10px;
+    font-size: 4em;
+    text-align: center;
+    letter-spacing: .8em;
+    font-family: curier, monospace;
+    color: darkgray;}
+
+.err404 .footer {
+    position: absolute;
+    padding: 5px;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #556;
+}
+
+.err404 .footer p {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: .72em;
+    color: #bababf;
+    margin-top: 15px;
+}
