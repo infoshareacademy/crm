@@ -11,8 +11,9 @@ class ClientEventsReportDAO
         month(dateOfEvent) AS 'month',
         year(dateOfEvent) AS 'year'
         FROM events e INNER JOIN clients c on c.idClient = e.idClient
-        WHERE e.idClient = 1
-        GROUP BY Client, year(dateOfEvent), month(dateOfEvent)";
+        WHERE e.idClient = 1 AND dateOfEvent <> 0
+        GROUP BY Client, year(dateOfEvent), month(dateOfEvent)
+        ORDER BY year(dateOfEvent), month(dateOfEvent)";
 
         $stmt = DBConnection::getConnection()->prepare($query);
         $input_parameters = array(':idClient' => $this->idClient);
