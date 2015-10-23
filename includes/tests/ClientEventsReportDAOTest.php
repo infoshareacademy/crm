@@ -9,4 +9,14 @@
 class ClientEventsReportDAOTest
 {
 
+    protected $reportData =array();
+
+    public function setUp() {
+        $this->reportData = new ClientEventsReportDAO();
+    }
+
+    public function ifEmpty() {
+        $reportData = new ClientEventsReportDAO();
+        $xxx = $reportData->loadData('');
+    }
 }
