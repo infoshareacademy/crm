@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/includes/class/DBConnection.php';
+require_once __DIR__ . '/includes/classes/DBConnection.php';
 include 'includes/header.php'; ?>
 <div role="tabpanel" id="clients-list">
     <section class="container-fluid">

@@ -1,6 +1,8 @@
 <?php
-include_once 'includes/header.php';
-include_once 'includes/class/Event.class.php';
+
+include 'includes/header.php';
+
+require_once __DIR__ . '/includes/classes/Event.class.php';
 
 function displayStatusOfEvent($statusOfEvent){
     switch ($statusOfEvent){

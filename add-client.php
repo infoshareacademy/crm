@@ -1,6 +1,7 @@
 <?php
 include 'includes/header.php';
-include "includes/class/client.class.php"?>
+require_once __DIR__ . '/includes/classes/client.class.php';
+?>
 <div role="tabpanel" id="add-client">
 
     <section class="container-fluid">

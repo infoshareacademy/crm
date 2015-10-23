@@ -1,7 +1,10 @@
-<?php include 'includes/header.php';
-require_once('includes/class/ContactDAO.php');
-require_once('includes/class/ContactClass.php');
-include "includes/class/vCard.php";
+<?php
+
+include 'includes/header.php';
+
+require_once __DIR__ . '/includes/classes/ContactDAO.php';
+require_once __DIR__ . '/includes/classes/ContactClass.php';
+require_once __DIR__ . '/includes/classes/vCard.php';
 
 
 if (isset($_GET['delete'])) {
