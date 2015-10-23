@@ -1,11 +1,13 @@
 <?php
 
+require_once __DIR__ . '/DBConnection.php';
+
 class ContactDAO
 {
 
     public function loadContact($contactid)
     {
-        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+        $pdo = DBConnection::getConnection();
         $result = $pdo->query("select * from contacts where idContact=$contactid");
 
         if ($result->rowCount() > 0) {
@@ -18,5 +20,3 @@ class ContactDAO
         }
     }
 }
-
-?>

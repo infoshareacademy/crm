@@ -5,7 +5,6 @@ session_start();
 define('ADMIN_LOGIN', 'admin');
 define('ADMIN_PASS', 'admin');
 
-    include_once 'includes/config/dbconnect.php';
 
 
     if (isset($_POST['login']))

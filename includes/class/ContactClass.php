@@ -6,6 +6,8 @@
  * Date: 15.10.15
  * Time: 16:38
  */
+require_once __DIR__ . '/DBConnection.php';
+
 class Contact
 {
     protected $idContact;
@@ -37,11 +39,9 @@ class Contact
 
     public function persist()
     {
-        try {
-            $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
-        } catch (PDOException $e) {
-            echo 'Connection failed: ' . $e->getMessage();
-        }
+
+        $pdo = DBConnection::getConnection();
+
 
         $queryParameters = array(
             ':surnameContact' => $this->surname(),
@@ -147,25 +147,20 @@ class Contact
 
     public static function getList()
     {
-        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+        $pdo = DBConnection::getConnection();
         $stmt = $pdo->query('SELECT * FROM contacts');
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function delete()
     {
-        $this->pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+        $this->pdo = DBConnection::getConnection();
         $stmt = $this->pdo->prepare("DELETE FROM contacts WHERE idContact=:identyfikator");
         $status = $stmt->execute(
             array(
                 ':identyfikator' => $this->id(),
             )
         );
-
-        $this->id = null;
-        $this->name = null;
-        $this->phone = null;
-        $this->photo = null;
 
         return $status;
     }

@@ -151,7 +151,7 @@ class Client {
     }
 
     public function save() {
-//        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=test.crm.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+
         //idClient   |  nameClient   |  idTax  |  addressClient  |  cityClient  |  phoneClient  |  faxClient  |  wwwClient  |  mailClient  |  noteClient  | creationDateClient
         $stmt = DBConnection::getConnection()->prepare("INSERT INTO clients (nameClient, idTax, addressClient, cityClient, phoneClient, faxClient, wwwClient, mailClient, noteClient, creationDateClient)
                                VALUES (:nameClient, :tax, :adres, :city, :tel, :fax, :www, :mail, :note, :dateAdd ) ");
@@ -251,6 +251,3 @@ if (count($_POST)) {
     }
 
 } // end of if(count($_POST))
-
-
-?>

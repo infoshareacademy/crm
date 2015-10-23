@@ -25,8 +25,4 @@ class DBConnection {
         }
         return DBConnection::$connection;
     }
-
-
 }
-
-?>

@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/DBConnection.php';
+
 class Event {
 
     protected $idOfEvent;
@@ -33,11 +35,10 @@ class Event {
     const MAX_TOPIC_LENGTH = 50;
 
     public function __construct($idOfEvent=null) {
-        $this->pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+        $this->pdo = DBConnection::getConnection();
 
         if ($idOfEvent){
             $stmt = $this->pdo->query("SELECT * FROM events WHERE idOfEvent=".$idOfEvent);
-
             if ($stmt->rowCount()>0) {
 
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -223,7 +224,7 @@ class Event {
 
     public static function displayFromEvents($selection){
 
-        $pdo = new PDO('mysql:dbname=infoshareaca_5;host=sql.infoshareaca.nazwa.pl', 'infoshareaca_5', 'F0r3v3r!');
+        $pdo = DBConnection::getConnection();
 
         switch ($selection) {
 
