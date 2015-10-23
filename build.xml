@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CRM" default="test">
+
+<target name="test">
+  <exec executable="phpunit">
+    <arg value="/includes/class" />
+  </exec>
+</target>
+
+</project>
