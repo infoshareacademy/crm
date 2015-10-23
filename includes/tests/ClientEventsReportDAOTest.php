@@ -8,7 +8,7 @@
  */
 class ClientEventsReportDAOTest
 {
-    
+
     protected $reportData =array();
 
     public function setUp() {
