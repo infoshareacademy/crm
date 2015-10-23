@@ -1,4 +1,4 @@
-<?php ob_start();
+<?php
 include_once 'includes/header.php';
 include_once 'includes/class/Event.class.php';
 
@@ -227,8 +227,5 @@ ADD NEW EVENT:
 </div>
 <?php
 include 'includes/footer.php';
-//$content = ob_get_contents();
-//$length = strlen($content);
-//header('Content-Length: '.$length);
-//echo $content;
+
 ?>

@@ -1,5 +1,5 @@
 <?php
-ob_start();
+
 session_start();
 
 define('ADMIN_LOGIN', 'admin');
@@ -38,5 +38,4 @@ include 'includes/header-simple.php';
 
 </div>
 
-<?php
-include 'includes/footer-simple.php'; ?>
+<?php include 'includes/footer-simple.php'; ?>
