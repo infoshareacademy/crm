@@ -5,24 +5,33 @@ session_start();
 define('ADMIN_LOGIN', 'admin');
 define('ADMIN_PASS', 'admin');
 
-    include_once 'includes/config/dbconnect.php';
+//include_once 'includes/config/dbconnect.php';
+require_once 'includes/class/user.class.php';
+
+$loggingUser = new User();
 
 
     if (isset($_POST['login']))
-        $_SESSION['user_login'] = $_POST['login'];
-    if (isset($_POST['pass']))
-        $_SESSION['user_pass'] = $_POST['pass'];
+//        $_SESSION['user_login'] = $_POST['login'];
+        $loggingUser->login = $_POST['login'];
 
-    if (!@$_SESSION['user_login'] || !@$_SESSION['user_pass']) {
+    if (isset($_POST['pass']))
+//        $_SESSION['user_pass'] = $_POST['pass'];
+        $loggingUser->pass = $_POST['pass'];
+
+    if (!$loggingUser->login || !$loggingUser->pass)
         $error = 'Please enter login and password';
-    }
+
+//    if (!@$_SESSION['user_login'] || !@$_SESSION['user_pass']) {
+//        $error = 'Please enter login and password';
+//    }
     else {
-        if ($_SESSION['user_login'] == ADMIN_LOGIN && $_SESSION['user_pass']== ADMIN_PASS) {
+//        if ($_SESSION['user_login'] == ADMIN_LOGIN && $_SESSION['user_pass']== ADMIN_PASS) {
             header("Location: index.php");
-        }
-        else {
+//        }
+//        else {
             $error = 'Invalid login or password';
-        }
+//        }
     }
 
 include 'includes/header-simple.php';
