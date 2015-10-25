@@ -12,27 +12,28 @@ $loggingUser = new User();
 
 
     if (isset($_POST['login']))
-//        $_SESSION['user_login'] = $_POST['login'];
         $loggingUser->login = $_POST['login'];
 
     if (isset($_POST['pass']))
-//        $_SESSION['user_pass'] = $_POST['pass'];
         $loggingUser->pass = $_POST['pass'];
 
-    if (!$loggingUser->login || !$loggingUser->pass)
+    if (!$loggingUser -> login || !$loggingUser -> pass) {
         $error = 'Please enter login and password';
-
-//    if (!@$_SESSION['user_login'] || !@$_SESSION['user_pass']) {
-//        $error = 'Please enter login and password';
-//    }
-    else {
-//        if ($_SESSION['user_login'] == ADMIN_LOGIN && $_SESSION['user_pass']== ADMIN_PASS) {
-            header("Location: index.php");
-//        }
-//        else {
-            $error = 'Invalid login or password';
-//        }
     }
+    else {
+        $loggingUser -> login($loggingUser->login);
+        if ($loggingUser -> logged) {
+            $_SESSION['user_login'] = $loggingUser -> login;
+            $_SESSION['user_pass'] = $loggingUser -> pass;
+            $_SESSION['permissions'] = $loggingUser -> permissions;
+            $_SESSION['logged'] = $loggingUser->logged;
+            header("Location: index.php");
+        }
+        else {
+            $error = 'Invalid login or password';
+        }
+    }
+
 
 include 'includes/header-simple.php';
 ?>
