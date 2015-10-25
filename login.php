@@ -14,8 +14,10 @@ $loggingUser = new User();
     if (isset($_POST['login']))
         $loggingUser->login = $_POST['login'];
 
+// magiczna funkcja setera w tym miejscu nie robi skrótu z hasla - dopytać na zajęciach
     if (isset($_POST['pass']))
         $loggingUser->pass = $_POST['pass'];
+
 
     if (!$loggingUser -> login || !$loggingUser -> pass) {
         $error = 'Please enter login and password';

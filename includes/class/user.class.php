@@ -21,7 +21,14 @@ class User
     }
 
     public function __set($param_name,$param_value) {
-        $this->$param_name = $param_value;
+        switch ($param_name) {
+            case 'pass':
+                $param_value = md5($param_value);
+                $this -> pass = $param_value;
+                break;
+            default:
+                $this->$param_name = $param_value;
+        }
     }
 
     public function login($userName) {
@@ -54,9 +61,7 @@ class User
     }
 }  // class User
 
-//$userName = 'admin';
-//$pass = 'admain';
-//
-//$uzytkownik = new User($userName, $pass, 2);
-//$uzytkownik->login($uzytkownik->login, $uzytkownik->pass);
 
+$haslo = 'admin2';
+$skrot = md5($haslo);
+echo $skrot;
