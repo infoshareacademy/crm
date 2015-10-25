@@ -1,6 +1,7 @@
 <?php
-include_once('../config/dbconnect.php');
-//require_once 'user.class.php';
+include_once '../config/dbconnect.php';
+require_once 'user.class.php';
+
 /**
  * Created by PhpStorm.
  * User: katban
@@ -18,11 +19,11 @@ class userDAO
 
         if ($result) {
             $user = new User($result['loginUser'], $result['passwordUser'], $result['roleUser']);
+            return $user;
         }
         else {
-            $user = new User('Guest', null, 0);
+            return false;
         }
-        return $user;
     }
 
 } //class User
