@@ -12,10 +12,14 @@ class User
     public $pass;
     public $permissions;
 
-    public function __construct($login, $pass, $permissions) {
+    public function __construct($login = null, $pass = null, $permissions = null) {
         $this->login = $login;
         $this->pass = $pass;
         $this ->permissions = $permissions;
+    }
+
+    public function __set($param_name,$param_value) {
+        $this->$param_name = $param_value;
     }
 
     public function login($userName)
