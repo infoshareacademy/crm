@@ -24,24 +24,24 @@ class User
         $this->$param_name = $param_value;
     }
 
-    public function login($userName)
-    {
+    public function login($userName) {
         $dbUser = new userDAO();
         $dbUser = $dbUser->loadUser($userName);
         if ($dbUser) {
             // find user in db
             if($dbUser->pass === $this->pass) {
-                echo 'zalogowany!';
                 $this -> logged = true;
+                $this -> login = $dbUser -> login;
+                $this -> permissions = $dbUser ->permissions;
             }
             else echo '<p>Password error</p>';
         }
         else echo '<p>Login failed</p>';
-
+        unset($dbUser);
     }
 
     public function logout($userName) {
-
+        $this -> logged = false;
     }
 
     public function isLogged($userName) {
