@@ -15,7 +15,7 @@ class userDAO
         $stmt->execute(array(
             ':loginUser' => $username
         ));
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
             $user = new User($result['loginUser'], $result['passwordUser'], $result['roleUser']);
