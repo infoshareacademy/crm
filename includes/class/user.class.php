@@ -32,6 +32,7 @@ class User
             // find user in db
             if($dbUser->pass === $this->pass) {
                 echo 'zalogowany!';
+                $this -> logged = true;
             }
             else echo '<p>Password error</p>';
         }
@@ -43,8 +44,13 @@ class User
 
     }
 
-    public function islogged($userName) {
-
+    public function isLogged($userName) {
+        if ($this -> logged) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }  // class User
 
