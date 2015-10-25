@@ -1,5 +1,5 @@
 <?php
-
+include_once 'userDAO.class.php';
 /**
  * Created by PhpStorm.
  * User: katban
@@ -8,9 +8,9 @@
  */
 class User
 {
-    protected $login;
-    protected $pass;
-    protected $permissions;
+    public $login;
+    public $pass;
+    public $permissions;
 
     public function __construct($login, $pass, $permissions) {
         $this->login = $login;
@@ -18,7 +18,18 @@ class User
         $this ->permissions = $permissions;
     }
 
-    public function login($userName, $pass) {
+    public function login($userName)
+    {
+        $dbUser = new userDAO();
+        $dbUser = $dbUser->loadUser($userName);
+        if ($dbUser) {
+            // find user in db
+            if($dbUser->pass === $this->pass) {
+                echo 'zalogowany!';
+            }
+            else echo '<p>Password error</p>';
+        }
+        else echo '<p>Login failed</p>';
 
     }
 
@@ -29,4 +40,10 @@ class User
     public function islogged($userName) {
 
     }
-}
+}  // class User
+
+$userName = 'admin';
+$pass = 'admain';
+
+$uzytkownik = new User($userName, $pass, 2);
+$uzytkownik->login($uzytkownik->login, $uzytkownik->pass);
