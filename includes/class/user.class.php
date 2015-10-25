@@ -11,11 +11,13 @@ class User
     public $login;
     public $pass;
     public $permissions;
+    public $logged;
 
     public function __construct($login = null, $pass = null, $permissions = null) {
-        $this->login = $login;
-        $this->pass = $pass;
-        $this ->permissions = $permissions;
+        $this -> login = $login;
+        $this -> pass = $pass;
+        $this -> permissions = $permissions;
+        $this -> logged = false;
     }
 
     public function __set($param_name,$param_value) {
@@ -46,8 +48,9 @@ class User
     }
 }  // class User
 
-$userName = 'admin';
-$pass = 'admain';
+//$userName = 'admin';
+//$pass = 'admain';
+//
+//$uzytkownik = new User($userName, $pass, 2);
+//$uzytkownik->login($uzytkownik->login, $uzytkownik->pass);
 
-$uzytkownik = new User($userName, $pass, 2);
-$uzytkownik->login($uzytkownik->login, $uzytkownik->pass);
