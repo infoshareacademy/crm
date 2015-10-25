@@ -1,5 +1,6 @@
 <?php
 include_once('../config/dbconnect.php');
+//require_once 'user.class.php';
 /**
  * Created by PhpStorm.
  * User: katban
@@ -10,17 +11,20 @@ class userDAO
 {
     public function loadUser($username) {
         $stmt = DBConnection::getConnection()->prepare('SELECT * FROM users WHERE loginUser=:loginUser');
-        $status = $stmt->execute(array(
+        $stmt->execute(array(
             ':loginUser' => $username
         ));
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if($status > 0) {
-            print_r($status);
+        if ($result) {
+            $user = new User($result['loginUser'], $result['passwordUser'], $result['roleUser']);
         }
-        else echo "cos nie tak";
+        else {
+            $user = new User('Guest', null, 0);
+        }
+        return $user;
     }
 
-}
+} //class User
 
-$ktos = new userDAO();
-$ktos->loadUser('admin');
+

@@ -12,6 +12,12 @@ class User
     protected $pass;
     protected $permissions;
 
+    public function __construct($login, $pass, $permissions) {
+        $this->login = $login;
+        $this->pass = $pass;
+        $this ->permissions = $permissions;
+    }
+
     public function login($userName, $pass) {
 
     }
