@@ -29,7 +29,7 @@ class userDAO
     public function autorization($object) {
         $stmt = DBConnection::getConnection()->prepare('SELECT roleUser FROM users WHERE loginUser=:loginUser AND passwordUser=:password');
         $stmt->execute(array(
-            ':loginUser' => $object->name,
+            ':loginUser' => $object->login,
             ':password' => $object->pass
         ));
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

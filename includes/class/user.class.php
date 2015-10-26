@@ -1,5 +1,5 @@
 <?php
-include_once 'userDAO.class.php';
+require_once 'userDAO.class.php';
 /**
  * Created by PhpStorm.
  * User: katban
@@ -33,19 +33,8 @@ class User
 
     public function login($userName) {
         $dbUser = new userDAO();
-//        $dbUser = $dbUser->loadUser($userName);
-//        if ($dbUser) {
-//            // find user in db
-//            if($dbUser->pass === $this->pass) {
-//                $this -> logged = true;
-//                $this -> login = $dbUser -> login;
-//                $this -> permissions = $dbUser ->permissions;
-//            }
-//            else echo '<p>Password error</p>';
-//        }
-//        else echo '<p>Login failed</p>';
-//        unset($dbUser);
         $permissions = $dbUser->autorization($this);
+
         if ($permissions) {
             //autoryzacja sie powiodla i zostal zwrocony poziom uprawnien
             $this->logged = true;
@@ -61,6 +50,7 @@ class User
         $this -> logged = false;
     }
 
+    // wydaje się być bez sensu na chwilę obecną ;)
     public function isLogged($userName) {
         if ($this -> logged) {
             return true;
