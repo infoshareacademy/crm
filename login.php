@@ -9,6 +9,7 @@ define('ADMIN_PASS', 'admin');
 require_once 'includes/class/user.class.php';
 
 $loggingUser = new User();
+$error = null;
 
 
     if (isset($_POST['login']))
@@ -25,10 +26,11 @@ $loggingUser = new User();
     else {
         $loggingUser -> login($loggingUser->login);
         if ($loggingUser -> logged) {
-            $_SESSION['user_login'] = $loggingUser -> login;
-            $_SESSION['user_pass'] = $loggingUser -> pass;
-            $_SESSION['permissions'] = $loggingUser -> permissions;
-            $_SESSION['logged'] = $loggingUser->logged;
+            $shortUser = serialize($loggingUser);
+            $_SESSION['user'] = $shortUser;
+//            $_SESSION['user_pass'] = $loggingUser -> pass;
+//            $_SESSION['permissions'] = $loggingUser -> permissions;
+//            $_SESSION['logged'] = $loggingUser->logged;
             header("Location: index.php");
         }
         else {
