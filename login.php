@@ -26,11 +26,10 @@ $error = null;
     else {
         $loggingUser -> login($loggingUser->login);
         if ($loggingUser -> logged) {
-            $shortUser = serialize($loggingUser);
-            $_SESSION['user'] = $shortUser;
-//            $_SESSION['user_pass'] = $loggingUser -> pass;
-//            $_SESSION['permissions'] = $loggingUser -> permissions;
-//            $_SESSION['logged'] = $loggingUser->logged;
+//            $shortUser = serialize($loggingUser);
+            $_SESSION['user'] = $loggingUser->login;
+            $_SESSION['permissions'] = $loggingUser -> permissions;
+            $_SESSION['logged'] = $loggingUser->logged;
             header("Location: index.php");
         }
         else {

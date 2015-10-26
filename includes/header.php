@@ -1,10 +1,7 @@
 <?php
     session_start();
 
-    define('ADMIN_LOGIN', 'admin');
-    define('ADMIN_PASS', 'admin');
-
-    if ($_SESSION['user_login'] != ADMIN_LOGIN && $_SESSION['user_pass'] != ADMIN_PASS) {
+    if(!$_SESSION['logged']) {
         header("Location: login.php");
         exit;
     }
