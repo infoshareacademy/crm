@@ -1,6 +1,78 @@
 <?php
 include 'includes/header.php';
-require_once __DIR__ . '/includes/classes/client.class.php';
+
+require_once __DIR__ . '/includes/classes/Client.php';
+
+$error = array();
+
+$blad = '!Zla_Dana!'; // wartosc ta sama co w stalej klasy ERROR - alez to dramatyczne rozwiazanie; zajme sie tym pozniej
+// przejecie danych z posta
+if (count($_POST)) {
+    $client = new Client();
+
+    //pola wymagane
+    $client->name = @$_POST['name'];
+    if(!$client->name)
+        $error['name'] = 'Podaj nazwe kontrahenta';
+
+    $client->city = @$_POST['city'];
+    if(!$client->city)
+        $error['city'] = 'Wpisz miasto';
+
+    $client->phone = (int)@$_POST['phone'];
+    if(!$client->phone)
+        $error['phone'] = 'Numer musi skladac sie z 9-11  cyfr';
+
+    $client->mail = @$_POST['mail'];
+    if(!$client->mail)
+        $error['mail'] = 'Podaj prawidlowy mail z @ i poprawna domena';
+
+    // nieobowiazkowe
+    $client->idTax = @$_POST['idTax'];
+    if($client->idTax === $blad)
+        $error['idTax'] = 'Tax ID moze miec max 11 cyfr';
+
+    // zebranie danych z trzech pol formularza i spreparowanie ich tak jak sa przechowywane w db
+    // street ; streetNumber ; postcode
+    if(@$_POST['street'] || @$_POST['streetNumber'] || @$_POST['postCode']) {
+        $tableAddress = array (htmlspecialchars(@$_POST['street']),htmlspecialchars(@$_POST['streetNumber']),htmlspecialchars(@$_POST['postCode']));
+        $address = implode(";", $tableAddress);
+        $client->address = $address;
+    }
+    else {
+        $client->address = null;
+    }
+
+    if($client->address === $blad)
+        $error['address'] = 'Max 255 znakow';
+
+    $client->fax = @$_POST['fax'];
+    if($client->fax === $blad)
+        $error['fax'] = 'Numer musi skladac sie z 9-11  cyfr';
+
+    $client->www = @$_POST['www'];
+    if($client->www === $blad)
+        $error['www'] = 'Domena do 40 znakow';
+
+    $client->note = @$_POST['note'];
+    if($client->note === $blad)
+        $error['note'] = 'to ma byc krotka notatka do 100 znakow ;)';
+
+    //zapis
+    if(count($error) == 0) {
+        //echo 'Proba zapisu<br/><br/><br/>';
+        $status = $client->save();
+        if($status == Client::SAVE_STATUS_OK) {
+            $success = "Qrde udalo sie";
+        }
+        else {
+            $error['global'] = 'Fatalnie nie da rady zapisac tego Clienta';
+        }
+    }
+
+} // end of if(count($_POST))
+
+
 ?>
 <div role="tabpanel" id="add-client">
 

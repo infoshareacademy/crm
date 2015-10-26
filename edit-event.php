@@ -2,7 +2,7 @@
 
 include 'includes/header.php';
 
-require_once __DIR__ . '/includes/classes/Event.class.php';
+require_once __DIR__ . '/includes/classes/Event.php';
 
 function displayStatusOfEvent($statusOfEvent){
     switch ($statusOfEvent){

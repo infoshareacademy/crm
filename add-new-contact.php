@@ -3,7 +3,7 @@
 include 'includes/header.php';
 
 require_once __DIR__ . '/includes/classes/ContactDAO.php';
-require_once __DIR__ . '/includes/classes/ContactClass.php';
+require_once __DIR__ . '/includes/classes/Contact.php';
 require_once __DIR__ . '/includes/classes/vCard.php';
 
 
