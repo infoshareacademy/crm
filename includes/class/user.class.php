@@ -33,18 +33,28 @@ class User
 
     public function login($userName) {
         $dbUser = new userDAO();
-        $dbUser = $dbUser->loadUser($userName);
-        if ($dbUser) {
-            // find user in db
-            if($dbUser->pass === $this->pass) {
-                $this -> logged = true;
-                $this -> login = $dbUser -> login;
-                $this -> permissions = $dbUser ->permissions;
-            }
-            else echo '<p>Password error</p>';
+//        $dbUser = $dbUser->loadUser($userName);
+//        if ($dbUser) {
+//            // find user in db
+//            if($dbUser->pass === $this->pass) {
+//                $this -> logged = true;
+//                $this -> login = $dbUser -> login;
+//                $this -> permissions = $dbUser ->permissions;
+//            }
+//            else echo '<p>Password error</p>';
+//        }
+//        else echo '<p>Login failed</p>';
+//        unset($dbUser);
+        $permissions = $dbUser->autorization($this);
+        if ($permissions) {
+            //autoryzacja sie powiodla i zostal zwrocony poziom uprawnien
+            $this->logged = true;
+            $this->permissions = $permissions;
         }
-        else echo '<p>Login failed</p>';
-        unset($dbUser);
+        else {
+            $this->logged = false;
+        }
+        $this->pass = null;
     }
 
     public function logout($userName) {

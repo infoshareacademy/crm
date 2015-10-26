@@ -26,6 +26,20 @@ class userDAO
         }
     }
 
+    public function autorization($object) {
+        $stmt = DBConnection::getConnection()->prepare('SELECT roleUser FROM users WHERE loginUser=:loginUser AND passwordUser=:password');
+        $stmt->execute(array(
+            ':loginUser' => $object->name,
+            ':password' => $object->pass
+        ));
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($result) {
+            return $result['roleUser'];
+        }
+        else return null;
+    }
+
 } //class User
 
 
