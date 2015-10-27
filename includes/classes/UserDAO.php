@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../config/dbconnect.php';
-require_once 'user.class.php';
+require_once __DIR__ . '/DBConnection.php';
+require_once __DIR__ . '/User.php';
 
 /**
  * Created by PhpStorm.

@@ -1,5 +1,5 @@
 <?php
-require_once 'userDAO.class.php';
+require_once __DIR__ . '/UserDAO.php';
 /**
  * Created by PhpStorm.
  * User: katban

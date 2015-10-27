@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/user.class.php';
+require_once __DIR__ . '/../classes/User.php';
 /**
  * Created by PhpStorm.
  * User: katban

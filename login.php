@@ -5,7 +5,7 @@ session_start();
 define('ADMIN_LOGIN', 'admin');
 define('ADMIN_PASS', 'admin');
 
-require_once 'includes/class/user.class.php';
+require_once __DIR__ . '/includes/classes/User.php';
 
 $loggingUser = new User();
 $error = null;
