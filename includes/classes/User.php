@@ -13,11 +13,18 @@ class User
     protected $permissions;
     protected $logged;
 
+    private static $aliveUser;
+
     public function __construct($login = null, $pass = null, $permissions = null) {
-        $this -> login = $login;
-        $this -> pass = $pass;
-        $this -> permissions = $permissions;
-        $this -> logged = false;
+        session_start();
+        if($_SESSION['user']) {
+            $this->login = $_SESSION['user'];
+            $this->permissions = $_SESSION['permissions'];
+            $this->logged = true;
+        }
+        else {
+            $this->logged = false;
+        }
     }
 
     public function __get($param_name) {
@@ -26,6 +33,13 @@ class User
 
     public function __set($param_name, $param_value) {
         $this->$param_name = $param_value;
+    }
+
+    public static function getUser() {
+        if(!User::$aliveUser) {
+            User::$aliveUser = new User();
+        }
+        return User::$aliveUser;
     }
 
     public function setPassword($pass) {
