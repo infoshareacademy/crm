@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CRM" default="test">
+    <property name="path" location="includes/class" />
+
+    <target name="test">
+        <exec executable="phpunit">
+            <arg value="--log-junit" />
+            <arg value="${path}/tests-result.xml" />
+            <arg value="${path}" />
+        </exec>
+    </target>
+</project>

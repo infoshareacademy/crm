@@ -1,16 +1,14 @@
 <?php
-ob_start();
+
 session_start();
 
 define('ADMIN_LOGIN', 'admin');
 define('ADMIN_PASS', 'admin');
 
-//include_once 'includes/config/dbconnect.php';
 require_once 'includes/class/user.class.php';
 
 $loggingUser = new User();
 $error = null;
-
 
     if (isset($_POST['login']))
         $loggingUser->login = $_POST['login'];
@@ -36,7 +34,6 @@ $error = null;
         }
     }
 
-
 include 'includes/header-simple.php';
 ?>
 <div class="login-form">
@@ -50,5 +47,4 @@ include 'includes/header-simple.php';
 
 </div>
 
-<?php
-include 'includes/footer-simple.php'; ?>
+<?php include 'includes/footer-simple.php'; ?>

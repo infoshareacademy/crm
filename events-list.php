@@ -1,6 +1,6 @@
-<?php ob_start();
-include_once 'includes/header.php';
-include_once 'includes/class/Event.class.php';
+<?php
+include 'includes/header.php';
+include_once __DIR__ . '/includes/classes/Event.php';
 
 function displayStatusOfEvent($statusOfEvent){
     switch ($statusOfEvent){
@@ -133,8 +133,5 @@ if (@$_GET['delete'] && (int)$_GET['delete']) {
 </div>
 <?php
 include 'includes/footer.php';
-$content = ob_get_contents();
-$length = strlen($content);
-header('Content-Length: '.$length);
-echo $content;
+
 ?>

@@ -1,8 +1,10 @@
-<?php ob_start();
+<?php
+
 include 'includes/header.php';
-require_once('includes/class/ContactDAO.php');
-require_once('includes/class/ContactClass.php');
-include "includes/class/vCard.php";
+
+require_once __DIR__ . '/includes/classes/ContactDAO.php';
+require_once __DIR__ . '/includes/classes/Contact.php';
+require_once __DIR__ . '/includes/classes/vCard.php';
 /**
  * Created by PhpStorm.
  * User: paoolskoolsky
@@ -169,9 +171,4 @@ if (count($_POST)) {
 
     </div>
 <?php  include 'includes/footer.php';
-$content = ob_get_contents();
-//ob_get_flush();
-$length = strlen($content);
-header('Content-Length: '.$length);
-echo $content;
     ?>
