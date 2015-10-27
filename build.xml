@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CRM" default="test">
-    <property name="path" location="includes/class" />
+    <property name="path" location="includes/tests" />
 
     <target name="test">
         <exec executable="phpunit">

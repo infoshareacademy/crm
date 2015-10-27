@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/home/krasai/workspace/crm/includes/tests" tests="5" assertions="29" failures="0" errors="0" time="0.005005">
+    <testsuite name="vCardTest" file="/home/krasai/workspace/crm/includes/tests/vCardTest.php" tests="5" assertions="29" failures="0" errors="0" time="0.005005">
+      <testcase name="testIfVCardV21" class="vCardTest" file="/home/krasai/workspace/crm/includes/tests/vCardTest.php" line="21" assertions="7" time="0.002727"/>
+      <testcase name="testIfVCardV30" class="vCardTest" file="/home/krasai/workspace/crm/includes/tests/vCardTest.php" line="49" assertions="7" time="0.000632"/>
+      <testcase name="testIfVCardV40" class="vCardTest" file="/home/krasai/workspace/crm/includes/tests/vCardTest.php" line="78" assertions="7" time="0.000604"/>
+      <testcase name="testIfVCardNew" class="vCardTest" file="/home/krasai/workspace/crm/includes/tests/vCardTest.php" line="106" assertions="7" time="0.000566"/>
+      <testcase name="testInvalidVCard" class="vCardTest" file="/home/krasai/workspace/crm/includes/tests/vCardTest.php" line="130" assertions="1" time="0.000476"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
