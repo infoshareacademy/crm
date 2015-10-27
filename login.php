@@ -15,9 +15,9 @@ $error = null;
     if (isset($_POST['login']))
         $loggingUser->login = $_POST['login'];
 
-// magiczna funkcja setera w tym miejscu nie robi skrótu z hasla - dopytać na zajęciach
-    if (isset($_POST['pass']))
-        $loggingUser->pass = $_POST['pass'];
+    if (isset($_POST['pass'])) {
+        $loggingUser->setPassword($_POST['pass']);
+    }
 
 
     if (!$loggingUser -> login || !$loggingUser -> pass) {
@@ -26,7 +26,6 @@ $error = null;
     else {
         $loggingUser -> login($loggingUser->login);
         if ($loggingUser -> logged) {
-//            $shortUser = serialize($loggingUser);
             $_SESSION['user'] = $loggingUser->login;
             $_SESSION['permissions'] = $loggingUser -> permissions;
             $_SESSION['logged'] = $loggingUser->logged;
