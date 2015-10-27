@@ -8,10 +8,10 @@ require_once 'userDAO.class.php';
  */
 class User
 {
-    public $login;
-    public $pass;
-    public $permissions;
-    public $logged;
+    protected $login;
+    protected $pass;
+    protected $permissions;
+    protected $logged;
 
     public function __construct($login = null, $pass = null, $permissions = null) {
         $this -> login = $login;
@@ -20,15 +20,17 @@ class User
         $this -> logged = false;
     }
 
-    public function __set($param_name,$param_value) {
-        switch ($param_name) {
-            case 'pass':
-                $param_value = md5($param_value);
-                $this -> pass = $param_value;
-                break;
-            default:
-                $this->$param_name = $param_value;
-        }
+    public function __get($param_name) {
+        return $this->$param_name;
+    }
+
+    public function __set($param_name, $param_value) {
+        $this->$param_name = $param_value;
+    }
+
+    public function setPassword($pass) {
+        $pass = md5($pass);
+        $this -> pass = $pass;
     }
 
     public function login($userName) {
@@ -46,22 +48,4 @@ class User
         $this->pass = null;
     }
 
-    public function logout($userName) {
-        $this -> logged = false;
-    }
-
-    // wydaje się być bez sensu na chwilę obecną ;)
-    public function isLogged($userName) {
-        if ($this -> logged) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 }  // class User
-
-
-$haslo = 'admin2';
-$skrot = md5($haslo);
-echo $skrot;
