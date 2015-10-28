@@ -251,23 +251,26 @@ WHERE dateOfEvent >= (CURDATE() - INTERVAL 3 DAY) ORDER BY dateOfEvent LIMIT 25 
 
     public function deleteEvent() {
 
-        $stmt = $this->pdo->prepare("DELETE FROM events WHERE idOfEvent=:idOfEvent");
-        $status = $stmt->execute(
-            array(
-                ':idOfEvent' => $this->idOfEvent,
-            )
-        );
+        $status = null;
+        if(User::getUser()->permissions == User::USER_ADMIN) {
+            $stmt = $this->pdo->prepare("DELETE FROM events WHERE idOfEvent=:idOfEvent");
+            $status = $stmt->execute(
+                array(
+                    ':idOfEvent' => $this->idOfEvent,
+                )
+            );
 
-        $this->idOfEvent = NULL;
-        $this->topicOfEvent = NULL;
-        $this->idClient = NULL;
-        $this->idContact = NULL;
-        $this->dateOfEvent = NULL;
-        $this->timeOfEvent = NULL;
-        $this->statusOfEvent = NULL;
-        $this->typeOfEvent = NULL;
-        $this->descriptionOfEvent = NULL;
-        $this->outcomeOfEvent = NULL;
+            $this->idOfEvent = NULL;
+            $this->topicOfEvent = NULL;
+            $this->idClient = NULL;
+            $this->idContact = NULL;
+            $this->dateOfEvent = NULL;
+            $this->timeOfEvent = NULL;
+            $this->statusOfEvent = NULL;
+            $this->typeOfEvent = NULL;
+            $this->descriptionOfEvent = NULL;
+            $this->outcomeOfEvent = NULL;
+        }
 
         return $status;
     }
