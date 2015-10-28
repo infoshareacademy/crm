@@ -10,4 +10,15 @@ require_once __DIR__ . '/../classes/User.php';
 class userTest extends PHPUnit_Framework_TestCase
 {
 
+    public function testPasswordEncoding()
+    {
+        // given
+        $instance = new User(null,null,null,true);
+        // when
+        $password = 'brzydkieHaslo';
+        $instance->setPassword($password);
+        // then
+        $this->assertNotEquals($instance->pass, $password);
+
+    }
 }
