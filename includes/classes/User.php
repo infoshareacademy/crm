@@ -19,7 +19,11 @@ class User
     const USER_USER = 1;
     const USER_GUEST = 0;
 
-    public function __construct($login = null, $pass = null, $permissions = null) {
+    public function __construct($login = null, $pass = null, $permissions = null, $forTest=false) {
+        if($forTest == true) {
+            return;
+        }
+
         session_start();
         if(isset($_SESSION['user'])) {
             $this->login = $_SESSION['user'];
