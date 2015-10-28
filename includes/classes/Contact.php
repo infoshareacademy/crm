@@ -154,13 +154,17 @@ class Contact
 
     public function delete()
     {
-        $this->pdo = DBConnection::getConnection();
-        $stmt = $this->pdo->prepare("DELETE FROM contacts WHERE idContact=:identyfikator");
-        $status = $stmt->execute(
-            array(
-                ':identyfikator' => $this->id(),
-            )
-        );
+        $status = null;
+
+        if(User::getUser()->permissions == User::USER_ADMIN) {
+            $this->pdo = DBConnection::getConnection();
+            $stmt = $this->pdo->prepare("DELETE FROM contacts WHERE idContact=:identyfikator");
+            $status = $stmt->execute(
+                array(
+                    ':identyfikator' => $this->id(),
+                )
+            );
+        }
 
         return $status;
     }

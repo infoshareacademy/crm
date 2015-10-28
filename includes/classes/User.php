@@ -15,9 +15,13 @@ class User
 
     private static $aliveUser;
 
+    const USER_ADMIN = 2;
+    const USER_USER = 1;
+    const USER_GUEST = 0;
+
     public function __construct($login = null, $pass = null, $permissions = null) {
         session_start();
-        if($_SESSION['user']) {
+        if(isset($_SESSION['user'])) {
             $this->login = $_SESSION['user'];
             $this->permissions = $_SESSION['permissions'];
             $this->logged = true;
