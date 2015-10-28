@@ -10,9 +10,14 @@ require_once __DIR__ . '';
 
 class ClientEventsReportTest
 {
-    public function setUp() {
 
+    protected $instance;
+
+    public function setUp() {
+    $this->instance = new ClientEventsReport();
     }
 
+    public function testEmptyResult(){
 
+    }
 }

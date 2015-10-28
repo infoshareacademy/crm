@@ -17,6 +17,10 @@ class ClientEventsReportPresenter
     }
 
     protected function drawReport(/* [ClientEventsReport] */$reports) {
+        $output = '';
+        $output = '<table>';
+        foreach ($reports as $item)
+
         return '<div>';
     }
 

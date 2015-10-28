@@ -9,7 +9,7 @@ class ClientEventsReportDAO
         month(dateOfEvent) AS month,
         year(dateOfEvent) AS year
         FROM events e INNER JOIN clients c on c.idClient = e.idClient
-        WHERE e.idClient = 1 AND dateOfEvent <> 0 AND dateOfEvent < NOW()
+        WHERE e.idClient = :idClient AND dateOfEvent <> 0 AND dateOfEvent < NOW()
         GROUP BY nameClient, year(dateOfEvent), month(dateOfEvent)
         ORDER BY year(dateOfEvent), month(dateOfEvent)";
 
