@@ -48,14 +48,14 @@ class User
 
     public function setPassword($pass) {
         $pass = md5($pass);
-        $this -> pass = $pass;
+        $this->pass = $pass;
     }
 
     public function login($userName) {
         $dbUser = new userDAO();
         $permissions = $dbUser->autorization($this);
 
-        if ($permissions) {
+        if ($permissions != null) {
             //autoryzacja sie powiodla i zostal zwrocony poziom uprawnien
             $this->logged = true;
             $this->permissions = $permissions;
