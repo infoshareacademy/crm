@@ -1,5 +1,5 @@
 <?php
-//dev
+//test
 return [
   'hostname' =>   "sql.infoshareaca.nazwa.pl",
   'db' =>   "infoshareaca_5",
