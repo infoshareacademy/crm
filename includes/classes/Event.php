@@ -187,31 +187,33 @@ class Event {
 
     private function _editEvent(){
 
-        $stmt = $this->pdo->prepare("UPDATE events SET idClient=:idClient,
-                                                       idContact=:idContact,
-                                                       dateOfEvent=:dateOfEvent,   
-                                                       timeOfEvent=:timeOfEvent,
-                                                       typeOfEvent=:typeOfEvent   ,
-                                                       statusOfEvent=:statusOfEvent,
-                                                       descriptionOfEvent=:descriptionOfEvent,
-                                                       topicOfEvent=:topicOfEvent   ,
-                                                       outcomeOfEvent=:outcomeOfEvent
-                                                 WHERE idOfEvent=:idOfEvent") ;
+        if (User::getUser()->permissions >= User::USER_USER) {
+            $stmt = $this->pdo->prepare("UPDATE events SET idClient=:idClient,
+                                                           idContact=:idContact,
+                                                           dateOfEvent=:dateOfEvent,
+                                                           timeOfEvent=:timeOfEvent,
+                                                           typeOfEvent=:typeOfEvent   ,
+                                                           statusOfEvent=:statusOfEvent,
+                                                           descriptionOfEvent=:descriptionOfEvent,
+                                                           topicOfEvent=:topicOfEvent   ,
+                                                           outcomeOfEvent=:outcomeOfEvent
+                                                     WHERE idOfEvent=:idOfEvent");
 
-        $input_parameters = array(
-            ':idClient' => $this->idClient,
-            ':idContact' => $this->idContact,
-            ':dateOfEvent' => $this->dateOfEvent,
-            ':timeOfEvent' => $this->timeOfEvent,
-            ':typeOfEvent' => $this->typeOfEvent,
-            ':statusOfEvent' => $this->statusOfEvent,
-            ':descriptionOfEvent' => $this->descriptionOfEvent,
-            ':topicOfEvent' => $this->topicOfEvent,
-            ':outcomeOfEvent' => $this->outcomeOfEvent,
-            ':idOfEvent' => $this->idOfEvent
-        );
+            $input_parameters = array(
+                ':idClient' => $this->idClient,
+                ':idContact' => $this->idContact,
+                ':dateOfEvent' => $this->dateOfEvent,
+                ':timeOfEvent' => $this->timeOfEvent,
+                ':typeOfEvent' => $this->typeOfEvent,
+                ':statusOfEvent' => $this->statusOfEvent,
+                ':descriptionOfEvent' => $this->descriptionOfEvent,
+                ':topicOfEvent' => $this->topicOfEvent,
+                ':outcomeOfEvent' => $this->outcomeOfEvent,
+                ':idOfEvent' => $this->idOfEvent
+            );
 
-        $status = $stmt->execute($input_parameters);
+            $status = $stmt->execute($input_parameters);
+        }
     }
 
     public function sendToDB(){
