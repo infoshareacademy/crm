@@ -158,7 +158,14 @@ if (count($_POST)) {
                         echo '<td>' . $item['cityContact'] . '</td>';
                         echo '<td>' . $item['linkedinContact'] . '</td>';
                         echo '<td>' . $item['noteContact'] . '</td>';
-                        echo '<td><a href="?contactid=' . $item['idContact'] . '">EDIT</a> <a href="?delete=' . $item['idContact'] . '">DELETE</a></td>';
+                        echo '<td>';
+                        if (User::getUser()->permissions >= User::USER_USER) {
+                            echo '<a href="?contactid=' . $item['idContact'] . '">EDIT </a>';
+                        }
+                        if (User::getUser()->permissions == User::USER_ADMIN) {
+                            echo ' <a href="?delete=' . $item['idContact'] . '">DELETE</a>';
+                        }
+                        echo '</td>';
                         echo '</tr>';
                     }
                     echo '</table>';
