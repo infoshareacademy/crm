@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/DBConnection.php';
+require_once 'DBConnection.php';
 
 class ClientEventsReport
 {
@@ -10,13 +10,17 @@ class ClientEventsReport
     protected $month;
     protected $year;
 
-    public function fillData($monthlyData) {
-        foreach ($monthlyData as $item){
-        $this->idClient = $item['idClient'];
-        $this->nameClient = $item['nameClient'];
-        $this->countByMonth = $item['countByMonth'];
-        $this->month = $item['month'];
-        $this->year = $item['year'];
+    public function __set($param_name, $param_value) {
+        $this->$param_name = $param_value;
+    }
+
+    public function __get($param_name) {
+        return $this->$param_name;
+    }
+
+    public function fillData($reportData) {
+        foreach ($reportData as $attribute => $value){
+        $this->$attribute = $value;
         }
     }
 }
