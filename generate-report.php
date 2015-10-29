@@ -18,9 +18,11 @@
                     elit sodales blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
             </div>
             <div>
-                <?php $displayer = new OverallEventsReportDisplay();
-                echo $displayer->display();
-                ?>
+
+
+                <a href='overall-report-disp.php' class='button'>Overall Report</a>
+                <a href='#' class='button'>Ania's Report</a>
+
             </div>
         </article>
     </section>
