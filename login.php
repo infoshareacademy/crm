@@ -1,8 +1,5 @@
 <?php
 
-define('ADMIN_LOGIN', 'admin');
-define('ADMIN_PASS', 'admin');
-
 require_once __DIR__ . '/includes/classes/User.php';
 
 $loggingUser = User::getUser();
