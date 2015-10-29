@@ -8,9 +8,9 @@ class ClientEventsReportPresenter
         $dao = new ClientEventsReportDAO();
         $data = $dao->getReportData($idClient);
         $reports = [];
-        foreach($data as $oneReportData) {
+        foreach($data as $monthlyData) {
             $report = new ClientEventsReport();
-            $report->fillData($oneReportData);
+            $report->fillData($monthlyData);
             $reports[] = $report;
         }
         return drawReport($reports);
@@ -18,10 +18,28 @@ class ClientEventsReportPresenter
 
     protected function drawReport(/* [ClientEventsReport] */$reports) {
         $output = '';
-        $output = '<table>';
-        foreach ($reports as $item)
+        $output .= '<div class="nameClient">Report for
+                '. $reports['nameClient'] .':</div></br></br>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>count</th>
+                        <th>month</th>
+                        <th>year</th>
+                    </tr>
+                    </thead>
+                    <tbody>';
+        foreach ($reports as $item) {
+            $output .= '<tr>
+                            <td>'. $item['countByMonth'] .'</td>
+                            <td>'. $item['month'] .'</td>
+                            <td>'. $item['year'] .'</td>
+                        </tr>';
+        }
 
-        return '<div>';
+            $output .= '</tbody>
+                    </table>';
+        return $output;
     }
 
 }
