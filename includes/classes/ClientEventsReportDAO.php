@@ -1,12 +1,14 @@
 <?php
 
-require_once __DIR__ . '/DBConnection.php';
+require_once 'DBConnection.php';
 
 class ClientEventsReportDAO
 {
     protected $idClient;
 
-    protected $query = "SELECT e.idClient, nameClient,
+    public function getReportData($idClient) {
+
+        $query = "SELECT e.idClient, nameClient,
         count(*) AS countByMonth,
         month(dateOfEvent) AS month,
         year(dateOfEvent) AS year
@@ -15,16 +17,14 @@ class ClientEventsReportDAO
         GROUP BY nameClient, year(dateOfEvent), month(dateOfEvent)
         ORDER BY year(dateOfEvent), month(dateOfEvent)";
 
-    public function getReportData($idClient) {
+        $stmt = DBConnection::getConnection()->prepare($query);
 
         $input_parameters = array(':idClient' => $idClient);
-
-        $stmt = DBConnection::getConnection()->prepare($this->query);
 
         $status = $stmt->execute($input_parameters);
 
         if ($status>0) {
-            $reportData = $status->fetchAll(PDO::FETCH_ASSOC);
+            $reportData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
             echo 'Oups! Are you sure you have ever actually met this Client?';
         }
