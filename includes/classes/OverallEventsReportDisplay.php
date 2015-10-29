@@ -40,15 +40,31 @@ class OverallEventsReportDisplay
     }
 
     function drawOneClient($oneClientReport) {
-        $oneRowHtml = '<tr><td>'.$oneClientReport->getNameClient().'</td>';
+        $oneRowHtml = '<tr><td>' . $oneClientReport->getNameClient() . '</td>';
+        $months = array();
+
         foreach($oneClientReport->getCountByMonth() as $oneMonthReportData) {
-            $oneRowHtml .= $this->drawOneMonth($oneMonthReportData);
+            $months[$oneMonthReportData->getMonth()] = $oneMonthReportData;
         }
+
+        $currentMonthNumber = date('m');
+
+        for ($i = 12; $i >= 1; $i--) {
+            $n = ($i + $currentMonthNumber) % 12;
+            if (isset($months[$n])) {
+                $oneRowHtml .= '<td width="100">' . $this->drawOneMonth($months[$n]) . '</td>';
+            } else {
+                $oneRowHtml .= '<td width="100">0</td>';
+            }
+        }
+
+
+
         $oneRowHtml .= '</tr>';
         return $oneRowHtml;
     }
 
     function drawOneMonth($oneMonthReportData) {
-        return '<td>'.$oneMonthReportData->getEventsCount().'</td>';
+        return $oneMonthReportData->getEventsCount();
     }
 }

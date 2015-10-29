@@ -1,6 +1,6 @@
 <?php
 
-require_once 'OverallEventsReportDisplay.php';
+require_once __DIR__ . '/../classes/OverallEventsReportDisplay.php';
 
 /**
  * Created by PhpStorm.

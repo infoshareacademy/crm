@@ -1,4 +1,4 @@
-<?php include 'includes/header.php'; ?>
+<?php include 'includes/header.php'; include 'includes/classes/OverallEventsReportDisplay.php'; ?>
 <div role="tabpanel" id="generate-report">
 
     <section class="container-fluid">
@@ -16,6 +16,11 @@
                     ullamcorper. Vivamus nec ante consectetur, ultricies neque id, cursus justo.
                     Pellentesque pharetra sollicitudin urna at tincidunt. Donec interdum magna id
                     elit sodales blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+            </div>
+            <div>
+                <?php $displayer = new OverallEventsReportDisplay();
+                echo $displayer->display();
+                ?>
             </div>
         </article>
     </section>
