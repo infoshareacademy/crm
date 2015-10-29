@@ -10,8 +10,8 @@ class ClientEventsReport
     protected $month;
     protected $year;
 
-    public function fillData($oneReportData) {
-        foreach ($oneReportData as $item){
+    public function fillData($monthlyData) {
+        foreach ($monthlyData as $item){
         $this->idClient = $item['idClient'];
         $this->nameClient = $item['nameClient'];
         $this->countByMonth = $item['countByMonth'];
