@@ -113,7 +113,7 @@ if (count($_POST)) {
                         echo '<td>' . $item['noteContact'] . '</td>';
                         echo '<td>';
                         if (User::getUser()->permissions >= User::USER_USER) {
-                            echo '<a href="?contactid=' . $item['idContact'] . '">EDIT </a>';
+                            echo '<a href="contact-add?contactid=' . $item['idContact'] . '">EDIT </a>';
                         }
                         if (User::getUser()->permissions == User::USER_ADMIN) {
                             echo ' <a href="?delete=' . $item['idContact'] . '">DELETE</a>';
