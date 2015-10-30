@@ -20,14 +20,14 @@ class ClientEventsReportPresenter
 
     protected function drawReport(/* [ClientEventsReport] */$reports) {
         $output = '';
-        $output .= '<div class="nameClient">Report for
-                '. $reports[0]->nameClient .':</div></br></br>
-                <table>
+        $output .= '</br><p>Report for
+                '. $reports[0]->nameClient .':</p></br></br>
+                <div class="col-sm-6" ><table class="table">
                     <thead>
                     <tr>
-                        <th>count</th>
-                        <th>month</th>
-                        <th>year</th>
+                        <th class="col-sm-2">count</th>
+                        <th class="col-sm-2">month</th>
+                        <th class="col-sm-2">year</th>
                     </tr>
                     </thead>
                     <tbody>';
@@ -40,7 +40,7 @@ class ClientEventsReportPresenter
         }
 
             $output .= '</tbody>
-                    </table>';
+                    </table></div>';
         return $output;
     }
 

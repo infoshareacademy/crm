@@ -10,10 +10,12 @@ require_once __DIR__ . '/includes/classes/Event.php';
             <figure class="banner">
                 <figcaption>Generate report</figcaption>
             </figure>
-            <div>
-                In order to generate a monthly report please choose the Client from the list:</br>
+            <div class="container-fluid">
+                </br><p>In order to generate a monthly report please choose the Client from the list:</p></br>
                 <form action="?" method="get">
-                    <select name="idClient">
+                    <div class="row">
+                    <div class="col-xs-offset-1 col-xs-7">
+                        <select name="idClient" class="form-control">
                     <?php
                 $listOfClients = Event::displayFromEvents('Client');
                     foreach ($listOfClients as $item) {
@@ -25,7 +27,9 @@ require_once __DIR__ . '/includes/classes/Event.php';
                 }
                 ?>
                     </select>
-                    <input type="submit" name="submitNewEvent" value="Generate" />
+                    </div>
+
+                    <button class="btn bg-primary col-sm-offset-2" type="submit" value="Generate"> Generate </button>
                     </form>
             </div>
 
