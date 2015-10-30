@@ -16,13 +16,13 @@ include 'includes/header.php'; ?>
                         <th>Company</th>
                         <th>Tax ID</th>
                         <th>Adress</th>
-                        <th>City</th>
+                        <th><!--City--></th>
                         <th>Phone</th>
                         <th>Fax</th>
                         <th>WWW</th>
                         <th>E-mail</th>
                         <th>Note</th>
-                        <th>Date</th>
+                        <th><!--Date--></th>
                     </tr>
                 </thead>
 
@@ -47,6 +47,19 @@ include 'includes/header.php'; ?>
             switch ($columnName) {
                 case 'nameClient':
                     echo '<a href="contacts-list.php?id=' . $client['idClient'] . '">' . $columnValue . '</a>';
+                    break;
+                case 'addressClient':
+                    $oneAddress = explode(';',$columnValue);
+                    echo $oneAddress[0]. '&nbsp'. $oneAddress[1] . '<br/>' . $oneAddress[2] . '&nbsp' .$client['cityClient'];
+                    break;
+                case 'cityClient':
+                    break;
+                case 'wwwClient':
+                    if ($columnValue != null) {
+                        echo '<a href="http://'.$columnValue.'">link</a>';
+                    }
+                    break;
+                case 'creationDateClient':
                     break;
                 default:
                     echo $columnValue;
