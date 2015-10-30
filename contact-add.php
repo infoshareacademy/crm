@@ -80,34 +80,37 @@ if (isset($_GET['contactid'])) {
                     }
                 ?>
 
-                    <form action="?" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="?" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                        <label for="surname" class="col-sm-2 control-label">Surname</label>
+                            <div class="col-sm-8"><input class="form-control" name="surname" id="surname" value="<?php echo @$newContact->surname() ?>"/><br/>
+                        <div style="color:#f00;"><?php echo @$error['surname']; ?></div></div></div>
 
-                        Surname: <input name="surname" value="<?php echo @$newContact->surname() ?>"/><br/>
+                            <div class="form-group">
+                        Name: <input class="form-control" name="name" value="<?php echo @$newContact->name() ?>"/><br/>
+                        <div style="color:#f00;"><?php echo @$error['name']; ?></div></div>
+                                <div class="form-group">
+                        Position: <input  class="form-control" name="position" value="<?php echo $newContact->position() ?>"/><br/>
+                        <div style="color:#f00;"><?php echo @$error['position']; ?></div></div>
+                                    <div class="form-group">
+                        Phone: <input class="form-control" name="phone" value="<?php echo @$newContact->phone() ?>"/><br/>
+                        <div style="color:#f00;"><?php echo @$error['phone']; ?></div></div>
+                                        <div class="form-group">
+                        E-mail: <input class="form-control" name="email" value="<?php echo @$newContact->email() ?>"/><br/>
+                        <div style="color:#f00;"><?php echo @$error['email']; ?></div></div>
+                                            <div class="form-group">
+                        City: <input class="form-control" name="city" value="<?php echo @$newContact->city() ?>"/><br/>
+                        <div style="color:#f00;"><?php echo @$error['city']; ?></div></div>
+                                                <div class="form-group">
+                        LinkedIn: <input class="form-control" name="linkedin" value="<?php echo @$newContact->linkedin() ?>"/><br/>
+                        <div style="color:#f00;"><?php echo @$error['linkedin']; ?></div></div>
+                                                    <div class="form-group">
+                        Note:<textarea class="form-control" name="note"><?php echo @$newContact->note() ?></textarea><br/>
+                        <input class="form-control" type="hidden" name="id" value="<?php echo @$newContact->id() ?>"></div>
 
-                        <div style="color:#f00;"><?php echo @$error['surname']; ?></div>
-                        Name: <input name="name" value="<?php echo @$newContact->name() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['name']; ?></div>
-                        Position: <input name="position" value="<?php echo $newContact->position() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['position']; ?></div>
-                        Phone: <input name="phone" value="<?php echo @$newContact->phone() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['phone']; ?></div>
-                        E-mail: <input name="email" value="<?php echo @$newContact->email() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['email']; ?></div>
-                        City: <input name="city" value="<?php echo @$newContact->city() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['city']; ?></div>
-                        LinkedIn: <input name="linkedin" value="<?php echo @$newContact->linkedin() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['linkedin']; ?></div>
-                        Note:<textarea name="note"><?php echo @$newContact->note() ?></textarea><br/>
-                        <input type="hidden" name="id" value="<?php echo @$newContact->id() ?>">
-
-
-                        <input type="submit" name="send" value="SEND"/>
+                                                        <div class="form-group">
+                        <input class="btn btn-info" type="submit" name="send" value="SEND"/>
+                                                        </div>
                     </form>
 
 
