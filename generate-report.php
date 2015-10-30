@@ -14,8 +14,8 @@
             <div>
 
 
-                <a href='overall-report' class='button'>Overall Report</a>
-                <a href='#' class='button'>Monthly Report</a>
+                <a href='overall-report' class='btn btn-primary'>Overall Report</a>
+                <a href='#' class='btn btn-primary'>Monthly Report</a>
 
             </div>
         </article>
