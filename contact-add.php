@@ -60,7 +60,7 @@ if (isset($_GET['contactid'])) {
 
         <section class="container-fluid">
             <figure class="banner">
-                <figcaption>Contacts</figcaption>
+                <figcaption>Add Contact</figcaption>
             </figure>
 
 
