@@ -32,6 +32,7 @@ class ClientEventsReportPresenter
                     </thead>
                     <tbody>';
         foreach ($reports as $item) {
+            print_r($item);
             $output .= '<tr>
                             <td>'. $item['countByMonth'] .'</td>
                             <td>'. $item['month'] .'</td>
