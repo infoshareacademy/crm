@@ -37,12 +37,12 @@ catch (Exception $e) {
 
 //each client has own table; display only cells with content
 foreach ($clients as $clientId=>$client) {
-    echo '<table>';
+    echo '<address><table>';
     foreach ($client as $attributeValue) {
         if ($attributeValue != '')
             echo '<tr><td>'.$attributeValue.' </td></tr>';
     }
-    echo '</table><br /><br />';
+    echo '</table></address><br /><br />';
 }
 
 // if client without contacts
