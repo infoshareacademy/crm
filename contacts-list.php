@@ -50,7 +50,7 @@ if (count($clients) == 0)
     echo "That's a shame! This client hasn't contact";
 
 ?>
-                <div><a href="clients-list.php">Back to Clients list</a></div>
+                <div><a href="clients-list">Back to Clients list</a></div>
             </div>
         </article>
     </section>

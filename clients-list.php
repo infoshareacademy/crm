@@ -20,7 +20,7 @@ function listOfClients() {
 
             switch ($columnName) {
                 case 'nameClient':
-                    echo '<a href="contacts-list.php?id=' . $client['idClient'] . '">' . $columnValue . '</a>';
+                    echo '<a href="contacts-list?id=' . $client['idClient'] . '">' . $columnValue . '</a>';
                     break;
                 case 'addressClient':
                     $oneAddress = explode(';',$columnValue);
