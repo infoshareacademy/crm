@@ -1,39 +1,46 @@
 <?php
 
-session_start();
+require_once __DIR__ . '/includes/classes/User.php';
 
-define('ADMIN_LOGIN', 'admin');
-define('ADMIN_PASS', 'admin');
+$loggingUser = User::getUser();
+$error = null;
+
+if (isset($_POST['login']))
+    $loggingUser->login = $_POST['login'];
+
+if (isset($_POST['pass'])) {
+    $loggingUser->setPassword($_POST['pass']);
+}
 
 
+if (!$loggingUser->login || !$loggingUser->pass) {
+    $error = 'Please enter login and password';
+} else {
+    $loggingUser->login($loggingUser->login);
+    if ($loggingUser->logged) {
+        $_SESSION['user'] = $loggingUser->login;
+        $_SESSION['permissions'] = $loggingUser->permissions;
 
-    if (isset($_POST['login']))
-        $_SESSION['user_login'] = $_POST['login'];
-    if (isset($_POST['pass']))
-        $_SESSION['user_pass'] = $_POST['pass'];
-
-    if (!@$_SESSION['user_login'] || !@$_SESSION['user_pass']) {
-        $error = 'Please enter login and password';
+        header("Location: index.php");
+    } else {
+        $error = 'Invalid login or password';
     }
-    else {
-        if ($_SESSION['user_login'] == ADMIN_LOGIN && $_SESSION['user_pass']== ADMIN_PASS) {
-            header("Location: index.php");
-        }
-        else {
-            $error = 'Invalid login or password';
-        }
-    }
+}
 
 include 'includes/header-simple.php';
 ?>
 <div class="login-form">
     <h2>Welcome</h2>
-            <p class="has-warning"><?php if ($error) { echo $error; } ?><br/>
-            <form method="post" action="">
-                <input id="login" name="login" value=""  placeholder="Enter your login"/><br>
-                <input id="pass" name="pass" type="password" value="" placeholder="Enter your password"/><br>
-                 <input class="submit-btn" type="submit" name="send" value="LOGIN" />
-            </form>
+
+    <p class="has-warning"><?php if ($error) {
+            echo $error;
+        } ?><br/>
+
+    <form method="post" action="">
+        <input id="login" name="login" value="" placeholder="Enter your login"/><br>
+        <input id="pass" name="pass" type="password" value="" placeholder="Enter your password"/><br>
+        <input class="submit-btn" type="submit" name="send" value="LOGIN"/>
+    </form>
 
 </div>
 
