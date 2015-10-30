@@ -32,7 +32,7 @@
         </li>
         <li>
             <a href="contact-via-vcard" aria-controls="add-vcard-contact">
-                <i class="fa fa-user-plus fa-fw"></i>Add vCard Contact
+                <i class="fa fa-list-alt fa-fw"></i>Add vCard Contact
             </a>
         </li>
 
