@@ -7,11 +7,14 @@ class ContactDAO
 
     public function loadContact($contactid)
     {
-        $pdo = DBConnection::getConnection();
-        $result = $pdo->query("select * from contacts where idContact=$contactid");
+        $stmt = DBConnection::getConnection()->prepare("select * from contacts where idContact=:contactid");
+        $stmt->execute(array(
+            'contactid' => $contactid
+        ));
 
-        if ($result->rowCount() > 0) {
-            $contactData = $result->fetch();
+        $contactData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($contactData) {
             $contact = new Contact ($contactData['surnameContact'], $contactData['nameContact'], $contactData['positionContact'], $contactData['phoneContact'], $contactData['emailContact'], $contactData['cityContact'], $contactData['linkedinContact'], $contactData['noteContact']);
             $contact->setId($contactData['idContact']);
             return $contact;
