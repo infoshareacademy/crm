@@ -24,7 +24,12 @@ function listOfClients() {
                     break;
                 case 'addressClient':
                     $oneAddress = explode(';',$columnValue);
-                    echo $oneAddress[0]. '&nbsp'. $oneAddress[1] . '<br/>' . $oneAddress[2] . '&nbsp' .$client['cityClient'];
+                    echo $oneAddress[0]. '&nbsp'. $oneAddress[1];
+
+                    if ($oneAddress[0]== null && $oneAddress[1] == null)
+                        echo '<br/>';
+
+                    echo $oneAddress[2] . '&nbsp' .$client['cityClient'];
                     break;
                 case 'cityClient':
                     break;
