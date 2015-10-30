@@ -178,7 +178,7 @@ if (isset($_GET['contactid'])) {
 
 
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-8"><input class="btn btn-info" type="submit" name="send"
+                            <div class="col-sm-offset-2 col-sm-8"><input class="btn btn-primary" type="submit" name="send"
                                                                          value="SEND"/>
                             </div>
                     </form>
