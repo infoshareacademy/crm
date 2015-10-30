@@ -19,7 +19,7 @@ require_once __DIR__ . '/includes/classes/Event.php';
                     foreach ($listOfClients as $item) {
                     echo "<option value='" .
                         $item['idClient'].
-                        "'>" .
+                        "'" . ($item['idClient'] == $_GET['idClient'] ? 'selected' : '') . ">" .
                         $item['nameClient'] .
                         "</option>";
                 }
@@ -30,8 +30,11 @@ require_once __DIR__ . '/includes/classes/Event.php';
             </div>
 
             <?php
-            $displayer = new ClientEventsReportPresenter();
-            echo $displayer->display(2);
+            if (@$_GET['idClient'] && (int)$_GET['idClient']) {
+                $idClient = $_GET['idClient'];
+                $displayer = new ClientEventsReportPresenter();
+                echo $displayer->display($idClient);
+            }
             ?>
         </section>
     </div>
