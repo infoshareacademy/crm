@@ -15,13 +15,13 @@ class ClientEventsReportPresenter
             $report->fillData($monthlyData);
             $reports[] = $report;
         }
-        return drawReport($reports);
+        return $this->drawReport($reports);
     }
 
     protected function drawReport(/* [ClientEventsReport] */$reports) {
         $output = '';
         $output .= '<div class="nameClient">Report for
-                '. $reports['nameClient'] .':</div></br></br>
+                '. $reports[0]->nameClient .':</div></br></br>
                 <table>
                     <thead>
                     <tr>
@@ -32,11 +32,10 @@ class ClientEventsReportPresenter
                     </thead>
                     <tbody>';
         foreach ($reports as $item) {
-            print_r($item);
             $output .= '<tr>
-                            <td>'. $item['countByMonth'] .'</td>
-                            <td>'. $item['month'] .'</td>
-                            <td>'. $item['year'] .'</td>
+                            <td>'. $item->countByMonth .'</td>
+                            <td>'. $item->month .'</td>
+                            <td>'. $item->year .'</td>
                         </tr>';
         }
 
