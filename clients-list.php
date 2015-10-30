@@ -1,39 +1,13 @@
 <?php
 require_once __DIR__ . '/includes/classes/DBConnection.php';
-include 'includes/header.php'; ?>
-<div role="tabpanel" id="clients-list">
-    <section class="container-fluid">
-        <figure class="banner">
-            <figcaption>Clients list</figcaption>
-        </figure>
-        <article class="row">
-            <div class="col-lg-12">
+include 'includes/header.php';
 
-                <table  class="table table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Company</th>
-                        <th>Tax ID</th>
-                        <th>Adress</th>
-                        <th><!--City--></th>
-                        <th>Phone</th>
-                        <th>Fax</th>
-                        <th>WWW</th>
-                        <th>E-mail</th>
-                        <th>Note</th>
-                        <th><!--Date--></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-<?php
+function listOfClients() {
 
 //    struktura tabeli
 //    idClient   |  nameClient   |  idTax  |  addressClient
 //  |  cityClient  |  phoneClient  |  faxClient  |  wwwClient
 //  |  mailClient  |  noteClient  | creationDateClient
-
     $sql = "SELECT * FROM clients";
     $clients = DBConnection::getConnection()->query($sql);
     $clients = $clients->fetchAll(PDO::FETCH_ASSOC);
@@ -65,17 +39,42 @@ include 'includes/header.php'; ?>
                     echo $columnValue;
 
             }
-//            if ($columnName == 'nameClient') {
-//                echo '<a href="contacts-list.php?id=' . $client['idClient'] . '">' . $columnValue . '</a>';
-//            }
-//
-//            else echo $columnValue;
 
             echo '</td>';
         }
         echo '</tr>';
     }
+}
 ?>
+<div role="tabpanel" id="clients-list">
+    <section class="container-fluid">
+        <figure class="banner">
+            <figcaption>Clients list</figcaption>
+        </figure>
+        <article class="row">
+            <div class="col-lg-12">
+
+                <table  class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Company</th>
+                            <th>Tax ID</th>
+                            <th>Adress</th>
+                            <th><!--City--></th>
+                            <th>Phone</th>
+                            <th>Fax</th>
+                            <th>WWW</th>
+                            <th>E-mail</th>
+                            <th>Note</th>
+                            <th><!--Date--></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                        listOfClients();
+                        ?>
                     </tbody>
                 </table>
             </div>
