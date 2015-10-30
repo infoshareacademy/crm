@@ -59,7 +59,7 @@ function listOfClients() {
         <article class="row">
             <div class="col-lg-12">
 
-                <table  class="table table-hover table-condensed">
+                <table class="table table-striped table-hover table-condensed">
                     <thead>
                         <tr>
                             <th>ID</th>
