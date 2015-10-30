@@ -30,6 +30,11 @@
                 <i class="fa fa-user-plus fa-fw"></i>Add Contact
             </a>
         </li>
+        <li>
+            <a href="contact-via-vcard" aria-controls="add-vcard-contact">
+                <i class="fa fa-user-plus fa-fw"></i>Add vCard Contact
+            </a>
+        </li>
 
 
         <li class="sidebar-title">Events</li>

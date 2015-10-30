@@ -160,7 +160,7 @@ if (count($_FILES)) {
 
 <?php } ?>
                     <hr>
-                    <form action="contact-via-vcard.php?" method="post" enctype="multipart/form-data">
+                    <form action="?" method="post" enctype="multipart/form-data">
                         Upload vCard:<input type="file" name="upload" value=""/><br/>
                         <input type="submit" name="send" value="send" />
                     </form>

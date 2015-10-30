@@ -12,6 +12,7 @@ RewriteRule ^(.*)client-add$ $1add-client.php
 
 RewriteRule ^(.*)contacts$ $1contacts-disp
 RewriteRule ^(.*)contact-add$ $1contact-add
+RewriteRule ^(.*)contact-via-vcard$ $1contact-via-vcard
 
 RewriteRule ^(.*)events$ $1events-list
 RewriteRule ^(.*)events-planner$ $1plan-event
