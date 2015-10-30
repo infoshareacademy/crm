@@ -1,6 +1,6 @@
 <?php
 include 'includes/header.php';
-include_once __DIR__ . '/includes/classes/Event.class.php';
+include_once __DIR__ . '/includes/classes/Event.php';
 
 function displayStatusOfEvent($statusOfEvent){
     switch ($statusOfEvent){
@@ -117,8 +117,14 @@ if (@$_GET['delete'] && (int)$_GET['delete']) {
                             echo '<td>'.$item['topicOfEvent'].'</td>';
                             echo '<td>'.$item['descriptionOfEvent'].'</td>';
                             echo '<td>'.displayOutcomeOfEvent($item['outcomeOfEvent']).'</td>';
-                            echo '<td><a href="edit-event.php?edit='.$item['idOfEvent'].'">Edit</a>
-                                      <a href="?delete='.$item['idOfEvent'].'">Delete</a></td>';
+                            echo '<td>';
+                            if (User::getUser()->permissions >= User::USER_USER) {
+                                echo '<a href="edit-event.php?edit='.$item['idOfEvent'].'">Edit</a>';
+                            }
+                            if (User::getUser()->permissions == User::USER_ADMIN) {
+                                echo '<a href = "?delete='.$item['idOfEvent'].'" > Delete</a >';
+                            }
+                            echo '</td>';
                             echo '</tr>';
                         }
                     ?>

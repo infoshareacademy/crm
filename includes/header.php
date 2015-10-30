@@ -1,10 +1,7 @@
 <?php
-    session_start();
+    require_once __DIR__ . '/classes/User.php';
 
-    define('ADMIN_LOGIN', 'admin');
-    define('ADMIN_PASS', 'admin');
-
-    if ($_SESSION['user_login'] != ADMIN_LOGIN && $_SESSION['user_pass'] != ADMIN_PASS) {
+    if(!User::getUser()->logged) {
         header("Location: login.php");
         exit;
     }

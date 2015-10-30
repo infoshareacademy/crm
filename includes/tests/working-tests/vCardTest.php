@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/vCard.php';
+require_once __DIR__ . '/../../classes/vCard.php';
 
 /**
  * Created by PhpStorm.
