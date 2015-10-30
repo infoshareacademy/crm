@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/ClientEventsReportDAO.php';
+require_once __DIR__ . '/ClientEventsReport.php';
 
 class ClientEventsReportPresenter
 {
