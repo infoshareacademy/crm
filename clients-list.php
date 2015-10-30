@@ -42,9 +42,23 @@ include 'includes/header.php'; ?>
     foreach ($clients as $client) {
         echo '<tr>';
         foreach ($client as $columnName => $columnValue) {
-            if ($columnName == 'nameClient')
-            echo '<td><a href="contacts-list.php?id=' . $client['idClient'] . '">' . $columnValue . '</a></td>';
-            else echo '<td>' . $columnValue . '</td>';
+            echo '<td>';
+
+            switch ($columnName) {
+                case 'nameClient':
+                    echo '<a href="contacts-list.php?id=' . $client['idClient'] . '">' . $columnValue . '</a>';
+                    break;
+                default:
+                    echo $columnValue;
+
+            }
+//            if ($columnName == 'nameClient') {
+//                echo '<a href="contacts-list.php?id=' . $client['idClient'] . '">' . $columnValue . '</a>';
+//            }
+//
+//            else echo $columnValue;
+
+            echo '</td>';
         }
         echo '</tr>';
     }
