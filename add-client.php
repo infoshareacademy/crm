@@ -89,16 +89,20 @@ if (count($_POST)) {
                     echo '<div class="text-uppercase text-danger">'.$error['general'].'</div><br/>';
                 ?>
 
-                <form action="?" method="post">
+                <form action="?" method="post"><br />
+                    Required:<br/>
                     Client name *: <input name="name" value='<?php echo @$_POST["name"]?>'><br/><div class='small text-uppercase text-danger'><?php echo @$error['name']?></div>
+                    City (HQ) *: <input name="city" value="<?php echo @$_POST['city']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['city']?></div>
+                    Phone *: <input name="phone" value="<?php echo @$_POST['phone']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['phone']?></div>
+                    e-mail *: <input name="mail" value="<?php echo @$_POST['mail']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['mail']?></div>
+                    <br/>
+                    Additional details:<br/>
                     Tax Id: <input name="idTax" value="<?php echo @$_POST['idTax']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['idTax']?></div>
                     Street: <input name="street" value="<?php echo @$_POST['street']?>" /> No: <input name="streetNumber" size="6" value="<?php echo @$_POST['streetNumber']?>" /> Post Code: <input name="postCode" size="10" value="<?php echo @$_POST['postCode']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['address']?></div>
-                    City *: <input name="city" value="<?php echo @$_POST['city']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['city']?></div>
-                    Phone *: <input name="phone" value="<?php echo @$_POST['phone']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['phone']?></div>
                     fax: <input name="fax" value="<?php echo @$_POST['fax']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['fax']?></div>
                     www: <input name="www" value="<?php echo @$_POST['www']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['www']?></div>
-                    e-mail *: <input name="mail" value="<?php echo @$_POST['mail']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['mail']?></div>
-                    Note: <textarea name="note" /><?php echo @$_POST['note']?></textarea><div class='small text-uppercase text-danger'><?php echo @$error['note']?></div>
+
+                    Note: <textarea name="note" rows="4" cols="50" /><?php echo @$_POST['note']?></textarea><div class='small text-uppercase text-danger'><?php echo @$error['note']?></div>
                     <button id="btn_send">ADD THIS</button>
                 </form>
 
