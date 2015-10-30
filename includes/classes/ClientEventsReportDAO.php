@@ -26,7 +26,7 @@ class ClientEventsReportDAO
         if ($status>0) {
             $reportData = $status->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            echo 'Oups! Are you sure yu have ever actually met this Client?';
+            echo 'Oups! Are you sure you have ever actually met this Client?';
         }
 
     }

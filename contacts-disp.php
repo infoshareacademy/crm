@@ -79,54 +79,7 @@ if (count($_POST)) {
                 <div class="col-lg-12">
 
 
-                    <form action="?" method="post" enctype="multipart/form-data">
-
-                        Surname: <input name="surname" value="<?php echo @$newContact->surname() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['surname']; ?></div>
-                        Name: <input name="name" value="<?php echo @$newContact->name() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['name']; ?></div>
-                        Position: <input name="position" value="<?php echo $newContact->position() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['position']; ?></div>
-                        Phone: <input name="phone" value="<?php echo @$newContact->phone() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['phone']; ?></div>
-                        E-mail: <input name="email" value="<?php echo @$newContact->email() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['email']; ?></div>
-                        City: <input name="city" value="<?php echo @$newContact->city() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['city']; ?></div>
-                        LinkedIn: <input name="linkedin" value="<?php echo @$newContact->linkedin() ?>"/><br/>
-
-                        <div style="color:#f00;"><?php echo @$error['linkedin']; ?></div>
-                        Note:<textarea name="note"><?php echo @$newContact->note() ?></textarea><br/>
-                        <input type="hidden" name="id" value="<?php echo @$newContact->id() ?>">
-
-
-                        <input type="submit" name="send" value="SEND"/>
-                    </form>
-
-
-                    <hr>
-                    <form action="add-new-contact.php?" method="post" enctype="multipart/form-data">
-                        Upload vCard:<input type="file" name="upload" value=""/><br/>
-                        <input type="submit" name="send" value="send" />
-                    </form>
-                    <hr>
-
-
-                    <br/>
-
-
-                    <a href="?">CLEAN FORM</a>
-                    <br/>
-                    <br/>
-
-
-                    <table  class="table table-hover table-condensed">
+                    <table  class="table table-striped table-hover table-condensed">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -160,7 +113,7 @@ if (count($_POST)) {
                         echo '<td>' . $item['noteContact'] . '</td>';
                         echo '<td>';
                         if (User::getUser()->permissions >= User::USER_USER) {
-                            echo '<a href="?contactid=' . $item['idContact'] . '">EDIT </a>';
+                            echo '<a href="contact-add?contactid=' . $item['idContact'] . '">EDIT </a>';
                         }
                         if (User::getUser()->permissions == User::USER_ADMIN) {
                             echo ' <a href="?delete=' . $item['idContact'] . '">DELETE</a>';
