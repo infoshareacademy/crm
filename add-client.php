@@ -62,7 +62,6 @@ if (count($_POST)) {
     if(count($error) == 0) {
         $status = $client->save();
         if($status == Client::SAVE_STATUS_OK) {
-            $success = "Great! It's save!";
             header("Location: clients-list.php");
         }
         else {
@@ -86,9 +85,6 @@ if (count($_POST)) {
                 <h1> </h1>
 
                 <?php
-                    if (@$success)
-                    echo '<div class="text-uppercase text-success">'.$success.'</div><br/>';
-
                     if (@$error['general'])
                     echo '<div class="text-uppercase text-danger">'.$error['general'].'</div><br/>';
                 ?>
