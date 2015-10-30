@@ -20,7 +20,7 @@
             <div>
 
 
-                <a href='overall-report-disp.php' class='button'>Overall Report</a>
+                <a href='overall-report' class='button'>Overall Report</a>
                 <a href='#' class='button'>Ania's Report</a>
 
             </div>

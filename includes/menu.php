@@ -17,12 +17,17 @@
         </li>
         <li>
             <a href="client-add" aria-controls="add-client">
-                <i class="fa fa-plus fa-fw"></i>Add client
+                <i class="fa fa-plus fa-fw"></i>Add Client
             </a>
         </li>
         <li>
-            <a href="contacts" aria-controls="add-client">
+            <a href="contacts" aria-controls="contacts">
                 <i class="fa fa-user fa-fw"></i>Contacts
+            </a>
+        </li>
+        <li>
+            <a href="contact-add" aria-controls="add-contact">
+                <i class="fa fa-user-plus fa-fw"></i>Add Contact
             </a>
         </li>
 
