@@ -53,7 +53,7 @@ class Contact
             ':linkedinContact' => $this->linkedin(),
             ':noteContact' => $this->note()
         );
-        if ($this->id != '') {
+        if (($this->id != '') && (User::getUser()->permissions >= User::USER_USER)) {
             $dbQuery = "UPDATE contacts SET
             surnameContact = :surnameContact,
             nameContact = :nameContact,
@@ -65,7 +65,8 @@ class Contact
             noteContact = :noteContact
             WHERE idContact = :idContact";
             $queryParameters = array_merge($queryParameters, array(':idContact' => $this->id()));
-        } else {
+        } elseif ($this->id != '') {$dbQuery=null;}
+        else {
             $dbQuery = "INSERT INTO contacts (
                 surnameContact,
                 nameContact,
@@ -154,13 +155,17 @@ class Contact
 
     public function delete()
     {
-        $this->pdo = DBConnection::getConnection();
-        $stmt = $this->pdo->prepare("DELETE FROM contacts WHERE idContact=:identyfikator");
-        $status = $stmt->execute(
-            array(
-                ':identyfikator' => $this->id(),
-            )
-        );
+        $status = null;
+
+        if(User::getUser()->permissions == User::USER_ADMIN) {
+            $this->pdo = DBConnection::getConnection();
+            $stmt = $this->pdo->prepare("DELETE FROM contacts WHERE idContact=:identyfikator");
+            $status = $stmt->execute(
+                array(
+                    ':identyfikator' => $this->id(),
+                )
+            );
+        }
 
         return $status;
     }
