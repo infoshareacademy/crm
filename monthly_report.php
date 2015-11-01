@@ -10,11 +10,11 @@ require_once __DIR__ . '/includes/classes/Event.php';
             <figure class="banner">
                 <figcaption>Generate report</figcaption>
             </figure>
-            <div class="container-fluid">
+            <div class="col-xs-12 col-lg-8">
                 </br><p>In order to generate a monthly report please choose the Client from the list:</p></br>
                 <form action="?" method="get">
                     <div class="row">
-                    <div class="col-xs-offset-1 col-xs-7">
+                    <div class="col-xs-7 col-md-6 col-lg-5">
                         <select name="idClient" class="form-control">
                     <?php
                 $listOfClients = Event::displayFromEvents('Client');
@@ -29,7 +29,7 @@ require_once __DIR__ . '/includes/classes/Event.php';
                     </select>
                     </div>
 
-                    <button class="btn bg-primary col-sm-offset-2" type="submit" value="Generate"> Generate </button>
+                    <button class="btn bg-primary" type="submit" value="Generate"> Generate </button>
                     </form>
             </div>
 

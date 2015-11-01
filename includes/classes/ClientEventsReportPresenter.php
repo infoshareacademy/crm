@@ -22,7 +22,7 @@ class ClientEventsReportPresenter
         $output = '';
         $output .= '</br><p>Report for
                 '. $reports[0]->nameClient .':</p></br></br>
-                <div class="col-sm-6" ><table class="table">
+                <div class="col-xs-8 col-sm-6" ><table class="table">
                     <thead>
                     <tr>
                         <th class="col-sm-2">count</th>
