@@ -4,43 +4,53 @@
             <a href="#menu-toggle" id="menu-toggle">
                 <i class="fa fa-bars fa-rotate-90"></i>
             </a>
-            <a href="index.php" aria-controls="home">CRM</a>
+            <a href="index" aria-controls="home">CRM</a>
         </li>
 
 
 
         <li class="sidebar-title">Clients</li>
         <li>
-            <a href="clients-list.php" aria-controls="clients-list">
+            <a href="clients" aria-controls="clients-list">
                 <i class="fa fa-list fa-fw"></i>Clients list
             </a>
         </li>
         <li>
-            <a href="add-client.php" aria-controls="add-client">
-                <i class="fa fa-plus fa-fw"></i>Add client
+            <a href="client-add" aria-controls="add-client">
+                <i class="fa fa-plus fa-fw"></i>Add Client
             </a>
         </li>
         <li>
-            <a href="contacts-disp.php" aria-controls="add-client">
+            <a href="contacts" aria-controls="contacts">
                 <i class="fa fa-user fa-fw"></i>Contacts
+            </a>
+        </li>
+        <li>
+            <a href="contact-add" aria-controls="add-contact">
+                <i class="fa fa-user-plus fa-fw"></i>Add Contact
+            </a>
+        </li>
+        <li>
+            <a href="contact-via-vcard" aria-controls="add-vcard-contact">
+                <i class="fa fa-list-alt fa-fw"></i>Add vCard Contact
             </a>
         </li>
 
 
         <li class="sidebar-title">Events</li>
         <li>
-            <a href="events-list.php" aria-controls="events-list">
+            <a href="events" aria-controls="events-list">
                 <i class="fa fa-calendar fa-fw"></i>Events list
             </a>
         </li>
         <li>
-            <a href="plan-event.php" aria-controls="plan-event">
+            <a href="events-planner" aria-controls="plan-event">
                 <i class="fa fa-calendar-check-o fa-fw"></i>Plan new event
             </a>
         </li>
         <li class="sidebar-title">Reports</li>
         <li>
-            <a href="generate-report.php" aria-controls="generate-report">
+            <a href="events-reports" aria-controls="generate-report">
                 <i class="fa fa-bar-chart fa-fw"></i>Generate report
             </a>
         </li>

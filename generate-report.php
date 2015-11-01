@@ -1,4 +1,4 @@
-<?php include 'includes/header.php'; ?>
+<?php include 'includes/header.php'; include 'includes/classes/OverallEventsReportDisplay.php'; ?>
 <div role="tabpanel" id="generate-report">
 
     <section class="container-fluid">
@@ -9,13 +9,14 @@
         <article class="row">
             <div class="col-lg-12">
                 <h1>Welcome</h1>
-                <p>Integer odio nulla, feugiat at diam in, sodales consequat neque. Morbi tortor felis,
-                    egestas ut sodales sit amet, ultrices sit amet neque. Mauris rutrum condimentum
-                    fringilla. Donec commodo, enim ac cursus mattis, lorem tortor faucibus justo,
-                    feugiat placerat magna nulla ut nulla. Nam tempor ante vel mauris vestibulum
-                    ullamcorper. Vivamus nec ante consectetur, ultricies neque id, cursus justo.
-                    Pellentesque pharetra sollicitudin urna at tincidunt. Donec interdum magna id
-                    elit sodales blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                <p>Please choose the type of report.</p>
+            </div>
+            <div>
+
+
+                <a href='overall-report' class='btn btn-primary'>Overall Report</a>
+                <a href='#' class='btn btn-primary'>Monthly Report</a>
+
             </div>
         </article>
     </section>
