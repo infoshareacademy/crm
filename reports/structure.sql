@@ -16,7 +16,7 @@ CREATE TABLE events (
   topicOfEvent VARCHAR(50) NOT NULL,
   CONSTRAINT fk_clients_events FOREIGN KEY (idClient) REFERENCES clients(idClient),
   CONSTRAINT fk_contacts_events FOREIGN KEY (idContact) REFERENCES contacts(idContact)
-) DEFAULT CHARSET=utf8_polish_ci;
+)DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci;
 
 /* Table structure for table clients */
 
@@ -34,7 +34,7 @@ CREATE TABLE clients (
   mailClient VARCHAR(40) NOT NULL ,
   noteClient TEXT NULL ,
   creationDateClient TIMESTAMP NOT NULL DEFAULT current_timestamp
-)DEFAULT CHARSET=utf8_polish_ci;
+)DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci;
 
 /* Table structure for table contacts */
 
@@ -53,7 +53,7 @@ CREATE TABLE contacts (
   noteContact TINYTEXT NULL,
   creationDateContact TIMESTAMP NOT NULL DEFAULT current_timestamp,
   CONSTRAINT fk_clients_contacts FOREIGN KEY (idClient) REFERENCES clients(idClient)
-)DEFAULT CHARSET=utf8_polish_ci;
+)DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci;
 
 /* Table structure for table users */
 
@@ -65,4 +65,4 @@ CREATE TABLE users (
   passwordUser VARCHAR (125) NOT NULL ,
   roleUser ENUM('0','1','2') NOT NULL DEFAULT '0',
   creationDateUser TIMESTAMP NOT NULL DEFAULT current_timestamp
-)DEFAULT CHARSET=utf8_polish_ci;
+)DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci;
