@@ -1,49 +1,7 @@
 <?php
 include 'includes/header.php';
 require_once __DIR__ . '/includes/classes/Event.php';
-
-function displayStatusOfEvent($statusOfEvent){
-    switch ($statusOfEvent){
-        case Event::EVENT_ARRANGED:
-            return "Arranged";
-        case Event::EVENT_CONFIRMED:
-            return "Confirmed";
-        case Event::EVENT_COMPLETED:
-            return "Completed";
-        case Event::EVENT_CANCELLED:
-            return "Cancelled";
-        default:
-            return "--missing status--";
-    }
-}
-
-function displayTypeOfEvent($typeOfEvent){
-    switch ($typeOfEvent){
-        case Event::EVENT_TYPE_CALL:
-            return "Call";
-        case Event::EVENT_TYPE_EMAIL:
-            return "Email";
-        case Event::EVENT_TYPE_MEETING:
-            return "Meeting";
-        case Event::EVENT_TYPE_VIDEO:
-            return "Video conference";
-        default:
-            return "missing type";
-    }
-}
-
-function displayOutcomeOfEvent($outcomeOfEvent){
-    switch ($outcomeOfEvent){
-        case Event::OUTCOME_SUCCESS:
-            return "success";
-        case Event::OUTCOME_FOLLOWUP:
-            return "follow up";
-        case Event::OUTCOME_FAILURE:
-            return "failure";
-        default:
-            return "missing outcome";
-    }
-}
+require_once __DIR__ . '/includes/classes/EventsPresenter.php';
 
 if (@$_GET['edit'] && (int)$_GET['edit']) {
     $edit = $_GET['edit'];
