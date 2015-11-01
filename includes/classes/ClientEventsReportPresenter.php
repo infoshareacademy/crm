@@ -10,27 +10,39 @@ class ClientEventsReportPresenter
         $dao = new ClientEventsReportDAO();
         $data = $dao->getReportData($idClient);
         $reports = [];
-        foreach($data as $monthlyData) {
-            $report = new ClientEventsReport();
-            $report->fillData($monthlyData);
-            $reports[] = $report;
+        if (!$data) {
+            return "<div class='col-xs-9 col-sm-7 col-lg-6'>
+                    <div class='alert alert-danger' role='alert'>
+                    <span class='fa fa-exclamation' aria-hidden='true'></span>
+                    <span class='sr-only'>Error:</span>Oups, apparently you haven't any registered contact with this Client!</div>
+                    </div>";
+        } else {
+            foreach($data as $monthlyData) {
+                $report = new ClientEventsReport();
+                $report->fillData($monthlyData);
+                $reports[] = $report;
+            }
         }
         return $this->drawReport($reports);
     }
 
     protected function drawReport(/* [ClientEventsReport] */$reports) {
-        $output = '';
-        $output .= '</br><p>Report for
-                '. $reports[0]->nameClient .':</p></br></br>
-                <div class="col-xs-8 col-sm-6" ><table class="table">
+        $output = "";
+        $output .= "<div class='col-xs-9 col-sm-7 col-lg-6'>
+                    <div class='alert alert-success' role='alert'>
+                    <span class='fa fa-star' aria-hidden='true'></span>
+                    <span class='sr-only'>Success:</span>Report for
+                ". $reports[0]->nameClient.":</div></br>
+                <div class='col-xs-8 col-sm-6'>
+                <table class='table'>
                     <thead>
                     <tr>
-                        <th class="col-sm-2">count</th>
-                        <th class="col-sm-2">month</th>
-                        <th class="col-sm-2">year</th>
+                        <th class='col-sm-2'>count</th>
+                        <th class='col-sm-2'>month</th>
+                        <th class='col-sm-2'>year</th>
                     </tr>
                     </thead>
-                    <tbody>';
+                    <tbody>";
         foreach ($reports as $item) {
             $output .= '<tr>
                             <td>'. $item->countByMonth .'</td>

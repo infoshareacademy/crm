@@ -31,7 +31,7 @@ require_once __DIR__ . '/includes/classes/Event.php';
 
                     <button class="btn bg-primary" type="submit" value="Generate"> Generate </button>
                     </form>
-            </div>
+            </div></br/>
 
             <?php
             if (@$_GET['idClient'] && (int)$_GET['idClient']) {
