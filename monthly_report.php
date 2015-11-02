@@ -3,6 +3,7 @@
 include 'includes/header.php';
 require_once __DIR__ . '/includes/classes/ClientEventsReportPresenter.php';
 require_once __DIR__ . '/includes/classes/Event.php';
+require_once __DIR__ . '/includes/classes/EventsPresenter.php';
 ?>
     <div role="tabpanel" id="generate-report" xmlns="http://www.w3.org/1999/html">
 
@@ -31,7 +32,7 @@ require_once __DIR__ . '/includes/classes/Event.php';
 
                     <button class="btn bg-primary" type="submit" value="Generate"> Generate </button>
                     </form>
-            </div>
+            </div></br/>
 
             <?php
             if (@$_GET['idClient'] && (int)$_GET['idClient']) {
