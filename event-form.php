@@ -92,13 +92,13 @@ if (count($_POST)) {
                 Please remember to indicate the major Client for the Event, this field is required.<br/>
                 If you don't know who's the Contact for this particular Event, that's fine - you can come back later with more details.
 <br/><br/>
-
+<div class="container">
 <form role="form" class="form-horizontal" action="?" method="post">
         <input type="hidden" name="idOfEvent" value="<?php echo @$event->idOfEvent ?>"/>
 
     <div class="form-group">
-        <label class="control-label" for="idClient">Client:</label>
-        <select class="form-control" name="idClient" id="idClient">
+        <label class="control-label col-xs-2" for="idClient">Client:</label>
+        <select class="form-control col-xs-offset-2 col-xs-5" name="idClient" id="idClient">
             <?php
             $listOfClients = Event::displayFromEvents('Client');
             foreach ($listOfClients as $item) {
@@ -114,8 +114,8 @@ if (count($_POST)) {
     </div>
 
     <div class="form-group">
-        <label class="control-label" for="idContact">*Contact:</label>
-        <select class="form-control" name="idContact" id="idContact">
+        <label class="control-label col-xs-2" for="idContact">*Contact:</label>
+        <select class="form-control col-xs-offset-2 col-xs-5" name="idContact" id="idContact">
 
             <?php
             $listOfContacts = Event::displayFromEvents('Contact');
@@ -173,7 +173,7 @@ if (count($_POST)) {
     <input type="submit" class="btn btn-primary" name="submitNewEvent" value="Submit" />
     <a type="button" class="btn btn-default" href="?">Clear the form</a><br/>
 </form>
-
+</div>
 
 
 
