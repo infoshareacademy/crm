@@ -15,7 +15,7 @@
 
 
                 <a href='overall-report' class='btn btn-primary'>Overall Report</a>
-                <a href='#' class='btn btn-primary'>Monthly Report</a>
+                <a href='monthly_report.php' class='btn btn-primary'>Monthly Report</a>
 
             </div>
         </article>

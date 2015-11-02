@@ -32,7 +32,7 @@ class ClientEventsReportPresenter
                     <div class='alert alert-success' role='alert'>
                     <span class='fa fa-star' aria-hidden='true'></span>
                     <span class='sr-only'>Success:</span>Report for
-                ". $reports[0]->nameClient.":</div></br>
+                ". $reports[0]->nameClient.":</div>
                 <div class='col-xs-8 col-sm-6'>
                 <table class='table'>
                     <thead>
