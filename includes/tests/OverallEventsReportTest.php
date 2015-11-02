@@ -7,7 +7,7 @@
  * Time: 15:50
  */
 
-require_once __DIR__ . '/../../classes/OverallEventsReport.php';
+require_once __DIR__ . '/../classes/OverallEventsReport.php';
 
 class OverallEventsReportTest extends PHPUnit_Framework_TestCase
 {
