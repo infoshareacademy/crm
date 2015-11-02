@@ -86,57 +86,57 @@ if (count($_POST)) {
         <article class="row">
             <div class="col-lg-12">
 
-
-<div style="color: #23527c"><?php echo @$success ?></div>
-
                 Please remember to indicate the major Client for the Event, this field is required.<br/>
                 If you don't know who's the Contact for this particular Event, that's fine - you can come back later with more details.
 <br/><br/>
-<div class="container">
-<form role="form" class="form-horizontal" action="?" method="post">
+<form class="form-horizontal" action="?" method="post">
         <input type="hidden" name="idOfEvent" value="<?php echo @$event->idOfEvent ?>"/>
 
     <div class="form-group">
-        <label class="control-label col-xs-2" for="idClient">Client:</label>
-        <select class="form-control col-xs-offset-2 col-xs-5" name="idClient" id="idClient">
-            <?php
-            $listOfClients = Event::displayFromEvents('Client');
-            foreach ($listOfClients as $item) {
-            echo "<option value='" .
-                $item['idClient'].
-                "' " . ($event->idClient == $item['idClient'] ? 'selected' : '') . ">" .
-                $item['nameClient'] .
-                "</option>";
-            }
-            ?>
-       </select>
-       <div style="color: #23527c"><?php echo @$error['idClient'] ?></div>
+        <label class="col-xs-2 control-label" for="idClient">Client:</label>
+        <div class=" col-xs-5">
+            <select class="form-control" name="idClient" id="idClient">
+                <?php
+                $listOfClients = Event::displayFromEvents('Client');
+                foreach ($listOfClients as $item) {
+                echo "<option value='" .
+                    $item['idClient'].
+                    "' " . ($event->idClient == $item['idClient'] ? 'selected' : '') . ">" .
+                    $item['nameClient'] .
+                    "</option>";
+                }
+                ?>
+           </select>
+        </div>
+        <div style="color: #23527c"><?php echo @$error['idClient'] ?></div>
     </div>
 
     <div class="form-group">
         <label class="control-label col-xs-2" for="idContact">*Contact:</label>
-        <select class="form-control col-xs-offset-2 col-xs-5" name="idContact" id="idContact">
+        <div class="col-xs-offset-2 col-xs-5">
+            <select class="form-control" name="idContact" id="idContact">
 
-            <?php
-            $listOfContacts = Event::displayFromEvents('Contact');
-            foreach ($listOfContacts as $item) {
-                echo "<option value='" .
-                    $item['idContact'].
-                    "' " . ($event->idContact == $item['idContact'] ? 'selected' : '') . ">" .
-                    $item['nameContact'] ." " . $item['surnameContact'] .
-                    "</option>";
-            }
-            ?>
-        </select>
+                <?php
+                $listOfContacts = Event::displayFromEvents('Contact');
+                foreach ($listOfContacts as $item) {
+                    echo "<option value='" .
+                        $item['idContact'].
+                        "' " . ($event->idContact == $item['idContact'] ? 'selected' : '') . ">" .
+                        $item['nameContact'] ." " . $item['surnameContact'] .
+                        "</option>";
+                }
+                ?>
+            </select>
+        </div>
     </div>
     <div class="form-group">
         <label for="topicOfEvent" class="control-label">Topic:</label>
-        <textarea class="form-control" name="topicOfEvent" id="topicOfEvent"><?php echo @$event->topicOfEvent ?></textarea>
+        <input type="text" class="form-control" name="topicOfEvent" id="topicOfEvent"><?php echo @$event->topicOfEvent ?></input>
         <div style="color: #23527c"><?php echo @$error['topicOfEvent'] ?></div>
     </div>
     <div class="form-group">
         <label class="control-label" for="descriptionOfEvent">Description:</label>
-        <textarea class="form-control" id="descriptionOfEvent" name="descriptionOfEvent"><?php echo @$event->descriptionOfEvent ?></textarea>
+        <input type="text" class="form-control" id="descriptionOfEvent" name="descriptionOfEvent"><?php echo @$event->descriptionOfEvent ?></input>
         <div style="color: #23527c"><?php echo @$error['descriptionOfEvent'] ?></div>
     </div>
     <div class="form-group">

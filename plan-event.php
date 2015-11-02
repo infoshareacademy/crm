@@ -40,22 +40,40 @@ if (count($_POST)) {
 
     $event->topicOfEvent = @$_POST['topicOfEvent'];
     if (!$event->topicOfEvent)
-        $error['topicOfEvent'] = 'Please insert the topic of this Event
-        (up to 50 characters)';
+        $error['topicOfEvent'] = "<br/><br/><div class='col-xs-12'>
+                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+                    <span class='fa fa-exclamation' aria-hidden='true'></span>
+                    <span class='sr-only'>Error:
+                    </span>Please insert the topic of this Event
+        (up to 50 characters)
+        </div>
+                    </div>";
 
     $event->idClient = $_POST['idClient'];
     if (!$event->idClient)
-        $error['idClient'] = 'Please indicate the Client';
+        $error['idClient'] = "<br/><br/><div class='col-xs-12'>
+                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+                    <span class='fa fa-exclamation' aria-hidden='true'></span>
+                    <span class='sr-only'>Error:</span>Please indicate the Client</div>
+                    </div>";
 
     $event->idContact = $_POST['idContact'];
 
     $event->dateOfEvent = $_POST['dateOfEvent'];
     if (!$event->dateOfEvent)
-        $error['dateOfEvent'] = 'Please insert the date';
+        $error['dateOfEvent'] = "<br/><br/><div class='col-xs-12'>
+                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+                    <span class='fa fa-exclamation' aria-hidden='true'></span>
+                    <span class='sr-only'>Error:</span>Please insert the date</div>
+                    </div>";
 
     $event->timeOfEvent = $_POST['timeOfEvent'];
     if (!$event->timeOfEvent)
-        $error['timeOfEvent'] = 'Please insert the time';
+        $error['timeOfEvent'] = "<br/><br/><div class='col-xs-12'>
+                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+                    <span class='fa fa-exclamation' aria-hidden='true'></span>
+                    <span class='sr-only'>Error:</span>Please insert the time</div>
+                    </div>";
 
     $event->statusOfEvent = $_POST['statusOfEvent'];
     if (!$event->statusOfEvent)
@@ -67,8 +85,11 @@ if (count($_POST)) {
 
     $event->descriptionOfEvent = $_POST['descriptionOfEvent'];
     if (!$event->descriptionOfEvent)
-        $error['descriptionOfEvent'] =
-            'Please insert a short description of this Event (up to 250 characters)';
+        $error['descriptionOfEvent'] = "<br/><br/><div class='col-xs-12'>
+                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+                    <span class='fa fa-exclamation' aria-hidden='true'></span>
+                    <span class='sr-only'>Error:</span>Please insert a short description of this Event (up to 250 characters)</div>
+                    </div>";
 
     $event->outcomeOfEvent = @$_POST['outcomeOfEvent'];
 
@@ -106,7 +127,6 @@ Please indicate the main Client for the Event. Contact person can be added later
                                 ?>
                             </select>
                         </div>
-                        <div style="color: #23527c"><?php echo @$error['idClient'] ?></div>
                     </div>
 
                     <div class="form-group">
@@ -128,11 +148,11 @@ Please indicate the main Client for the Event. Contact person can be added later
                         </div>
                     </div>
                     <div class="form-group">
+                        <div><?php echo @$error['topicOfEvent'] ?></div>
                         <label for="topicOfEvent" class="col-sm-3 control-label">Topic:</label>
                         <div class="col-xs-12 col-sm-9 col-md-7">
                             <input type="text" class="form-control" name="topicOfEvent" id="topicOfEvent"><?php echo @$event->topicOfEvent ?></input>
                         </div>
-                        <div style="color: #23527c"><?php echo @$error['topicOfEvent'] ?></div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="descriptionOfEvent">Description:</label>
