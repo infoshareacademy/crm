@@ -40,8 +40,8 @@ if (count($_POST)) {
 
     $event->topicOfEvent = @$_POST['topicOfEvent'];
     if (!$event->topicOfEvent)
-        $error['topicOfEvent'] = "<br/><br/><div class='col-xs-12'>
-                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+        $error['topicOfEvent'] = "<div class='col-xs-12 '>
+                    <div class='alert alert-info' role='alert'>
                     <span class='fa fa-exclamation' aria-hidden='true'></span>
                     <span class='sr-only'>Error:
                     </span>Please insert the topic of this Event
@@ -51,8 +51,8 @@ if (count($_POST)) {
 
     $event->idClient = $_POST['idClient'];
     if (!$event->idClient)
-        $error['idClient'] = "<br/><br/><div class='col-xs-12'>
-                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+        $error['idClient'] = "<div class='col-xs-12'>
+                    <div class='alert alert-info' role='alert'>
                     <span class='fa fa-exclamation' aria-hidden='true'></span>
                     <span class='sr-only'>Error:</span>Please indicate the Client</div>
                     </div>";
@@ -61,16 +61,16 @@ if (count($_POST)) {
 
     $event->dateOfEvent = $_POST['dateOfEvent'];
     if (!$event->dateOfEvent)
-        $error['dateOfEvent'] = "<br/><br/><div class='col-xs-12'>
-                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+        $error['dateOfEvent'] = "<div class='col-xs-12'>
+                    <div class='alert alert-info' role='alert'>
                     <span class='fa fa-exclamation' aria-hidden='true'></span>
                     <span class='sr-only'>Error:</span>Please insert the date</div>
                     </div>";
 
     $event->timeOfEvent = $_POST['timeOfEvent'];
     if (!$event->timeOfEvent)
-        $error['timeOfEvent'] = "<br/><br/><div class='col-xs-12'>
-                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+        $error['timeOfEvent'] = "<div class='col-xs-12'>
+                    <div class='alert alert-info' role='alert'>
                     <span class='fa fa-exclamation' aria-hidden='true'></span>
                     <span class='sr-only'>Error:</span>Please insert the time</div>
                     </div>";
@@ -85,8 +85,8 @@ if (count($_POST)) {
 
     $event->descriptionOfEvent = $_POST['descriptionOfEvent'];
     if (!$event->descriptionOfEvent)
-        $error['descriptionOfEvent'] = "<br/><br/><div class='col-xs-12'>
-                    <div style='margin-bottom: auto' class='alert alert-info' role='alert'>
+        $error['descriptionOfEvent'] = "<div class='col-xs-12'>
+                    <div class='alert alert-info' role='alert'>
                     <span class='fa fa-exclamation' aria-hidden='true'></span>
                     <span class='sr-only'>Error:</span>Please insert a short description of this Event (up to 250 characters)</div>
                     </div>";
@@ -99,7 +99,7 @@ if (count($_POST)) {
     }
 }
 ?>
-<div role="tabpanel" id="clients-list">
+<div role="tabpanel" id="clients-list" xmlns="http://www.w3.org/1999/html">
     <section class="container-fluid">
         <figure class="banner">
             <figcaption>Plan new event</figcaption>
@@ -155,25 +155,25 @@ Please indicate the main Client for the Event. Contact person can be added later
                         </div>
                     </div>
                     <div class="form-group">
+                        <div><?php echo @$error['descriptionOfEvent'] ?></div>
                         <label class="col-sm-3 control-label" for="descriptionOfEvent">Description:</label>
                         <div class="col-xs-12 col-sm-9 col-md-7">
                             <input type="text" class="form-control" id="descriptionOfEvent" name="descriptionOfEvent"><?php echo @$event->descriptionOfEvent ?></input>
                         </div>
-                        <div style="color: #23527c"><?php echo @$error['descriptionOfEvent'] ?></div>
                     </div>
                     <div class="form-group">
+                        <div><?php echo @$error['dateOfEvent'] ?></div>
                         <label class="col-sm-3 control-label" for="dateOfEvent">Date:</label>
                         <div class="col-xs-12 col-sm-9 col-md-7">
                             <input class="form-control" type="date" name="dateOfEvent" id="dateOfEvent" value="<?php echo @$event->dateOfEvent ?>" />
                         </div>
-                        <div style="color: #23527c"><?php echo @$error['dateOfEvent'] ?></div>
                     </div>
                     <div class="form-group">
+                        <div><?php echo @$error['timeOfEvent'] ?></div>
                         <label class="col-sm-3 control-label" for="timeOfEvent">Time:</label>
                         <div class="col-xs-12 col-sm-9 col-md-7">
                             <input class="form-control" type="time" name="timeOfEvent" id="timeOfEvent" value="<?php echo @$event->timeOfEvent ?>" />
                         </div>
-                        <div style="color: #23527c"><?php echo @$error['timeOfEvent'] ?></div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="statusOfEvent">Status:</label>
@@ -185,7 +185,6 @@ Please indicate the main Client for the Event. Contact person can be added later
                                 <option value="04" <?php if (@$event->statusOfEvent==Event::EVENT_CANCELLED) echo 'selected'; ?>>Cancelled</option>
                             </select>
                         </div>
-                        <div style="color: #23527c"><?php echo @$error['statusOfEvent'] ?></div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="typeOfEvent">Type of event:</label>
@@ -197,11 +196,11 @@ Please indicate the main Client for the Event. Contact person can be added later
                                 <option value="04" <?php if (@$event->typeOfEvent==Event::EVENT_TYPE_MEETING) echo 'selected'; ?>>Meeting</option>
                             </select>
                         </div>
-                        <div style="color: #23527c"><?php echo @$error['typeOfEvent'] ?></div>
                     </div>
-
-                    <input type="submit" class="btn btn-primary col-sm-offset-7" name="submitNewEvent" value="Submit" />
-                    <a type="button" class="btn btn-default" href="?">Clear the form</a><br/>
+                    <div class="form-actions col-sm-offset-3">
+                    <button type="submit" class="btn btn-primary" name="submitNewEvent" value="Submit" />Submit</button>
+                    <a type="button" class="btn btn-default" href="?">Clear the form</a>
+                    </div>
                 </form>
             </div>
 
