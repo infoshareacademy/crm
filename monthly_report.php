@@ -3,6 +3,7 @@
 include 'includes/header.php';
 require_once __DIR__ . '/includes/classes/ClientEventsReportPresenter.php';
 require_once __DIR__ . '/includes/classes/Event.php';
+require_once __DIR__ . '/includes/classes/EventsPresenter.php';
 ?>
     <div role="tabpanel" id="generate-report" xmlns="http://www.w3.org/1999/html">
 
