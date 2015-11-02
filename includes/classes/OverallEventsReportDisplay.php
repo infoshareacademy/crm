@@ -31,7 +31,7 @@ class OverallEventsReportDisplay
 
     protected function drawReport($reportsData)
     {
-        $html = '<table class="table table-striped table-hover table-condensed"> <thead><tr><th> </th><th>X 2015</th><th>IX 2015</th><th>VIII 2015</th><th>VII 2015</th><th>VI 2015</th><th>V 2015</th><th>IV 2015</th><th>III 2015</th><th>II 2015</th><th>I 2015</th><th>XII 2014</th><th>XI 2014</th></tr></thead>';
+        $html = '<table class="table table-striped table-hover table-condensed"> <thead><tr><th> </th><th>XI 2015</th><th>X 2015</th><th>IX 2015</th><th>VIII 2015</th><th>VII 2015</th><th>VI 2015</th><th>V 2015</th><th>IV 2015</th><th>III 2015</th><th>II 2015</th><th>I 2015</th><th>XII 2014</th></tr></thead>';
         foreach($reportsData as $oneClientReport) {
             $html .= $this->drawOneClient($oneClientReport);
         }

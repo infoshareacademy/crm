@@ -92,63 +92,119 @@ if (count($_POST)) {
                 <form class="form-horizontal" action="?" method="post"><br />
                     <div class="form-group">
                         <label for="Required" class="col-sm-2 control-label">Required:</label>
-                        </div>
+                    </div>
 
                         <div class="form-group">
                             <label for="Client name" class="col-sm-2 control-label">Client name*</label>
                             <div class="col-sm-6">
-                                <input class="form-control" name="name" id="Client name" value='<?php echo @$_POST["name"]?>'></div>
-                                <div class="col-sm-2"><div class='small text-uppercase text-danger'><?php echo @$error['name']?></div></div></div>
+                                <input class="form-control" name="name" id="Client name" value='<?php echo @$_POST["name"]?>'>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class='small text-uppercase text-danger'><?php echo @$error['name']?></div>
+                            </div>
+                        </div>
 
 
 
-                            <div class="form-group">
-                                <label for="City HQ" class="col-sm-2 control-label">City HQ*</label>
-                                <div class="col-sm-6">
-                        <input class="form-control" name="city" id="City HQ" value="<?php echo @$_POST['city']?>" /></div>
+                        <div class="form-group">
+                            <label for="City HQ" class="col-sm-2 control-label">City HQ*</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="city" id="City HQ" value="<?php echo @$_POST['city']?>" />
+                            </div>
 
-                        <div class="col-sm-2"><div class='small text-uppercase text-danger'><?php echo @$error['city']?></div></div></div>
-
-
-
-                    <div class="form-group">
-                    <label for="Phone" class="col-sm-2 control-label">Phone*</label>
-                        <div class="col-sm-6">
-                        <input class="form-control" name="phone" id="Phone" value="<?php echo @$_POST['phone']?>" /></div>
-                        <div class="col-sm-2"><div class='small text-uppercase text-danger'><?php echo @$error['phone']?></div></div></div>
-
-                                    <div class="form-group">
-                                    <label for="E-mail" class="col-sm-2 control-label">E-mail*</label>
-                                    <div class="col-sm-6">
-                        <input class="form-control" name="mail" id="E-mail" value="<?php echo @$_POST['mail']?>" /></div>
-                        <div class='small text-uppercase text-danger'><?php echo @$error['mail']?></div></div></div>
-
-                                        <div class="form-group">
-                    <label for="Additional details" class="col-sm-2 control-label">Additional details:</label>
-                                        </div></div>
-
-
-                                            <div class="form-group">
-                        Tax Id: <input name="idTax" value="<?php echo @$_POST['idTax']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['idTax']?></div></div>
+                            <div class="col-sm-2">
+                                <div class='small text-uppercase text-danger'><?php echo @$error['city']?></div>
+                            </div>
+                        </div>
 
 
 
+                        <div class="form-group">
+                            <label for="Phone" class="col-sm-2 control-label">Phone*</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="phone" id="Phone" value="<?php echo @$_POST['phone']?>" />
+                            </div>
+                                <div class="col-sm-2"><div class='small text-uppercase text-danger'><?php echo @$error['phone']?></div>
+                            </div>
+                        </div>
 
-                                                <div class="form-group">
-                        Street: <input name="street" value="<?php echo @$_POST['street']?>" />
-                                                    <div class="form-group">
-                                                    No: <input name="streetNumber" size="6" value="<?php echo @$_POST['streetNumber']?>" />
-                                                    </div>
-                                                        <div class="form-group">
-                                                    Post Code: <input name="postCode" size="10" value="<?php echo @$_POST['postCode']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['address']?></div></div>
-                                                    <div class="form-group">
-                        fax: <input name="fax" value="<?php echo @$_POST['fax']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['fax']?></div></div>
-                                                        <div class="form-group">
-                        www: <input name="www" value="<?php echo @$_POST['www']?>" /><br/><div class='small text-uppercase text-danger'><?php echo @$error['www']?></div></div>
-                                                            <div class="form-group">
-                    Note: <textarea name="note" rows="4" cols="50" /><?php echo @$_POST['note']?></textarea><div class='small text-uppercase text-danger'><?php echo @$error['note']?></div></div>
-                                                                <div class="form-group">
-                                                                    <div class="col-sm-offset-2 col-sm-8"><button id="btn_send">ADD THIS</button></div></div></div>
+                        <div class="form-group">
+                            <label for="E-mail" class="col-sm-2 control-label">E-mail*</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="mail" id="E-mail" value="<?php echo @$_POST['mail']?>" />
+                            </div>
+                            <div class='small text-uppercase text-danger'><?php echo @$error['mail']?></div>
+                        </div>
+
+                        <div class="form-group">
+                                <label for="Additional details" class="col-sm-2 control-label">Additional details:</label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="tax" class="col-sm-2 control-label">Tax Id</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="idTax" value="<?php echo @$_POST['idTax']?>" />
+                            </div>
+                            <div class='small text-uppercase text-danger'><?php echo @$error['idTax']?></div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label for="streetName" class="col-sm-2 control-label">Street</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="street" value="<?php echo @$_POST['street']?>" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="streetNumber" class="col-sm-2 control-label">No</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="streetNumber" value="<?php echo @$_POST['streetNumber']?>" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="codePost" class="col-sm-2 control-label">Post code</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="postCode" value="<?php echo @$_POST['postCode']?>" />
+                            </div>
+                            <div class='small text-uppercase text-danger'><?php echo @$error['address']?></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="faxNumber" class="col-sm-2 control-label">Fax</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="fax" value="<?php echo @$_POST['fax']?>" />
+                            </div>
+                            <div class='small text-uppercase text-danger'><?php echo @$error['fax']?></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="wwwAdress" class="col-sm-2 control-label">www</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="www" value="<?php echo @$_POST['www']?>" />
+                            </div>
+                            <div class='small text-uppercase text-danger'><?php echo @$error['www']?></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes" class="col-sm-2 control-label">Note</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" name="note" rows="4" cols="50" /><?php echo @$_POST['note']?></textarea>
+                            </div>
+                            <div class='small text-uppercase text-danger'><?php echo @$error['note']?></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-8">
+                                <input class="btn btn-primary" id="btn_send" type="submit" name="send" value="ADD THIS"/>
+                            </div>
+                        </div>
                 </form>
 
             </div>
