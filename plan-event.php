@@ -151,14 +151,14 @@ Please indicate the main Client for the Event. Contact person can be added later
                         <div><?php echo @$error['topicOfEvent'] ?></div>
                         <label for="topicOfEvent" class="col-sm-3 control-label">Topic:</label>
                         <div class="col-xs-12 col-sm-9 col-md-7">
-                            <input type="text" class="form-control" name="topicOfEvent" id="topicOfEvent"><?php echo @$event->topicOfEvent ?></input>
+                            <input type="text" class="form-control" name="topicOfEvent" id="topicOfEvent" value="<?php echo @$event->topicOfEvent ?>">
                         </div>
                     </div>
                     <div class="form-group">
                         <div><?php echo @$error['descriptionOfEvent'] ?></div>
                         <label class="col-sm-3 control-label" for="descriptionOfEvent">Description:</label>
                         <div class="col-xs-12 col-sm-9 col-md-7">
-                            <input type="text" class="form-control" id="descriptionOfEvent" name="descriptionOfEvent"><?php echo @$event->descriptionOfEvent ?></input>
+                            <input type="text" class="form-control" id="descriptionOfEvent" name="descriptionOfEvent" value="<?php echo @$event->descriptionOfEvent ?>">
                         </div>
                     </div>
                     <div class="form-group">
